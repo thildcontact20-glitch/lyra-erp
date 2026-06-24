@@ -87,7 +87,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             {!collapsed && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <Image
-                  src="/img/coris.jpg"
+                  src="/img/coris.png"
                   alt="Coris"
                   width={80}
                   height={35}

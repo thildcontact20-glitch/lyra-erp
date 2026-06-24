@@ -175,7 +175,7 @@ export default function HeroSection() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <Image
-            src="/img/coris.jpg"
+            src="/img/coris.png"
             alt="Coris"
             width={140}
             height={60}

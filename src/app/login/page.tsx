@@ -112,7 +112,7 @@ export default function LoginPage() {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <Image
-              src="/img/coris.jpg"
+              src="/img/coris.png"
               alt="Coris"
               width={120}
               height={50}
