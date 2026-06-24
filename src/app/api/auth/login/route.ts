@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
       // Créer un compte automatiquement avec un mot de passe simple
       const hashedPassword = await bcrypt.hash('admin123', 10);
       const newUsers = await queryDB(
-        'INSERT INTO "User" (id, email, password, name, companyId, role, "createdAt", "updatedAt") VALUES ($1,$2,$3,$4,$5,$6,NOW(),NOW()) RETURNING *',
+        'INSERT INTO "User" (id, email, password, name, "companyId", role, "createdAt", "updatedAt") VALUES ($1,$2,$3,$4,$5,$6,NOW(),NOW()) RETURNING *',
         ['u-' + Date.now(), email, hashedPassword, email.split('@')[0] || 'Client', null, 'USER']
       );
       user = newUsers[0];
