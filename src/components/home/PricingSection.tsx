@@ -170,19 +170,13 @@ function PlanCard({ plan, yearly, index }: { plan: Plan; yearly: boolean; index:
           </ul>
 
           <div className="mt-auto">
-            {plan.enterprise ? (
-              <GlowButton href="mailto:contact@vivalyscompagny.com" variant="primary" className="w-full justify-center">
-                Commencer
-              </GlowButton>
-            ) : (
-              <GlowButton
-                href={`/signup?plan=${plan.id}&billing=${yearly ? 'yearly' : 'monthly'}`}
-                variant={plan.popular ? 'primary' : 'secondary'}
-                className="w-full justify-center"
-              >
-                Commencer
-              </GlowButton>
-            )}
+            <GlowButton
+              href={`/signup?plan=${plan.id}&billing=${yearly ? 'yearly' : 'monthly'}`}
+              variant={plan.popular ? 'primary' : 'secondary'}
+              className="w-full justify-center"
+            >
+              Commencer
+            </GlowButton>
           </div>
         </div>
       </motion.div>
