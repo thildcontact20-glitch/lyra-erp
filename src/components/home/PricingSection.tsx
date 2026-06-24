@@ -62,7 +62,7 @@ const plans: Plan[] = [
     ],
   },
   {
-    id: 'enterprise', name: 'Enterprise',
+    id: 'enterprise', name: 'Entreprise',
     tagline: 'Sur mesure pour grandes organisations',
     monthlyPrice: 99900, yearlyPrice: 999000,
     maxUsers: 'Utilisateurs illimités', maxCompanies: 'Sociétés illimitées',
@@ -171,7 +171,7 @@ function PlanCard({ plan, yearly, index }: { plan: Plan; yearly: boolean; index:
 
           <div className="mt-auto">
             {plan.enterprise ? (
-              <GlowButton href="/contact" variant="outline" className="w-full justify-center">
+              <GlowButton href="mailto:contact@vivalyscompagny.com" variant="outline" className="w-full justify-center">
                 Contacter les ventes
               </GlowButton>
             ) : (
