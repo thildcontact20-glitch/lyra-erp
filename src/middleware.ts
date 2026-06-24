@@ -21,6 +21,8 @@ const publicPrefixes = [
   '/api/auth/signup',
   '/api/auth/verify-email',
   '/api/auth/resend-code',
+  '/api/auth/logout',
+  '/api/auth/me',
   '/api/plans',
   '/api/public/',
 ];
