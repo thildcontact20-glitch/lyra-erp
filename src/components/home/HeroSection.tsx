@@ -2,7 +2,8 @@
 
 import { motion } from 'framer-motion'
 import { useRef } from 'react'
-import { ArrowRight, Sparkles } from 'lucide-react'
+import Image from 'next/image'
+import { ArrowRight } from 'lucide-react'
 import GlowButton from '../ui/GlowButton'
 import TiltCard from '../ui/TiltCard'
 
@@ -15,35 +16,16 @@ function BackgroundBlobs() {
       {/* Gradient de fond */}
       <div className="absolute inset-0 bg-gradient-to-b from-lyra-navy/60 via-lyra-dark to-lyra-dark" />
 
-      {/* Blob doré animé */}
-      <motion.div
-        className="absolute -top-1/4 -left-1/4 w-[600px] h-[600px] rounded-full opacity-20"
-        style={{
-          background:
-            'radial-gradient(circle at center, rgba(201,169,97,0.15) 0%, rgba(201,169,97,0.05) 40%, transparent 70%)',
-        }}
-        animate={{
-          x: [0, 40, -20, 0],
-          y: [0, -30, 20, 0],
-          scale: [1, 1.1, 0.95, 1],
-        }}
-        transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-      />
-
-      {/* Blob bleu acier */}
-      <motion.div
-        className="absolute -bottom-1/4 -right-1/4 w-[500px] h-[500px] rounded-full opacity-10"
-        style={{
-          background:
-            'radial-gradient(circle at center, rgba(74,111,165,0.2) 0%, rgba(74,111,165,0.05) 40%, transparent 70%)',
-        }}
-        animate={{
-          x: [0, -30, 20, 0],
-          y: [0, 30, -20, 0],
-          scale: [1, 0.9, 1.1, 1],
-        }}
-        transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
-      />
+      {/* Plume en fond */}
+      <div className="absolute inset-0 opacity-[0.07]">
+        <Image
+          src="/img/plume.jpg"
+          alt=""
+          fill
+          className="object-cover"
+          priority
+        />
+      </div>
 
       {/* Particules subtiles */}
       {[...Array(20)].map((_, i) => (
@@ -185,15 +167,21 @@ export default function HeroSection() {
       />
 
       <div className="relative z-10 flex flex-col items-center text-center px-4 max-w-5xl mx-auto pt-24 md:pt-0">
-        {/* Badge */}
+        {/* Logo Coris */}
         <motion.div
-          className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 rounded-full border border-lyra-gold/20 bg-lyra-gold/5 text-lyra-gold text-[10px] tracking-[0.2em] uppercase"
+          className="mb-8"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <Sparkles className="w-3 h-3" />
-          L&apos;ERP OHADA nouvelle génération
+          <Image
+            src="/img/coris.jpg"
+            alt="Coris"
+            width={140}
+            height={60}
+            className="object-contain"
+            priority
+          />
         </motion.div>
 
         {/* Titre principal */}

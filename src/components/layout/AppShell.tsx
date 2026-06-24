@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { LayoutDashboard, BookOpen, ShoppingCart, Package, Users, FileText, MessageSquare, LogOut, Menu, X, ChevronLeft, DollarSign, Receipt } from 'lucide-react'
 import { pageVariants } from '../../lib/framerVariants'
 
@@ -85,8 +86,14 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           <AnimatePresence mode="wait">
             {!collapsed && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <span className="text-lg font-bold text-lyra-gold">LYRA</span>
-                <span className="text-xs text-white/40 ml-2">by Vivalys</span>
+                <Image
+                  src="/img/coris.jpg"
+                  alt="Coris"
+                  width={80}
+                  height={35}
+                  className="object-contain"
+                  priority
+                />
               </motion.div>
             )}
           </AnimatePresence>

@@ -2,8 +2,9 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { Eye, EyeOff, Lock, Mail, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react'
+import { Eye, EyeOff, Lock, Mail, ArrowRight, CheckCircle2 } from 'lucide-react'
 import { fadeUpVariants } from '../../lib/framerVariants'
 import ButtonElegant from '../../components/ui/ButtonElegant'
 
@@ -103,15 +104,21 @@ export default function LoginPage() {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="text-center mb-8"
         >
-          {/* Logo / Brand */}
+          {/* Logo Coris */}
           <motion.div
-            className="inline-flex items-center gap-2 px-4 py-1.5 mb-4 rounded-full border border-lyra-gold/20 bg-lyra-gold/5 text-lyra-gold text-[10px] tracking-[0.2em] uppercase"
+            className="mb-6"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <Sparkles className="w-3 h-3" />
-            LYRA by Vivalys
+            <Image
+              src="/img/coris.jpg"
+              alt="Coris"
+              width={120}
+              height={50}
+              className="object-contain mx-auto"
+              priority
+            />
           </motion.div>
 
           <motion.h1
