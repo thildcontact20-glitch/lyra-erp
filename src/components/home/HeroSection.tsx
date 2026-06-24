@@ -17,7 +17,7 @@ function BackgroundBlobs() {
       <div className="absolute inset-0 bg-gradient-to-b from-lyra-navy/60 via-lyra-dark to-lyra-dark" />
 
       {/* Plume en fond */}
-      <div className="absolute inset-0 opacity-[0.07]">
+      <div className="absolute inset-0 opacity-[0.18]">
         <Image
           src="/img/plume.jpg"
           alt=""
