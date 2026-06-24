@@ -1,4 +1,4 @@
-app = "lyra-vivalys"
+app = "lyra-vivalys-prod"
 primary_region = "fra"
 
 [build]
