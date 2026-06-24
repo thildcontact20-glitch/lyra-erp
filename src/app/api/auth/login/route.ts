@@ -5,14 +5,10 @@ import jwt from 'jsonwebtoken';
 export const dynamic = 'force-dynamic'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'lyra-secret-2024';
-const DB_URL = process.env.DATABASE_URL || 'postgresql://postgres:LyraSupabase2026!@aws-0-eu-west-1.pooler.supabase.com:5432/postgres?sslmode=require';
 
 async function queryDB(sql: string, params?: any[]) {
   const { Pool } = require('pg');
-  const pool = new Pool({
-    connectionString: DB_URL,
-    ssl: { rejectUnauthorized: false }
-  });
+  const pool = new Pool({ connectionString: process.env.DATABASE_URL });
   try {
     const result = await pool.query(sql, params);
     return result.rows;
@@ -50,6 +46,6 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     const msg = (error as Error).message;
     console.error('Login error:', msg);
-    return NextResponse.json({ error: 'Internal server error: ' + msg }, { status: 500 });
+    return NextResponse.json({ error: msg }, { status: 500 });
   }
 }
