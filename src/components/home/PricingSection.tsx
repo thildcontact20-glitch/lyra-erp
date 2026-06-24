@@ -171,8 +171,8 @@ function PlanCard({ plan, yearly, index }: { plan: Plan; yearly: boolean; index:
 
           <div className="mt-auto">
             {plan.enterprise ? (
-              <GlowButton href="mailto:contact@vivalyscompagny.com" variant="outline" className="w-full justify-center">
-                Contacter les ventes
+              <GlowButton href="mailto:contact@vivalyscompagny.com" variant="primary" className="w-full justify-center">
+                Commencer
               </GlowButton>
             ) : (
               <GlowButton
