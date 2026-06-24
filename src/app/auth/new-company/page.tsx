@@ -6,8 +6,8 @@ import {
   Building2, Calendar, CheckCircle, ArrowRight, ArrowLeft,
   Sparkles, Check, ChevronRight,
 } from 'lucide-react'
-import { fadeUpVariants } from '@/lib/framerVariants'
-import ButtonElegant from '@/components/ui/ButtonElegant'
+import { fadeUpVariants } from '../../../lib/framerVariants'
+import ButtonElegant from '../../../components/ui/ButtonElegant'
 
 /* ───────────────────────────────────────────────────────────────
    Types
