@@ -4,9 +4,5 @@
   "devCommand": "npm run dev",
   "outputDirectory": ".next",
   "framework": "nextjs",
-  "installCommand": "npm install",
-  "env": {
-    "DATABASE_URL": "file:./dev.db",
-    "JWT_SECRET": "lyra-production-secret-vivalys-2026"
-  }
+  "installCommand": "npm install"
 }

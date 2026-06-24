@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import prisma from '@/lib/prisma'
 import jwt from 'jsonwebtoken'
 
+export const dynamic = 'force-dynamic'
+
 export async function POST(request: NextRequest) {
   // Vérifier admin
   const token = request.cookies.get('token')?.value || 

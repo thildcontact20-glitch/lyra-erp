@@ -118,43 +118,51 @@ export async function checkFeature(companyId: string, featureKey: string): Promi
  * Vérifie si la société peut créer un nouvel utilisateur
  */
 export async function canAddUser(companyId: string): Promise<FeatureCheck> {
-  const subscription = await prisma.subscription.findUnique({
-    where: { companyId },
-    include: { plan: true, company: { include: { users: true } } },
-  })
-  if (!subscription || !subscription.plan) {
-    return { allowed: false, message: 'Aucun abonnement actif' }
-  }
-  const currentUsers = subscription.company.users.length
-  if (currentUsers >= subscription.plan.maxUsers) {
-    return {
-      allowed: false,
-      message: `Limite de ${subscription.plan.maxUsers} utilisateurs atteinte. Passez au plan supérieur.`,
-      upgradeUrl: '/pricing',
+  try {
+    const subscription = await prisma.subscription.findUnique({
+      where: { companyId },
+      include: { plan: true, company: { include: { users: true } } },
+    })
+    if (!subscription || !subscription.plan) {
+      return { allowed: false, message: 'Aucun abonnement actif' }
     }
+    const currentUsers = subscription.company.users.length
+    if (currentUsers >= subscription.plan.maxUsers) {
+      return {
+        allowed: false,
+        message: `Limite de ${subscription.plan.maxUsers} utilisateurs atteinte. Passez au plan supérieur.`,
+        upgradeUrl: '/pricing',
+      }
+    }
+    return { allowed: true }
+  } catch {
+    return { allowed: true } // fallback DB indisponible
   }
-  return { allowed: true }
 }
 
 /**
  * Vérifie si la société peut créer une nouvelle société (entité juridique)
  */
 export async function canAddCompany(companyId: string, newCompanyCount: number = 1): Promise<FeatureCheck> {
-  const subscription = await prisma.subscription.findUnique({
-    where: { companyId },
-    include: { plan: true },
-  })
-  if (!subscription || !subscription.plan) {
-    return { allowed: false, message: 'Aucun abonnement actif' }
-  }
-  if (newCompanyCount > subscription.plan.maxCompanies) {
-    return {
-      allowed: false,
-      message: `Limite de ${subscription.plan.maxCompanies} société(s) atteinte. Passez au plan Enterprise.`,
-      upgradeUrl: '/pricing',
+  try {
+    const subscription = await prisma.subscription.findUnique({
+      where: { companyId },
+      include: { plan: true },
+    })
+    if (!subscription || !subscription.plan) {
+      return { allowed: false, message: 'Aucun abonnement actif' }
     }
+    if (newCompanyCount > subscription.plan.maxCompanies) {
+      return {
+        allowed: false,
+        message: `Limite de ${subscription.plan.maxCompanies} société(s) atteinte. Passez au plan Enterprise.`,
+        upgradeUrl: '/pricing',
+      }
+    }
+    return { allowed: true }
+  } catch {
+    return { allowed: true } // fallback DB indisponible
   }
-  return { allowed: true }
 }
 
 /**

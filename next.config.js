@@ -1,5 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: { serverComponentsExternalPackages: ['bcryptjs'] }
+  output: 'standalone',
+  experimental: { serverComponentsExternalPackages: ['bcryptjs'] },
+  skipTrailingSlashRedirect: true,
 }
 module.exports = nextConfig
