@@ -292,12 +292,10 @@ export default function LoginPage() {
               animate="visible"
               transition={{ delay: 0.4 }}
             >
-              <ButtonElegant
+              <button
                 type="submit"
-                variant="primary"
-                size="lg"
-                className="w-full"
                 disabled={loading}
+                className="w-full bg-lyra-gold hover:bg-lyra-goldlight text-lyra-dark font-semibold rounded-xl px-8 py-4 text-base transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-lyra-gold/20"
               >
                 {loading ? (
                   <span className="flex items-center justify-center gap-2">
@@ -313,7 +311,7 @@ export default function LoginPage() {
                     <ArrowRight className="w-4 h-4" />
                   </span>
                 )}
-              </ButtonElegant>
+              </button>
             </motion.div>
           </form>
 
