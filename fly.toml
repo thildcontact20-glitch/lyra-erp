@@ -1,11 +1,9 @@
 app = "lyra-vivalys"
 primary_region = "fra"
 
-[build]
-  builder = "heroku/buildpacks:20"
-
 [env]
   NODE_ENV = "production"
+  DATABASE_URL = "postgresql://fly-user:SvKR2GiGGmBhPfkwNhaVu9gg@pgbouncer.z23750v178l096d1.flympg.net/fly-db"
 
 [http_service]
   internal_port = 3000
