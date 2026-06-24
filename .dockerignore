@@ -1,12 +1,6 @@
-node_modules/
-.next/
+node_modules
+.next
+.git
 *.db
 *.db-journal
-.env
-.env.local
-.DS_Store
-*.tsbuildinfo
-next-env.d.ts
-nul
-
-.vercel
+.env*
