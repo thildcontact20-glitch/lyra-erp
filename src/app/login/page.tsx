@@ -280,6 +280,11 @@ export default function LoginPage() {
                 size="lg"
                 className="w-full"
                 disabled={loading}
+                onClick={(e) => {
+                  // Forcer la soumission du formulaire parent
+                  const form = (e.target as HTMLElement).closest('form');
+                  if (form) form.requestSubmit();
+                }}
               >
                 {loading ? (
                   <span className="flex items-center justify-center gap-2">
