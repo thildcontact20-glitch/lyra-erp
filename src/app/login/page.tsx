@@ -130,7 +130,7 @@ export default function LoginPage() {
           {/* Gold accent top border */}
           <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-lyra-gold/40 to-transparent" />
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <div className="space-y-5">
             {/* Verified success message */}
             {verifiedMessage && (
               <motion.div
@@ -280,11 +280,7 @@ export default function LoginPage() {
                 size="lg"
                 className="w-full"
                 disabled={loading}
-                onClick={(e) => {
-                  // Forcer la soumission du formulaire parent
-                  const form = (e.target as HTMLElement).closest('form');
-                  if (form) form.requestSubmit();
-                }}
+                onClick={() => handleSubmit(new Event('click') as any)}
               >
                 {loading ? (
                   <span className="flex items-center justify-center gap-2">
@@ -302,7 +298,7 @@ export default function LoginPage() {
                 )}
               </ButtonElegant>
             </motion.div>
-          </form>
+          </div>
 
           {/* Signup link */}
           <motion.div
