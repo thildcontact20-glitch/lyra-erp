@@ -1,6 +1,9 @@
+Version: 2.0.0-build-20260624170427
+tailwindcss: ^3.4.0
+prisma: ^5.0.0
 {
   "name": "lyra-erp",
-  "version": "1.0.0",
+  "version": "2.0.0-build-20260624170427",
   "private": true,
   "scripts": {
     "dev": "npm run db:push && next dev -p 3000",
