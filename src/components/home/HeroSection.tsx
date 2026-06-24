@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { useRef } from 'react'
 import Image from 'next/image'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Sparkles } from 'lucide-react'
 import GlowButton from '../ui/GlowButton'
 import TiltCard from '../ui/TiltCard'
 
