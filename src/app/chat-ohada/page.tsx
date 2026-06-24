@@ -109,7 +109,7 @@ export default function ChatOhadaPage() {
 
   // ── Load knowledge base ──────────────────────────────────────────────
   useEffect(() => {
-    import('@/../data/ohada-knowledge.json').then(
+    import('../../../data/ohada-knowledge.json').then(
       (mod) => {
         setKnowledge(mod.default || mod)
         setReady(true)

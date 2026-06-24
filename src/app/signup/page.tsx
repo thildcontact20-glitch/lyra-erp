@@ -4,8 +4,8 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { User, Mail, Lock, Building2, ArrowRight, Sparkles, Eye, EyeOff } from 'lucide-react'
-import { fadeUpVariants } from '@/lib/framerVariants'
-import ButtonElegant from '@/components/ui/ButtonElegant'
+import { fadeUpVariants } from '../../lib/framerVariants'
+import ButtonElegant from '../../components/ui/ButtonElegant'
 
 export default function SignupPage() {
   const router = useRouter()

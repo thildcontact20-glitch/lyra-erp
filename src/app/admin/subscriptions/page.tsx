@@ -2,9 +2,9 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CheckCircle, XCircle, Loader2, Plus, Building2, Mail } from 'lucide-react'
-import AppShell from '@/components/layout/AppShell'
-import PageTransition from '@/components/animations/PageTransition'
-import CardFinance from '@/components/ui/CardFinance'
+import AppShell from '../../../components/layout/AppShell'
+import PageTransition from '../../../components/animations/PageTransition'
+import CardFinance from '../../../components/ui/CardFinance'
 
 interface SubInfo { plan: { name: string }; status: string; paymentPeriod: string }
 interface Company { id: string; name: string; email: string; subscription: SubInfo | null }

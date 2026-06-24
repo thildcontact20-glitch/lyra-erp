@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import '@/styles/globals.css'
+import '../styles/globals.css'
 export const metadata: Metadata = {
   title: 'LYRA by Vivalys — ERP OHADA',
   description: 'L\'ERP financier des PME OHADA. Comptabilité SYSCOHADA, fiscalité ivoirienne, paie & CNPS.',

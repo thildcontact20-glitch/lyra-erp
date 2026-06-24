@@ -4,8 +4,8 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Eye, EyeOff, Lock, Mail, ArrowRight, Sparkles } from 'lucide-react'
-import { fadeUpVariants } from '@/lib/framerVariants'
-import ButtonElegant from '@/components/ui/ButtonElegant'
+import { fadeUpVariants } from '../../lib/framerVariants'
+import ButtonElegant from '../../components/ui/ButtonElegant'
 
 export default function LoginPage() {
   const router = useRouter()

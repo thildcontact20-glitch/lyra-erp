@@ -3,10 +3,10 @@ import { motion, useScroll, useTransform, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import Link from 'next/link'
 import { ArrowRight, Shield, BarChart3, Globe, MessageSquare, Sparkles, ChevronDown } from 'lucide-react'
-import { fadeUpVariants, fadeInVariants, staggerContainerVariants, scaleInVariants, slideInLeftVariants, slideInRightVariants } from '@/lib/framerVariants'
-import StaggerContainer from '@/components/animations/StaggerContainer'
-import ButtonElegant from '@/components/ui/ButtonElegant'
-import CardFinance from '@/components/ui/CardFinance'
+import { fadeUpVariants, fadeInVariants, staggerContainerVariants, scaleInVariants, slideInLeftVariants, slideInRightVariants } from '../lib/framerVariants'
+import StaggerContainer from '../components/animations/StaggerContainer'
+import ButtonElegant from '../components/ui/ButtonElegant'
+import CardFinance from '../components/ui/CardFinance'
 
 /* ──────────────────────────────────────────────────────────────────────────────
    Wax Pattern SVG — subtle West African wax print motifs

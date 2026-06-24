@@ -2,12 +2,12 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ShoppingCart, Users, FileText, Plus, X, CheckCircle, Clock, AlertCircle, Search } from 'lucide-react'
-import AppShell from '@/components/layout/AppShell'
-import PageTransition from '@/components/animations/PageTransition'
-import StaggerContainer from '@/components/animations/StaggerContainer'
-import CardFinance from '@/components/ui/CardFinance'
-import ButtonElegant from '@/components/ui/ButtonElegant'
-import { fadeUpVariants, listItemVariants } from '@/lib/framerVariants'
+import AppShell from '../../components/layout/AppShell'
+import PageTransition from '../../components/animations/PageTransition'
+import StaggerContainer from '../../components/animations/StaggerContainer'
+import CardFinance from '../../components/ui/CardFinance'
+import ButtonElegant from '../../components/ui/ButtonElegant'
+import { fadeUpVariants, listItemVariants } from '../../lib/framerVariants'
 
 /* ───────────────────────────────────────────────────────────────
    Types

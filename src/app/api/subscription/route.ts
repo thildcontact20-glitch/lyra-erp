@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import prisma from '@/lib/prisma'
-import { getActiveSubscription } from '@/services/subscriptionsService'
+import prisma from '../../../lib/prisma'
+import { getActiveSubscription } from '../../../services/subscriptionsService'
 
 export const dynamic = 'force-dynamic'
 

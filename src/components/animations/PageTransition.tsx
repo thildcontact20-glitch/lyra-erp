@@ -1,6 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
-import { pageVariants } from '@/lib/framerVariants'
+import { pageVariants } from '../../lib/framerVariants'
 
 export default function PageTransition({ children }: { children: React.ReactNode }) {
   return (

@@ -11,12 +11,12 @@ import {
   ArrowUp, ArrowDown, ChevronRight, CreditCard, FileText, AlertCircle,
   CheckCircle, Clock, Zap, Star, Shield, Heart, BookOpen, Sparkles,
 } from 'lucide-react'
-import { fadeUpVariants, staggerContainerVariants, listItemVariants } from '@/lib/framerVariants'
-import AppShell from '@/components/layout/AppShell'
-import PageTransition from '@/components/animations/PageTransition'
-import StaggerContainer from '@/components/animations/StaggerContainer'
-import CardFinance from '@/components/ui/CardFinance'
-import ButtonElegant from '@/components/ui/ButtonElegant'
+import { fadeUpVariants, staggerContainerVariants, listItemVariants } from '../../lib/framerVariants'
+import AppShell from '../../components/layout/AppShell'
+import PageTransition from '../../components/animations/PageTransition'
+import StaggerContainer from '../../components/animations/StaggerContainer'
+import CardFinance from '../../components/ui/CardFinance'
+import ButtonElegant from '../../components/ui/ButtonElegant'
 import Link from 'next/link'
 
 /* ───────────────────────────────────────────────────────────────

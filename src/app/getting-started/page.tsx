@@ -6,12 +6,12 @@ import {
   BarChart3, UserPlus, DollarSign, MessageSquare, Sparkles,
   ChevronRight, ArrowRight,
 } from 'lucide-react'
-import { fadeUpVariants } from '@/lib/framerVariants'
-import AppShell from '@/components/layout/AppShell'
-import PageTransition from '@/components/animations/PageTransition'
-import StaggerContainer from '@/components/animations/StaggerContainer'
-import CardFinance from '@/components/ui/CardFinance'
-import ButtonElegant from '@/components/ui/ButtonElegant'
+import { fadeUpVariants } from '../../lib/framerVariants'
+import AppShell from '../../components/layout/AppShell'
+import PageTransition from '../../components/animations/PageTransition'
+import StaggerContainer from '../../components/animations/StaggerContainer'
+import CardFinance from '../../components/ui/CardFinance'
+import ButtonElegant from '../../components/ui/ButtonElegant'
 
 /* ───────────────────────────────────────────────────────────────
    Step data

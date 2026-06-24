@@ -2,11 +2,11 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FileText, BarChart3, PieChart, DollarSign, TrendingUp, TrendingDown, RefreshCw } from 'lucide-react'
-import AppShell from '@/components/layout/AppShell'
-import PageTransition from '@/components/animations/PageTransition'
-import StaggerContainer from '@/components/animations/StaggerContainer'
-import CardFinance from '@/components/ui/CardFinance'
-import { fadeUpVariants } from '@/lib/framerVariants'
+import AppShell from '../../components/layout/AppShell'
+import PageTransition from '../../components/animations/PageTransition'
+import StaggerContainer from '../../components/animations/StaggerContainer'
+import CardFinance from '../../components/ui/CardFinance'
+import { fadeUpVariants } from '../../lib/framerVariants'
 
 /* ───────────────────────────────────────────────────────────────
    Types

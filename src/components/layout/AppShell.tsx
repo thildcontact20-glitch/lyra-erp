@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { LayoutDashboard, BookOpen, ShoppingCart, Package, Users, FileText, MessageSquare, LogOut, Menu, X, ChevronLeft, DollarSign, Receipt } from 'lucide-react'
-import { pageVariants } from '@/lib/framerVariants'
+import { pageVariants } from '../../lib/framerVariants'
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },

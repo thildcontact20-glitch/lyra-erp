@@ -3,9 +3,9 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import { Check, X, Star, Shield, Zap, Building2, Users, ChevronDown, ArrowLeft, HelpCircle, Info } from 'lucide-react'
-import ButtonElegant from '@/components/ui/ButtonElegant'
-import PageTransition from '@/components/animations/PageTransition'
-import { fadeUpVariants, staggerContainerVariants, listItemVariants } from '@/lib/framerVariants'
+import ButtonElegant from '../../components/ui/ButtonElegant'
+import PageTransition from '../../components/animations/PageTransition'
+import { fadeUpVariants, staggerContainerVariants, listItemVariants } from '../../lib/framerVariants'
 
 /* ---------- Types ---------- */
 interface Plan {
