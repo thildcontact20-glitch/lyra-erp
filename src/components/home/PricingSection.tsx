@@ -1,11 +1,10 @@
 'use client'
 
-import { motion, useInView } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { motion } from 'framer-motion'
+import { useState } from 'react'
 import { Check, Star, Users, Building2, Zap, Shield } from 'lucide-react'
 import TiltCard from '../ui/TiltCard'
 import GlowButton from '../ui/GlowButton'
-import { staggerContainerVariants } from '../../lib/framerVariants'
 
 /* ──────────────────────────────────────────────────────────────────────────────
    Types
@@ -283,14 +282,11 @@ function BillingToggle({ yearly, setYearly }: { yearly: boolean; setYearly: (v: 
    Pricing Section
    ────────────────────────────────────────────────────────────────────────────── */
 export default function PricingSection() {
-  const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
   const [yearly, setYearly] = useState(false)
 
   return (
     <section
       id="pricing"
-      ref={ref}
       className="relative py-24 md:py-32 overflow-hidden"
     >
       {/* Ligne séparatrice */}
@@ -305,13 +301,15 @@ export default function PricingSection() {
         <motion.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           <motion.span
             className="inline-block text-lyra-gold text-[10px] tracking-[0.25em] uppercase mb-3"
             initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
             Nos offres
@@ -328,7 +326,8 @@ export default function PricingSection() {
         {/* Toggle */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ delay: 0.3, duration: 0.5 }}
           className="mb-12"
         >
@@ -338,9 +337,9 @@ export default function PricingSection() {
         {/* Plans Grid */}
         <motion.div
           className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4 lg:gap-6 items-start"
-          variants={staggerContainerVariants}
           initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
         >
           {plans.map((plan, i) => (
             <PlanCard key={plan.id} plan={plan} yearly={yearly} index={i} />
