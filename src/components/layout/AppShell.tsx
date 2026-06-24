@@ -89,8 +89,8 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 <Image
                   src="/img/coris.png"
                   alt="Coris"
-                  width={80}
-                  height={35}
+                  width={100}
+                  height={42}
                   className="object-contain"
                   priority
                 />

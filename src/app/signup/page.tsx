@@ -164,8 +164,8 @@ export default function SignupPage() {
             <Image
               src="/img/coris.png"
               alt="Coris"
-              width={120}
-              height={50}
+              width={160}
+              height={68}
               className="object-contain mx-auto"
               priority
             />

@@ -13,19 +13,8 @@ import TiltCard from '../ui/TiltCard'
 function BackgroundBlobs() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Gradient de fond */}
+      {/* Légère surbrillance dorée */}
       <div className="absolute inset-0 bg-gradient-to-b from-lyra-navy/60 via-lyra-dark to-lyra-dark" />
-
-      {/* Plume en fond */}
-      <div className="absolute inset-0 opacity-[0.18]">
-        <Image
-          src="/img/plume.jpg"
-          alt=""
-          fill
-          className="object-cover"
-          priority
-        />
-      </div>
 
       {/* Particules subtiles */}
       {[...Array(20)].map((_, i) => (
@@ -177,8 +166,8 @@ export default function HeroSection() {
           <Image
             src="/img/coris.png"
             alt="Coris"
-            width={140}
-            height={60}
+            width={200}
+            height={85}
             className="object-contain"
             priority
           />
