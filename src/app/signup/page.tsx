@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { User, Mail, Lock, Building2, ArrowRight, Sparkles, Eye, EyeOff } from 'lucide-react'
+import { User, Mail, Lock, Building2, ArrowRight, Sparkles, Eye, EyeOff, CheckCircle } from 'lucide-react'
 import { fadeUpVariants } from '../../lib/framerVariants'
 import ButtonElegant from '../../components/ui/ButtonElegant'
 
@@ -18,13 +18,14 @@ export default function SignupPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
 
     // Client-side validation
-    if (!name.trim() || !email.trim() || !companyName.trim() || !password || !confirmPassword) {
+    if (!name.trim() || !email.trim() || !password || !confirmPassword) {
       setError('Tous les champs sont requis')
       return
     }
@@ -55,14 +56,59 @@ export default function SignupPage() {
         return
       }
 
-      localStorage.setItem('token', data.token)
-      localStorage.setItem('user', JSON.stringify(data.user))
-      router.push('/dashboard')
+      // Succès — ne pas connecter automatiquement, montrer message de vérification
+      setSuccess(true)
     } catch {
       setError('Erreur de connexion au serveur')
     } finally {
       setLoading(false)
     }
+  }
+
+  // Écran de succès après inscription
+  if (success) {
+    return (
+      <main className="relative min-h-screen flex items-center justify-center bg-lyra-dark overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-lyra-navy/60 via-lyra-dark to-lyra-dark" />
+        <div className="relative z-10 w-full max-w-md px-4 text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="mb-6"
+          >
+            <CheckCircle className="w-16 h-16 text-green-400 mx-auto" />
+          </motion.div>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-2xl font-bold text-lyra-cream mb-4"
+          >
+            Compte créé avec succès !
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="text-white/60 mb-8"
+          >
+            Veuillez vérifier votre email <strong className="text-lyra-gold">{email}</strong> pour activer votre compte. Un email de confirmation vous a été envoyé.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            <Link href="/login">
+              <ButtonElegant variant="primary" size="lg" className="w-full">
+                Aller à la connexion
+              </ButtonElegant>
+            </Link>
+          </motion.div>
+        </div>
+      </main>
+    )
   }
 
   return (

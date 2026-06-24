@@ -1,11 +1,12 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Package, Warehouse, ArrowUpDown, AlertTriangle, Search, Plus, X } from 'lucide-react'
+import { Package, Warehouse, ArrowUpDown, AlertTriangle, Search, Plus } from 'lucide-react'
 import AppShell from '../../components/layout/AppShell'
 import PageTransition from '../../components/animations/PageTransition'
 import StaggerContainer from '../../components/animations/StaggerContainer'
 import CardFinance from '../../components/ui/CardFinance'
+import CloseButton from '../../components/ui/CloseButton'
 import ButtonElegant from '../../components/ui/ButtonElegant'
 import { fadeUpVariants, listItemVariants } from '../../lib/framerVariants'
 

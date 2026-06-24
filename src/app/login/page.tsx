@@ -1,9 +1,9 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Eye, EyeOff, Lock, Mail, ArrowRight, Sparkles } from 'lucide-react'
+import { Eye, EyeOff, Lock, Mail, ArrowRight, Sparkles, CheckCircle2 } from 'lucide-react'
 import { fadeUpVariants } from '../../lib/framerVariants'
 import ButtonElegant from '../../components/ui/ButtonElegant'
 
@@ -35,6 +35,11 @@ export default function LoginPage() {
         return
       }
 
+      if (data.error === 'EMAIL_NOT_VERIFIED') {
+        router.push(`/verify-email?email=${encodeURIComponent(data.email || email)}`)
+        return
+      }
+
       localStorage.setItem('token', data.token)
       localStorage.setItem('user', JSON.stringify(data.user))
       router.push('/dashboard')
@@ -44,6 +49,17 @@ export default function LoginPage() {
       setLoading(false)
     }
   }
+
+  // Vérifier si on arrive depuis /verify-email (succès)
+  const [verifiedMessage, setVerifiedMessage] = useState(false)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('verified') === 'true') {
+      setVerifiedMessage(true)
+      // Nettoyer l'URL
+      window.history.replaceState({}, '', '/login')
+    }
+  }, [])
 
   return (
     <main className="relative min-h-screen flex items-center justify-center bg-lyra-dark overflow-hidden">
@@ -128,6 +144,19 @@ export default function LoginPage() {
           <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-lyra-gold/40 to-transparent" />
 
           <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Verified success message */}
+            {verifiedMessage && (
+              <motion.div
+                className="bg-green-500/10 border border-green-500/20 text-green-400 text-sm rounded-xl px-4 py-3 text-center"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <CheckCircle2 className="w-4 h-4 inline mr-1.5 -mt-0.5" />
+                Email vérifié avec succès ! Connectez-vous.
+              </motion.div>
+            )}
+
             {/* Error message */}
             {error && (
               <motion.div

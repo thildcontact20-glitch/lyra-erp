@@ -1,7 +1,7 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { LayoutDashboard, BookOpen, ShoppingCart, Package, Users, FileText, MessageSquare, LogOut, Menu, X, ChevronLeft, DollarSign, Receipt } from 'lucide-react'
 import { pageVariants } from '../../lib/framerVariants'
@@ -19,7 +19,60 @@ const navItems = [
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false)
+  const [authChecked, setAuthChecked] = useState(false)
   const pathname = usePathname()
+  const router = useRouter()
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const token = localStorage.getItem('token')
+        if (!token) {
+          window.location.href = '/login'
+          return
+        }
+        const res = await fetch('/api/auth/me', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        })
+        if (!res.ok) {
+          localStorage.removeItem('token')
+          localStorage.removeItem('user')
+          window.location.href = '/login'
+          return
+        }
+        setAuthChecked(true)
+      } catch {
+        window.location.href = '/login'
+      }
+    }
+    checkAuth()
+  }, [])
+
+  const handleLogout = async () => {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' })
+    } catch {
+      // Même si la requête échoue, on nettoie côté client
+    }
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    window.location.href = '/login'
+  }
+
+  if (!authChecked) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-lyra-dark">
+        <div className="flex flex-col items-center gap-4">
+          <svg className="animate-spin h-8 w-8 text-lyra-gold" viewBox="0 0 24 24" fill="none">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+          </svg>
+          <span className="text-white/40 text-sm">Vérification de l'authentification...</span>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="flex h-screen overflow-hidden bg-lyra-dark">
       {/* Sidebar */}
@@ -74,7 +127,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           })}
         </nav>
         <div className="p-3 border-t border-white/10">
-          <Link href="/login">
+          <button onClick={handleLogout} className="w-full">
             <motion.div className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/40 hover:text-red-400 hover:bg-red-500/5 transition-all">
               <LogOut className="w-5 h-5" />
               <AnimatePresence mode="wait">
@@ -85,7 +138,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 )}
               </AnimatePresence>
             </motion.div>
-          </Link>
+          </button>
         </div>
       </motion.aside>
       {/* Main content */}
