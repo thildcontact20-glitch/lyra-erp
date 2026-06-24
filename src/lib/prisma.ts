@@ -17,11 +17,7 @@ function createNullPrisma(): PrismaClient {
 
 export const prisma = (() => {
   try {
-    // Connexion Supabase directe
-    if (process.env.NEXT_PHASE === 'phase-production-build') {
-      // Phase build: utiliser le pooler (accessible IPv4)
-      process.env.DATABASE_URL = 'postgresql://postgres:LyraSupabase2026!@aws-0-eu-west-3.pooler.supabase.com:6543/postgres?pgbouncer=true&sslmode=require'
-    }
+    // Phase build: pas de connexion DB
     return globalForPrisma.prisma || new PrismaClient()
   } catch {
     // Fallback proxy silencieux
