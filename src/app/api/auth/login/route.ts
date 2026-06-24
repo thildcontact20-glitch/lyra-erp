@@ -5,12 +5,12 @@ import jwt from 'jsonwebtoken';
 export const dynamic = 'force-dynamic'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'lyra-secret-2024';
-const DATABASE_URL = process.env.DATABASE_URL || 'postgresql://postgres:LyraSupabase2026!@aws-0-eu-west-1.pooler.supabase.com:5432/postgres?sslmode=require&pgbouncer=true';
+const DB_URL = process.env.DATABASE_URL || 'postgresql://postgres:LyraSupabase2026!@aws-0-eu-west-1.pooler.supabase.com:5432/postgres?sslmode=require';
 
 async function queryDB(sql: string, params?: any[]) {
   const { Pool } = require('pg');
   const pool = new Pool({
-    connectionString: DATABASE_URL,
+    connectionString: DB_URL,
     ssl: { rejectUnauthorized: false }
   });
   try {
@@ -48,10 +48,8 @@ export async function POST(request: NextRequest) {
     response.headers.set('Set-Cookie', `token=${token}; Path=/; HttpOnly; SameSite=Lax`);
     return response;
   } catch (error) {
-    console.error('Login error:', error);
-    return NextResponse.json(
-      { error: 'Internal server error: ' + (error as Error).message },
-      { status: 500 }
-    );
+    const msg = (error as Error).message;
+    console.error('Login error:', msg);
+    return NextResponse.json({ error: 'Internal server error: ' + msg }, { status: 500 });
   }
 }
