@@ -17,8 +17,8 @@ export default function LoginPage() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = async (e?: any) => {
+    if (e?.preventDefault) e.preventDefault()
     setError('')
     setLoading(true)
 
@@ -51,13 +51,18 @@ export default function LoginPage() {
     }
   }
 
-  // Vérifier si on arrive depuis /verify-email (succès)
+  // Vérifier si on arrive depuis /verify-email (succès) ou /reset-password
   const [verifiedMessage, setVerifiedMessage] = useState(false)
+  const [resetMessage, setResetMessage] = useState(false)
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     if (params.get('verified') === 'true') {
       setVerifiedMessage(true)
       // Nettoyer l'URL
+      window.history.replaceState({}, '', '/login')
+    }
+    if (params.get('reset') === 'true') {
+      setResetMessage(true)
       window.history.replaceState({}, '', '/login')
     }
   }, [])
@@ -130,7 +135,7 @@ export default function LoginPage() {
           {/* Gold accent top border */}
           <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-lyra-gold/40 to-transparent" />
 
-          <div className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-5">
             {/* Verified success message */}
             {verifiedMessage && (
               <motion.div
@@ -141,6 +146,19 @@ export default function LoginPage() {
               >
                 <CheckCircle2 className="w-4 h-4 inline mr-1.5 -mt-0.5" />
                 Email vérifié avec succès ! Connectez-vous.
+              </motion.div>
+            )}
+
+            {/* Reset success message */}
+            {resetMessage && (
+              <motion.div
+                className="bg-green-500/10 border border-green-500/20 text-green-400 text-sm rounded-xl px-4 py-3 text-center"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <CheckCircle2 className="w-4 h-4 inline mr-1.5 -mt-0.5" />
+                Mot de passe réinitialisé avec succès ! Connectez-vous.
               </motion.div>
             )}
 
@@ -280,7 +298,6 @@ export default function LoginPage() {
                 size="lg"
                 className="w-full"
                 disabled={loading}
-                onClick={() => handleSubmit(new Event('click') as any)}
               >
                 {loading ? (
                   <span className="flex items-center justify-center gap-2">
@@ -298,7 +315,7 @@ export default function LoginPage() {
                 )}
               </ButtonElegant>
             </motion.div>
-          </div>
+          </form>
 
           {/* Signup link */}
           <motion.div
