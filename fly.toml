@@ -1,9 +1,6 @@
 app = "lyra-vivalys-prod"
 primary_region = "fra"
 
-[build]
-  builder = "heroku/buildpacks:20"
-
 [env]
   NODE_ENV = "production"
 
