@@ -1,4 +1,4 @@
-app = "lyra-vivalys-prod"
+app = "lyra-vivalys-prod-empty-blossom-9182"
 primary_region = "fra"
 
 [env]
