@@ -17,10 +17,9 @@ function createNullPrisma(): PrismaClient {
 
 export const prisma = (() => {
   try {
-    // Pendant le build Vercel ou CI, on utilise un proxy silencieux
+    // Pendant le build Vercel uniquement, on utilise un proxy silencieux
     if (
-      process.env.NEXT_PHASE === 'phase-production-build' ||
-      process.env.VERCEL === '1'
+      process.env.NEXT_PHASE === 'phase-production-build'
     ) {
       return createNullPrisma()
     }
