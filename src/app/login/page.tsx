@@ -64,38 +64,18 @@ export default function LoginPage() {
 
   return (
     <main className="relative min-h-screen flex items-center justify-center bg-lyra-dark overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-lyra-navy/60 via-lyra-dark to-lyra-dark" />
-
-      {/* Glowing orbs */}
-      <motion.div
-        className="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-lyra-gold/5 blur-[120px]"
-        animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="absolute -bottom-40 -right-40 w-80 h-80 rounded-full bg-lyra-steel/5 blur-[100px]"
-        animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.4, 0.2] }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-      />
-
-      {/* Subtle grid overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage:
-            'linear-gradient(rgba(201, 169, 97, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(201, 169, 97, 0.1) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
-        }}
-      />
-
-      {/* Decorative top line */}
-      <motion.div
-        className="absolute top-0 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-lyra-gold/30 to-transparent"
-        initial={{ scaleX: 0, opacity: 0 }}
-        animate={{ scaleX: 1, opacity: 1 }}
-        transition={{ duration: 1.5, delay: 0.5 }}
-      />
+      {/* Image de fond */}
+      <div className="absolute inset-0">
+        <Image
+          src="/img/bg-login.jpg"
+          alt=""
+          fill
+          className="object-cover"
+          priority
+        />
+      </div>
+      {/* Surcharge sombre */}
+      <div className="absolute inset-0 bg-black/50" />
 
       <div className="relative z-10 w-full max-w-md px-4">
         <motion.div
