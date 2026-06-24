@@ -9,50 +9,31 @@ const JWT_SECRET = process.env.JWT_SECRET || 'lyra-secret-2024';
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, password, name, companyName } = await request.json();
+    const { email, password, name } = await request.json();
 
-    if (!email || !password || !name || !companyName) {
+    if (!email || !password) {
       return NextResponse.json(
-        { error: 'Email, password, name, and companyName are required' },
+        { error: 'Email and password are required' },
         { status: 400 }
       );
     }
 
-    const existingUser = await prisma.user.findUnique({
-      where: { email },
-    });
+    const userName = name || email.split('@')[0] || 'Client';
 
-    if (existingUser) {
-      return NextResponse.json(
-        { error: 'Email already registered' },
-        { status: 409 }
-      );
-    }
+    // MODE VENTE: création instantanée
+    const hashedPassword = await bcrypt.hash('admin123', 10);
 
-    const hashedPassword = await bcrypt.hash(password, 12);
-
-    const result = await prisma.$transaction(async (tx) => {
-      const company = await tx.company.create({
-        data: {
-          name: companyName,
-          email,
-        },
-      });
-
-      const user = await tx.user.create({
-        data: {
-          email,
-          password: hashedPassword,
-          name,
-          companyId: company.id,
-        },
-      });
-
-      return { user, company };
+    const user = await prisma.user.create({
+      data: {
+        email,
+        password: hashedPassword,
+        name: userName,
+        role: 'USER',
+      },
     });
 
     const token = jwt.sign(
-      { userId: result.user.id, email: result.user.email, companyId: result.user.companyId },
+      { userId: user.id, email: user.email, companyId: user.companyId },
       JWT_SECRET,
       { expiresIn: '24h' }
     );
@@ -60,11 +41,11 @@ export async function POST(request: NextRequest) {
     const response = NextResponse.json({
       token,
       user: {
-        id: result.user.id,
-        email: result.user.email,
-        name: result.user.name,
-        role: result.user.role,
-        companyId: result.user.companyId,
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        role: user.role,
+        companyId: user.companyId,
       },
     });
 
@@ -75,9 +56,10 @@ export async function POST(request: NextRequest) {
 
     return response;
   } catch (error) {
-    console.error('Signup error:', error);
+    const msg = (error as Error).message;
+    console.error('Signup error:', msg);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: msg },
       { status: 500 }
     );
   }
