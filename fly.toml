@@ -12,6 +12,9 @@ primary_region = "fra"
   min_machines_running = 1
   processes = ["app"]
 
+[deploy]
+  release_command = "npx prisma generate && npx prisma db push --accept-data-loss && npx prisma db seed"
+
 [[services]]
   internal_port = 3000
   protocol = "tcp"
