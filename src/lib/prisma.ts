@@ -17,14 +17,13 @@ function createNullPrisma(): PrismaClient {
 
 export const prisma = (() => {
   try {
-    // Pendant le build Vercel uniquement, on utilise un proxy silencieux
-    if (
-      process.env.NEXT_PHASE === 'phase-production-build'
-    ) {
-      return createNullPrisma()
+    // Connexion Supabase directe
+    if (!process.env.DATABASE_URL || process.env.NEXT_PHASE === 'phase-production-build') {
+      process.env.DATABASE_URL = 'postgresql://postgres:LyraSupabase2026!@db.luhdosoqsqdpgtxkhrgq.supabase.co:5432/postgres?sslmode=require'
     }
     return globalForPrisma.prisma || new PrismaClient()
   } catch {
+    // Fallback proxy silencieux
     return createNullPrisma()
   }
 })()
