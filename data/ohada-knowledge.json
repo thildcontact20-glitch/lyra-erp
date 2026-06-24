@@ -1,0 +1,290 @@
+[
+  {
+    "id": "comp-001",
+    "category": "SYSCOHADA",
+    "question": "Qu'est-ce que le SYSCOHADA ?",
+    "answer": "Le Système Comptable OHADA (SYSCOHADA) est le référentiel comptable unique applicable dans les 17 États membres de l'OHADA. Il comprend un plan comptable général à 8 classes : classes 1 à 5 pour le bilan (comptes de situation), classes 6 et 7 pour le compte de résultat (comptes de gestion), et classe 8 pour les comptes spéciaux (engagements hors bilan et comptes de trésorerie). Le SYSCOHADA est régi par l'Acte Uniforme OHADA portant organisation et harmonisation des comptabilités des entreprises, adopté le 26 mars 2017 à Conakry (Guinée).",
+    "keywords": ["syscohada", "système comptable", "ohada", "plan comptable", "référentiel comptable", "acte uniforme"],
+    "source": "Acte Uniforme OHADA - Comptabilité (2017)"
+  },
+  {
+    "id": "comp-002",
+    "category": "SYSCOHADA",
+    "question": "Quelles sont les classes du plan comptable SYSCOHADA ?",
+    "answer": "Le plan comptable SYSCOHADA comprend 8 classes : Classe 1 - Comptes de ressources durables (capitaux propres, dettes financières) ; Classe 2 - Comptes d'actif immobilisé (immobilisations incorporelles, corporelles, financières) ; Classe 3 - Comptes de stocks (marchandises, matières premières, produits finis) ; Classe 4 - Comptes de tiers (créances clients, dettes fournisseurs, dettes fiscales et sociales) ; Classe 5 - Comptes de trésorerie (banques, caisse, instruments de trésorerie) ; Classe 6 - Comptes de charges (achats, services extérieurs, impôts, frais de personnel, dotations aux amortissements) ; Classe 7 - Comptes de produits (ventes, prestations, subventions, reprises) ; Classe 8 - Comptes spéciaux (engagements hors bilan, comptes de trésorerie élargis).",
+    "keywords": ["classes", "plan comptable", "classe 1", "classe 2", "classe 3", "classe 4", "classe 5", "classe 6", "classe 7", "classe 8", "comptes"],
+    "source": "Acte Uniforme OHADA - Plan Comptable Général"
+  },
+  {
+    "id": "comp-003",
+    "category": "SYSCOHADA",
+    "question": "Quels sont les principes comptables fondamentaux du SYSCOHADA ?",
+    "answer": "Le SYSCOHADA repose sur 10 principes comptables fondamentaux : 1) Principe de continuité d'exploitation (going concern) ; 2) Principe de permanence des méthodes - les règles et procédures comptables doivent être constantes dans le temps ; 3) Principe d'intangibilité du bilan d'ouverture ; 4) Principe de prudence - les incertitudes présentes sont prises en compte pour ne pas transférer de risques futurs ; 5) Principe de régularité et de sincérité - les comptes doivent être conformes aux règles en vigueur ; 6) Principe de l'image fidèle - les états financiers doivent refléter la réalité économique ; 7) Principe de spécialisation des exercices - rattachement des charges et produits à leur exercice ; 8) Principe de non-compensation - les créances et dettes ne peuvent être compensées ; 9) Principe d'importance significative - seuls les éléments significatifs sont comptabilisés distinctement ; 10) Principe de prééminence de la réalité sur l'apparence juridique.",
+    "keywords": ["principes comptables", "continuité", "permanence", "prudence", "sincérité", "image fidèle", "spécialisation", "non-compensation", "importance significative", "réalité économique"],
+    "source": "Acte Uniforme OHADA - Principes Comptables, Art. 3 à 12"
+  },
+  {
+    "id": "comp-004",
+    "category": "SYSCOHADA",
+    "question": "Comment se présente le bilan selon le SYSCOHADA ?",
+    "answer": "Le bilan SYSCOHADA se présente en deux colonnes verticales avec l'actif à gauche et le passif à droite. À l'actif, on trouve : Actif Immobilisé (immobilisations incorporelles, corporelles, financières), Actif Circulant (stocks, créances clients, autres créances), Trésorerie-Actif (banques, caisse, chèques postaux). Au passif : Capitaux Propres (capital apporté, réserves, report à nouveau, résultat net), Dettes Financières (emprunts), Passif Circulant (dettes fournisseurs, dettes fiscales et sociales, autres dettes), Trésorerie-Passif (découverts bancaires). La présentation est conforme au modèle de l'annexe 1 de l'Acte Uniforme OHADA. Le total Actif = total Passif. Les entreprises ont l'obligation de produire le bilan chaque année dans les 3 mois suivant la clôture de l'exercice.",
+    "keywords": ["bilan", "actif", "passif", "capitaux propres", "immobilisations", "présentation", "structure"],
+    "source": "Acte Uniforme OHADA - Modèle de Bilan, Annexe 1"
+  },
+  {
+    "id": "comp-005",
+    "category": "SYSCOHADA",
+    "question": "Comment se présente le compte de résultat (CR) selon le SYSCOHADA ?",
+    "answer": "Le Compte de Résultat (CR) dans le SYSCOHADA est un tableau des charges et des produits classés par nature. Il comprend : en charges (classe 6) : achats consommés, services extérieurs, impôts et taxes, frais de personnel, dotations aux amortissements et provisions, intérêts financiers ; en produits (classe 7) : chiffre d'affaires (ventes de marchandises, produits finis, prestations), production immobilisée, subventions d'exploitation, reprises financières. Le résultat net est la différence entre les produits et les charges. Le CR distingue trois niveaux de résultat : Résultat d'Exploitation (produits d'exploitation - charges d'exploitation), Résultat Financier (produits financiers - charges financières), et Résultat Net (incluant le résultat exceptionnel et l'impôt). Les entreprises doivent suivre le modèle de l'Annexe 2 de l'Acte Uniforme.",
+    "keywords": ["compte de résultat", "CR", "charges", "produits", "résultat net", "chiffre d'affaires", "résultat d'exploitation", "résultat financier"],
+    "source": "Acte Uniforme OHADA - Modèle de CR, Annexe 2"
+  },
+  {
+    "id": "comp-006",
+    "category": "SYSCOHADA",
+    "question": "Qu'est-ce que le TAFIRE et comment se présente-t-il ?",
+    "answer": "Le TAFIRE (Tableau d'Affectation et d'Imputation des Résultats) est un état financier obligatoire du SYSCOHADA qui retrace l'affectation du résultat net de l'exercice et l'imputation des résultats antérieurs. Il comprend trois parties : Partie 1 - Origine des sommes (résultat net de l'exercice, report à nouveau antérieur, réserves disponibles) ; Partie 2 - Affectation des sommes (dividendes, réserves légale et statutaire, report à nouveau, autres affectations) ; Partie 3 - Situation après affectation. En Côte d'Ivoire, la réserve légale est de 10% du bénéfice jusqu'à concurrence de 20% du capital social. Le TAFIRE doit être approuvé par l'Assemblée Générale Ordinaire dans les 6 mois suivant la clôture de l'exercice.",
+    "keywords": ["tafire", "tableau affectation", "résultat", "dividendes", "réserves", "affectation", "imputation"],
+    "source": "Acte Uniforme OHADA - TAFIRE, Annexe 3"
+  },
+  {
+    "id": "comp-007",
+    "category": "SYSCOHADA",
+    "question": "Quels sont les états financiers annexes obligatoires dans le SYSCOHADA ?",
+    "answer": "Les états financiers annexes obligatoires du SYSCOHADA comprennent : 1) L'État Annexé (EA) ou Notes Annexes - informations complémentaires sur le bilan et le CR (méthodes comptables, échéances des créances et dettes, ventilation des immobilisations, détail des stocks) ; 2) Le Tableau Financier des Ressources et Emplois (TAFIRE) ; 3) L'État des Échéances et des Dettes (EED) ; 4) Le Tableau des Immobilisations et des Amortissements (TIA) ; 5) Le Tableau des Plus-values et Moins-values (TPM) ; 6) Le Tableau des Provisions (TP) ; 7) Le Tableau des Créances (TC). Les sociétés cotées ou faisant appel public à l'épargne doivent en outre produire un Rapport de Gestion et un Rapport des Commissaires aux Comptes. Tous ces états doivent être déposés au greffe du Tribunal de Commerce.",
+    "keywords": ["états annexes", "annexe", "notes", "TIA", "EED", "TPM", "provisions", "immobilisations", "créances"],
+    "source": "Acte Uniforme OHADA - États Financiers Annexes, Art. 15-25"
+  },
+  {
+    "id": "comp-008",
+    "category": "SYSCOHADA",
+    "question": "Quelles sont les obligations comptables des entreprises selon l'OHADA ?",
+    "answer": "Les obligations comptables des entreprises soumises à l'OHADA incluent : 1) Tenue d'une comptabilité régulière selon le plan comptable SYSCOHADA (livre journal, grand livre, balance générale) ; 2) Établissement des états financiers annuels (bilan, CR, TAFIRE, états annexés) dans les 3 mois suivant la clôture de l'exercice ; 3) Conservation des documents comptables pendant 10 ans (pièces justificatives, livres comptables) ; 4) Dépôt des comptes annuels au greffe du Tribunal de Commerce dans les 30 jours suivant leur approbation par l'AGO ; 5) Tenue d'un inventaire physique au moins une fois par an ; 6) Le système comptable peut être minimal (entreprises individuelles) ou développé (sociétés) selon le chiffre d'affaires ; 7) Les entreprises au Régime Réel d'Imposition doivent produire un bilan comptable certifié ; 8) Nomination d'un commissaire aux comptes obligatoire pour les SA et les SARL dépassant certains seuils (CA > 250M FCFA ou effectif > 50 salariés).",
+    "keywords": ["obligations comptables", "livre journal", "grand livre", "balance", "conservation", "dépôt", "inventaire", "commissaire aux comptes"],
+    "source": "Acte Uniforme OHADA - Obligations Comptables, Art. 26-40"
+  },
+  {
+    "id": "comp-009",
+    "category": "SYSCOHADA",
+    "question": "Comment fonctionne l'amortissement dans le SYSCOHADA ?",
+    "answer": "Dans le SYSCOHADA, l'amortissement est la répartition du coût d'une immobilisation sur sa durée d'utilisation. Deux méthodes principales sont utilisées : 1) Amortissement linéaire - répartition égale sur la durée de vie (ex : bâtiment 20 ans = 5%/an, matériel industriel 10 ans = 10%/an, véhicules 5 ans = 20%/an, mobilier 10 ans = 10%/an) ; 2) Amortissement dégressif - pour certains biens d'équipement (taux linéaire x coefficient fiscal : 1,5 pour 3-4 ans, 2 pour 5-6 ans, 2,5 pour plus de 6 ans). Les immobilisations incorporelles (fonds commercial, brevets) sont amorties sur leur durée d'utilisation, avec une présomption de durée de vie limitée. Les dotations aux amortissements sont comptabilisées en compte 68 (classe 6) et les amortissements cumulés en compte 28 (classe 2). Les terrains et les oeuvres d'art ne sont pas amortis.",
+    "keywords": ["amortissement", "linéaire", "dégressif", "durée d'utilisation", "dotations", "immobilisations", "taux"],
+    "source": "Acte Uniforme OHADA - Amortissements, Art. 45-58"
+  },
+  {
+    "id": "comp-010",
+    "category": "SYSCOHADA",
+    "question": "Qu'est-ce que le résultat exceptionnel dans le SYSCOHADA ?",
+    "answer": "Le résultat exceptionnel dans le SYSCOHADA représente les opérations inhabituelles, non récurrentes et étrangères à l'activité courante de l'entreprise. Il est composé de : Produits exceptionnels (classe 77) : cessions d'immobilisations, subventions d'équilibre, dons et legs, produits exceptionnels divers, quotes-parts de subventions virées au résultat. Charges exceptionnelles (classe 67) : valeurs nettes comptables des immobilisations cédées, pénalités et amendes fiscales, dons et libéralités, créances irrécouvrables, charges exceptionnelles diverses. Le résultat exceptionnel est présenté distinctement dans le Compte de Résultat (CR), avant le résultat net. Depuis la réforme de 2017, le SYSCOHADA a clarifié la distinction entre éléments exceptionnels et éléments inhabituels mais courants.",
+    "keywords": ["résultat exceptionnel", "cessions", "produits exceptionnels", "charges exceptionnelles", "plus-values", "moins-values"],
+    "source": "Acte Uniforme OHADA - Résultat Exceptionnel, Art. 60-65"
+  },
+  {
+    "id": "comp-011",
+    "category": "SYSCOHADA",
+    "question": "Comment sont traités les stocks dans le SYSCOHADA ?",
+    "answer": "Les stocks dans le SYSCOHADA (classe 3) comprennent : 31 - Marchandises (biens achetés revendus en l'état), 32 - Matières premières et fournitures liées, 33 - Produits finis, 34 - En-cours de production, 35 - Produits intermédiaires et résiduels. La valorisation des stocks se fait au coût d'acquisition (prix d'achat + frais accessoires) ou au coût de production (coût d'acquisition des matières + charges directes et indirectes de production). Les méthodes d'évaluation autorisées sont : le Coût Moyen Pondéré (CMP) et la méthode Premier Entré - Premier Sorti (PEPS/FIFO). La méthode Dernier Entré - Premier Sorti (DEPS/LIFO) n'est pas autorisée. Un inventaire physique annuel est obligatoire. Les dépréciations (provisions pour dépréciation) sont constatées si la valeur d'inventaire est inférieure au coût. La variation des stocks (stock initial - stock final) impacte le compte de résultat.",
+    "keywords": ["stocks", "classe 3", "CMP", "PEPS", "FIFO", "valorisation", "inventaire", "dépréciation", "marchandises", "produits finis"],
+    "source": "Acte Uniforme OHADA - Stocks, Art. 70-85"
+  },
+  {
+    "id": "comp-012",
+    "category": "SYSCOHADA",
+    "question": "Quelles sont les règles de comptabilisation de la TVA dans le SYSCOHADA ?",
+    "answer": "Dans le SYSCOHADA, la TVA collectée est enregistrée au crédit du compte 4431 (TVA collectée) et la TVA déductible au débit du compte 4432 (TVA déductible). La TVA due (collectée - déductible) est liquidée mensuellement ou trimestriellement selon le régime d'imposition. Les comptes utilisés : 44571 - TVA collectée, 44572 - TVA déductible sur immobilisations, 44574 - TVA déductible sur autres biens et services, 44575 - TVA à reverser, 44578 - TVA à régulariser. En Côte d'Ivoire, le taux normal de TVA est de 18%. Les entreprises au régime réel d'imposition déclarent la TVA via l'imprimé IUTVA. La comptabilisation des opérations imposables doit respecter la règle de débit/crédit du plan comptable SYSCOHADA.",
+    "keywords": ["TVA", "collectée", "déductible", "44571", "44572", "déclaration", "comptabilisation", "débit", "crédit"],
+    "source": "Acte Uniforme OHADA - TVA, Comptes 44-45"
+  },
+  {
+    "id": "fisc-001",
+    "category": "Fiscalité CI",
+    "question": "Quel est le taux de TVA en Côte d'Ivoire ?",
+    "answer": "Le taux normal de la Taxe sur la Valeur Ajoutée (TVA) en Côte d'Ivoire est de 18% depuis la Loi de Finances 2012 (auparavant 20%). Il existe également un taux réduit de 10% pour certaines opérations spécifiques (produits de première nécessité, eau, électricité pour les ménages, produits pharmaceutiques). Le taux de 0% (exonération avec droit à déduction) s'applique aux exportations. Sont exonérées sans droit à déduction : les opérations bancaires et financières, les assurances, l'éducation, la santé, les loyers d'habitation. Le seuil d'assujettissement est de 50 000 000 FCFA de chiffre d'affaires annuel pour les entreprises de vente de marchandises (régime réel simplifié pour CA entre 50M et 200M, réel normal au-delà). Les déclarations sont mensuelles (avant le 15 du mois suivant) ou trimestrielles (sur option).",
+    "keywords": ["TVA", "taux", "18%", "10%", "Côte d'Ivoire", "taxe", "déclaration", "seuil", "régime"],
+    "source": "Code Général des Impôts CI - TVA, Art. 250-280"
+  },
+  {
+    "id": "fisc-002",
+    "category": "Fiscalité CI",
+    "question": "Comment fonctionne l'Impôt sur le Revenu (IR) en Côte d'Ivoire ?",
+    "answer": "L'Impôt sur le Revenu (IR) en Côte d'Ivoire est un impôt progressif sur le revenu global des personnes physiques. Il est calculé selon un barème progressif par tranches : jusqu'à 300 000 FCFA : 0% ; de 300 001 à 547 000 FCFA : 10% ; de 547 001 à 979 000 FCFA : 15% ; de 979 001 à 1 539 000 FCFA : 20% ; de 1 539 001 à 4 329 000 FCFA : 25% ; de 4 329 001 à 8 297 000 FCFA : 35% ; au-delà de 8 297 000 FCFA : 40%. L'IR est calculé sur le revenu net imposable après déduction des charges sociales (CNPS), de l'abattement de 20% pour frais professionnels (plafonné à 600 000 FCFA), et de la part familiale (réduction de 50% de l'impôt brut pour les 3 premiers enfants à charge, 100% pour les suivants). L'IR est prélevé à la source par l'employeur (IR salarial).",
+    "keywords": ["IR", "impôt sur le revenu", "barème", "tranches", "progressif", "Côte d'Ivoire", "impôt salarial", "calcul"],
+    "source": "Code Général des Impôts CI - IR, Art. 100-150"
+  },
+  {
+    "id": "fisc-003",
+    "category": "Fiscalité CI",
+    "question": "Qu'est-ce que l'Impôt sur le Revenu des Capitaux Mobiliers (IRCM) ?",
+    "answer": "L'Impôt sur le Revenu des Capitaux Mobiliers (IRCM) est un impôt d'État perçu en Côte d'Ivoire sur les revenus de capitaux mobiliers. Il concerne : les dividendes (taux de 12% - retenue à la source), les intérêts (taux de 18% pour les comptes courants d'associés, 15% pour les obligations), les produits de placements à revenu fixe, les lots, primes et bonifications, les rémunérations de gérants minoritaires de SARL. L'IRCM est généralement prélevé à la source par l'établissement payeur. Les sociétés doivent déclarer et verser l'IRCM dans les 15 premiers jours du mois suivant le paiement du revenu. Les personnes physiques peuvent opter pour l'intégration de ces revenus dans le calcul de l'IR global (barème progressif) si cela leur est plus favorable. Les non-résidents sont soumis à une retenue à la source libératoire de l'IR.",
+    "keywords": ["IRCM", "capitaux mobiliers", "dividendes", "intérêts", "retenue à la source", "obligations", "actions", "Côte d'Ivoire"],
+    "source": "Code Général des Impôts CI - IRCM, Art. 160-200"
+  },
+  {
+    "id": "fisc-004",
+    "category": "Fiscalité CI",
+    "question": "Comment fonctionne la Contribution à la Charge Publique (CCP) ?",
+    "answer": "La Contribution à la Charge Publique (CCP) est une contribution fiscale ivoirienne qui s'applique à certaines professions libérales et activités économiques. Elle remplace l'ancien impôt forfaitaire et est calculée sur la base du chiffre d'affaires ou des recettes brutes. Les taux varient selon la profession : 2% pour les commerçants et industriels, 5% pour les prestataires de services, 10% pour les professions libérales. La CCP est généralement payée annuellement et donne lieu à la délivrance d'une quittance qui sert de justificatif pour l'obtention de marchés publics. Le paiement doit intervenir avant le 31 janvier de chaque année pour les contribuables en activité au 1er janvier, ou dans les 30 jours suivant le début d'activité. Les pénalités pour défaut de paiement sont de 10% du montant dû par mois de retard.",
+    "keywords": ["CCP", "contribution charge publique", "professions libérales", "quittance", "Côte d'Ivoire", "impôt professionnel"],
+    "source": "Code Général des Impôts CI - CCP, Art. 300-340"
+  },
+  {
+    "id": "fisc-005",
+    "category": "Fiscalité CI",
+    "question": "Quelles sont les obligations déclaratives mensuelles en Côte d'Ivoire ?",
+    "answer": "Les principales obligations déclaratives mensuelles en Côte d'Ivoire sont : 1) Déclaration de TVA (IUTVA) : avant le 15 du mois suivant pour le régime réel normal, avant le 20 pour le régime réel simplifié ; 2) IR salarial (IR SS) : avant le 15 du mois suivant, avec l'état des salaires ; 3) Déclaration CNPS : avant le 15 du mois suivant, avec le bordereau récapitulatif des cotisations ; 4) Acompte IRCM : pour les sociétés qui distribuent des dividendes ou paient des intérêts ; 5) Déclaration statistique et fiscale (DSF) pour les importations. Les entreprises au Régime Réel Simplifié (RRS) déclarent la TVA trimestriellement. Toutes les déclarations se font désormais en ligne via e-IMPOTS (https://e-impots.dgi.cf). Les pénalités pour déclaration tardive sont de 5% du montant dû par mois de retard, avec un minimum de 10 000 FCFA par déclaration manquante.",
+    "keywords": ["déclarations", "mensuelles", "IUTVA", "IR SS", "CNPS", "e-impots", "échéances", "Côte d'Ivoire", "pénalités"],
+    "source": "Code Général des Impôts CI - Obligations Déclaratives, Art. 400-450"
+  },
+  {
+    "id": "fisc-006",
+    "category": "Fiscalité CI",
+    "question": "Comment fonctionne l'Impôt sur les Sociétés (IS) en Côte d'Ivoire ?",
+    "answer": "L'Impôt sur les Sociétés (IS) en Côte d'Ivoire est de 25% du bénéfice net fiscal pour le régime de droit commun, et de 28% pour les établissements bancaires et financiers. Le paiement se fait par acomptes mensuels ou trimestriels calculés sur la base de l'impôt dû l'année précédente : 4 acomptes trimestriels de 25% chacun, dus avant le 15 des mois de mars, juin, septembre et décembre. Les entreprises nouvelles sont exonérées d'acomptes la première année. Le solde de l'IS (différence entre l'impôt réellement dû et les acomptes versés) est payable avant le 15 mai de l'année suivant la clôture de l'exercice. Une pénalité de 10% s'applique en cas de défaut ou d'insuffisance d'acomptes. Les PME ayant un chiffre d'affaires inférieur à 200 millions FCFA bénéficient d'un taux réduit de 15% (impôt minimum forfaitaire - IMF).",
+    "keywords": ["IS", "impôt sociétés", "25%", "acomptes", "solde", "Côte d'Ivoire", "bénéfice", "déclaration"],
+    "source": "Code Général des Impôts CI - IS, Art. 80-130"
+  },
+  {
+    "id": "fisc-007",
+    "category": "Fiscalité CI",
+    "question": "Quelles sont les pénalités fiscales en Côte d'Ivoire ?",
+    "answer": "Les principales pénalités fiscales en Côte d'Ivoire sont : 1) Retard de déclaration : 5% du montant dû par mois de retard (minimum 10 000 FCFA) ; 2) Insuffisance de déclaration : 15% du supplément d'impôt si absence de bonne foi, 40% en cas de manœuvre frauduleuse ; 3) Défaut de paiement dans les délais : 1% d'intérêt de retard par mois ; 4) Absence de comptabilité : 100 000 à 1 000 000 FCFA d'amende + taxation d'office ; 5) Opposition à contrôle fiscal : 500 000 FCFA d'amende + majoration de 50% des droits ; 6) Défaut de facturation : amende de 100 000 à 5 000 000 FCFA ; 7) Non-présentation des fichiers des écritures comptables (FEC) : amende de 1 000 000 à 10 000 000 FCFA. La prescription fiscale est de 3 ans pour l'administration (délai de reprise) et de 4 ans pour le contribuable (délai de réclamation).",
+    "keywords": ["pénalités", "amendes", "retard", "majorations", "intérêts", "contrôle fiscal", "Côte d'Ivoire", "prescription"],
+    "source": "Code Général des Impôts CI - Pénalités, Art. 500-560"
+  },
+  {
+    "id": "fisc-008",
+    "category": "Fiscalité CI",
+    "question": "Qu'est-ce que l'Impôt Minimum Forfaitaire (IMF) en Côte d'Ivoire ?",
+    "answer": "L'Impôt Minimum Forfaitaire (IMF) est un impôt dû par les entreprises réalisant un chiffre d'affaires inférieur à 200 millions FCFA en Côte d'Ivoire. Il remplace l'IS classique et est calculé sur le chiffre d'affaires hors taxes : taux de 2,5% pour les activités de vente de marchandises, et 5% pour les prestations de services et professions libérales. L'IMF est libératoire de l'IS et de la Contribution à la Charge Publique (CCP). Il est payé par acomptes trimestriels (25% du montant annuel estimé). La déclaration annuelle (imprimé IMF) doit être déposée avant le 30 avril de l'année suivante. Les entreprises à l'IMF sont dispensées de tenir une comptabilité complète (régime de la comptabilité allégée). Le passage au Régime Réel d'Imposition est obligatoire dès que le CA dépasse 200 millions FCFA pendant 2 exercices consécutifs.",
+    "keywords": ["IMF", "impôt minimum forfaitaire", "CA", "200 millions", "forfaitaire", "Côte d'Ivoire", "PME", "TPE"],
+    "source": "Code Général des Impôts CI - IMF, Art. 200-250"
+  },
+  {
+    "id": "fisc-009",
+    "category": "Fiscalité CI",
+    "question": "Quelles sont les exonérations fiscales pour les investissements en Côte d'Ivoire ?",
+    "answer": "La Côte d'Ivoire offre plusieurs régimes d'exonération fiscale pour encourager l'investissement : 1) Code des Investissements : exonération d'IS pendant 3 ans (100%) puis 2 ans (50%) pour les entreprises éligibles (secteurs manufacturier, agricole, BTP, tourisme) ; exonération de TVA sur les importations de biens d'équipement ; 2) Zones d'Envol (ex-zones franches) : exonération d'IS pendant 10 ans, puis taux réduit de 15% ; exonération de droits de douane ; 3) Convention d'Établissement pour les grandes entreprises (investissement > 500M FCFA) : fiscalité stabilisée pour 5 à 10 ans ; 4) Exonérations sectorielles : agriculture (exonération d'IS pendant 5 à 8 ans selon filière), immobilier (exonération de 5 ans pour les logements sociaux) ; 5) Régime de la PME innovante : crédit d'impôt R&D de 20% des dépenses. Toutes les exonérations sont soumises à agrément préalable du Ministère de l'Économie et des Finances.",
+    "keywords": ["exonérations", "investissements", "code des investissements", "zones d'envol", "agrément", "Côte d'Ivoire", "IS", "TVA"],
+    "source": "Code des Investissements CI - Loi n°2018-18 du 11 juin 2018"
+  },
+  {
+    "id": "paie-001",
+    "category": "Paie & CNPS",
+    "question": "Quelles sont les cotisations CNPS en Côte d'Ivoire ?",
+    "answer": "Les cotisations à la Caisse Nationale de Prévoyance Sociale (CNPS) en Côte d'Ivoire se décomposent en part patronale et part ouvrière : Part employeur (total ~17,7%) : Prestations Familiales - 7% (plafond 490 000 FCFA) ; Accidents du Travail et Maladies Professionnelles (ATMP) - 2 à 5% selon le risque (taux moyen 3,5%) ; Cotisation au Régime de Retraite (IRC) - 6% ; Contribution Nationale (CN) - 1% ; Contribution au Logement (CL) - 0,7% ; Formation Professionnelle (FP) - 0,5%. Part salariale (total ~6,3%) : Retraite (IRC) - 4% (plafond 490 000 FCFA) ; CN - 1% ; CL - 0,3% ; FP - 0,5% ; CSG - 0,5%. Le plafond mensuel de cotisation à la CNPS est de 490 000 FCFA (soit 5 880 000 FCFA annuel) depuis le 1er janvier 2022. Le taux global employeur+salarié est d'environ 23,65% du salaire brut plafonné.",
+    "keywords": ["CNPS", "cotisations", "patronal", "ouvrier", "IRC", "prestations familiales", "ATMP", "plafond", "490000", "Côte d'Ivoire"],
+    "source": "CNPS Côte d'Ivoire - Barème des cotisations 2024"
+  },
+  {
+    "id": "paie-002",
+    "category": "Paie & CNPS",
+    "question": "Comment calculer l'IR salarial (IR SS) en Côte d'Ivoire ?",
+    "answer": "Le calcul de l'IR salarial (IR SS - Impôt sur le Revenu des Salaires) en Côte d'Ivoire se fait en plusieurs étapes : 1) Salaire Brut (SB) ; 2) Déductions sociales : cotisations CNPS part ouvrière (retraite 4% + CN 1% + CL 0,3% + FP 0,5% + CSG 0,5% = 6,3% du salaire brut plafonné à 490 000 FCFA) ; 3) Salaire Net Imposable (SNI) = SB - cotisations CNPS - autres déductions (tickets-restaurant, logement) ; 4) Abattement pour frais professionnels : 20% du SNI, plafonné à 600 000 FCFA/mois ; 5) Revenu Net Imposable (RNI) = SNI - abattement ; 6) Barème progressif (tranches jusqu'à 40%) ; 7) Réduction pour charges familiales : 50% de réduction pour les 3 premiers enfants à charge, 100% pour les suivants. L'IR SS est prélevé à la source et déclaré mensuellement par l'employeur via l'imprimé IRSS. Exemple pour un salaire brut de 500 000 FCFA, l'IR mensuel est d'environ 25 000 à 35 000 FCFA selon les charges de famille.",
+    "keywords": ["IR salarial", "IR SS", "salaire", "impôt", "calcul", "net imposable", "abattement", "barème", "Côte d'Ivoire"],
+    "source": "Code Général des Impôts CI - IR Salarial, Art. 100-130"
+  },
+  {
+    "id": "paie-003",
+    "category": "Paie & CNPS",
+    "question": "Comment se présente un bulletin de paie en Côte d'Ivoire ?",
+    "answer": "Le bulletin de paie ivoirien conforme à la réglementation CNPS et fiscale comprend obligatoirement : En-tête : raison sociale, adresse, numéro CNPS, numéro CC (compte contribuable) ; Identification du salarié : nom, prénom, numéro CNPS, catégorie, emploi, ancienneté ; Rubriques de paie (partie haute - éléments bruts) : Salaire de base, Heures supplémentaires (majorées de 15% pour les 8 premières heures, 30% pour les suivantes, 100% pour les jours fériés), Primes (ancienneté, rendement, logement, transport), Avantages en nature ; Rubriques de cotisations (partie centrale) : tableau des cotisations CNPS employeur et salarié avec assiette, taux et montants ; Rubriques de retenues : IR salarial, avances, saisies-arrêts, cotisations syndicales ; Net à payer (bas) : salaire net = total brut - total retenues ; Signature et cachet de l'employeur. Le bulletin doit être remis mensuellement au salarié, au plus tard à la date de paiement du salaire, et conservé par l'employeur pendant 5 ans.",
+    "keywords": ["bulletin de paie", "fiche de paie", "structure", "rubriques", "salaire brut", "salaire net", "cotisations", "CNPS", "IR"],
+    "source": "CNPS Côte d'Ivoire - Guide du bulletin de paie 2024"
+  },
+  {
+    "id": "paie-004",
+    "category": "Paie & CNPS",
+    "question": "Comment calculer le salaire net à partir du salaire brut en Côte d'Ivoire ?",
+    "answer": "Le calcul du salaire net en Côte d'Ivoire suit cette formule : Salaire Brut (SB) - Cotisations CNPS part salariale (6,3% du SB plafonné à 490 000 FCFA) - Autres retenues (avances, tickets) = Salaire Brut Imposable (SBI) - Abattement professionnel (20% du SBI, max 600 000 FCFA/mois) = Revenu Net Imposable (RNI) - IR salarial (selon barème progressif et charges de famille) = Salaire Net à Payer (SNP). Exemple : SB = 600 000 FCFA. CNPS salariale = 6,3% x 490 000 = 30 870 FCFA. SBI = 600 000 - 30 870 = 569 130 FCFA. Abattement = min(20% x 569 130 = 113 826, 600 000) = 113 826 FCFA. RNI = 569 130 - 113 826 = 455 304 FCFA. IR brut = (455 304 - 300 000) x 10% = 15 530 FCFA. Si 2 enfants : réduction 50% = 7 765 FCFA. Salaire Net = 600 000 - 30 870 - 7 765 = 561 365 FCFA. La part employeur (environ 17,7%) s'ajoute au coût total pour l'entreprise.",
+    "keywords": ["salaire net", "calcul", "brut en net", "formule", "Côte d'Ivoire", "exemple", "simulation"],
+    "source": "CNPS Côte d'Ivoire - Guide de calcul de la paie 2024"
+  },
+  {
+    "id": "paie-005",
+    "category": "Paie & CNPS",
+    "question": "Comment déclarer les cotisations CNPS en Côte d'Ivoire ?",
+    "answer": "Les déclarations CNPS en Côte d'Ivoire se font mensuellement via la plateforme e-CNPS (https://ecnps.cnps.cg/). Les étapes : 1) Connexion au compte employeur avec les identifiants CNPS ; 2) Saisie des salaires bruts individuels pour chaque salarié (la plateforme calcule automatiquement les cotisations) ; 3) Vérification du bordereau récapitulatif (total cotisations employeur + salarié) ; 4) Génération de la déclaration électronique ; 5) Paiement par virement bancaire, mobile money (Orange Money, MTN Mobile Money) ou chèque de banque ; 6) Téléchargement de l'attestation de régularité. L'échéance est fixée au 15 du mois suivant la période de travail. Les pénalités pour déclaration tardive sont de 0,5% par mois de retard sur le montant des cotisations dues. Toute entreprise de 1 salarié ou plus doit être immatriculée à la CNPS (numéro employeur CNPS).",
+    "keywords": ["déclaration CNPS", "e-CNPS", "bordereau", "paiement", "échéance", "Côte d'Ivoire", "immatriculation"],
+    "source": "CNPS Côte d'Ivoire - Guide de déclaration en ligne 2024"
+  },
+  {
+    "id": "paie-006",
+    "category": "Paie & CNPS",
+    "question": "Quelles sont les charges sociales patronales en Côte d'Ivoire ?",
+    "answer": "Les charges sociales patronales en Côte d'Ivoire représentent environ 18,5% du salaire brut, réparties ainsi : 1) Prestations Familiales : 7% (plafond 490 000 FCFA/mois) ; 2) Accidents du Travail et Maladies Professionnelles (ATMP) : taux variable de 2% à 5% selon le code risque de l'entreprise (moyenne ~3,5%) ; 3) Retraite IRC : 6% (plafond 490 000 FCFA/mois) ; 4) Contribution Nationale (CN) : 1% ; 5) Contribution au Logement (CL) : 0,7% ; 6) Formation Professionnelle (FP) : 0,5% ; 7) Taxe d'Apprentissage (TA) : 0,5% ; 8) Participation à l'Effort de Construction (PEC) : 1% pour les entreprises de plus de 50 salariés. Total part patronale : environ 12,5% à 17,7% selon le risque ATMP et la taille de l'entreprise. Ces charges sont déductibles du bénéfice imposable de l'entreprise. Le coût total employeur = salaire net + charges salariales + charges patronales.",
+    "keywords": ["charges patronales", "employeur", "prestations familiales", "ATMP", "IRC", "Côte d'Ivoire", "coût employeur"],
+    "source": "CNPS Côte d'Ivoire - Tableau des cotisations employeur 2024"
+  },
+  {
+    "id": "paie-007",
+    "category": "Paie & CNPS",
+    "question": "Comment calculer les indemnités de congés payés en Côte d'Ivoire ?",
+    "answer": "En Côte d'Ivoire, les congés payés sont régis par le Code du Travail (Loi n°2015-532). Le droit aux congés est de 2,5 jours ouvrables par mois de travail effectif, soit 30 jours ouvrables par an (congé principal). Le 13ème mois n'est pas obligatoire mais est une pratique courante. Le calcul de l'indemnité de congés se fait par la règle du 1/10ème : Indemnité = (Total des salaires bruts perçus pendant la période de référence / 10). Alternative : le maintien du salaire mensuel (méthode la plus favorable au salarié). Pendant le congé, le salarié perçoit une indemnité spécifique distincte du salaire normal. L'indemnité de congés est soumise aux cotisations CNPS (dans la limite du plafond) et à l'IR salarial. Les absences non justifiées et les congés sans solde réduisent le droit à congé. Le non-respect des congés expose l'employeur à des pénalités : amende de 50 000 à 500 000 FCFA par salarié concerné.",
+    "keywords": ["congés payés", "indemnité", "2.5 jours", "1/10ème", "maintien salaire", "Côte d'Ivoire", "code du travail"],
+    "source": "Code du Travail CI - Congés Payés, Art. 115-130"
+  },
+  {
+    "id": "paie-008",
+    "category": "Paie & CNPS",
+    "question": "Quels sont les droits et prestations CNPS pour les salariés en Côte d'Ivoire ?",
+    "answer": "La CNPS offre plusieurs prestations sociales aux salariés en Côte d'Ivoire : 1) Prestations Familiales : allocations familiales (2 500 FCFA/mois/enfant jusqu'à 16 ans, 21 ans si études), prime de maternité (variable) ; 2) Prestations ATMP : prise en charge des soins médicaux à 100%, indemnités journalières (2/3 du salaire pendant l'incapacité temporaire), rente d'incapacité permanente (taux fonction du taux d'IPP), rente viagère pour les cas d'invalidité permanente totale, pension de survivant en cas de décès ; 3) Prestations Retraite (IRC) : pension vieillesse à partir de 55 ans (55 ans pour les hommes, 50 ans pour les femmes, possibilité d'anticipation à 50 ans avec minoration), pension d'invalidité (avant 55 ans), pension de survivant (réversion) ; 4) Autres : prêts sociaux (logement, mariage, naissance), aide à la formation professionnelle. Pour bénéficier de ces prestations, le salarié doit être en règle de cotisations (justificatif trimestriel).",
+    "keywords": ["prestations CNPS", "allocations", "ATMP", "retraite", "pension", "invalidité", "maternité", "Côte d'Ivoire"],
+    "source": "CNPS Côte d'Ivoire - Guide des prestations 2024"
+  },
+  {
+    "id": "soc-001",
+    "category": "Sociétés OHADA",
+    "question": "Quelles sont les caractéristiques de la SARL en OHADA ?",
+    "answer": "La Société à Responsabilité Limitée (SARL) est la forme sociale la plus courante dans l'espace OHADA. Ses caractéristiques principales : Capital social minimum de 1 000 000 FCFA (sauf dispositions particulières de chaque État) ; Nombre d'associés : minimum 1 (EURL) et maximum 100 ; Responsabilité limitée aux apports ; Gérance : un ou plusieurs gérants, personnes physiques, associés ou non, nommés par les associés ; Cession de parts : libre entre associés, soumise à agrément pour les tiers (majorité des 3/4 des parts sociales) ; Commissaire aux comptes obligatoire si CA > 250M FCFA ou effectif > 50 salariés ; Décisions collectives : en assemblée générale ordinaire (AGO) au moins une fois par an dans les 6 mois suivant la clôture de l'exercice, et assemblée générale extraordinaire (AGE) pour les modifications statutaires. La SARL doit déposer ses statuts au greffe du Tribunal de Commerce et être immatriculée au Registre du Commerce et du Crédit Mobilier (RCCM).",
+    "keywords": ["SARL", "société à responsabilité limitée", "EURL", "gérance", "capital", "parts sociales", "OHADA"],
+    "source": "Acte Uniforme OHADA - Sociétés Commerciales, Art. 309-400"
+  },
+  {
+    "id": "soc-002",
+    "category": "Sociétés OHADA",
+    "question": "Quelles sont les caractéristiques de la SA en OHADA ?",
+    "answer": "La Société Anonyme (SA) dans l'espace OHADA est régie par l'Acte Uniforme révisé de 2014. Caractéristiques principales : Capital social minimum de 10 000 000 FCFA (sans appel public à l'épargne) ou 100 000 000 FCFA (avec appel public à l'épargne) ; Nombre d'actionnaires : minimum 1 (SASU) ou 2 (SA classique) ; La direction peut être organisée sous deux formes : SA avec Conseil d'Administration (PCA + DG) ou SA avec Directoire et Conseil de Surveillance ; Commissaire aux comptes obligatoire ; Les actions sont librement négociables ; Les assemblées générales : AGO annuelle (approbation des comptes, affectation des résultats, nomination des administrateurs) et AGE (modifications statutaires, augmentation de capital, fusion, scission) ; Dividendes : distribués après dotation à la réserve légale (10% du bénéfice jusqu'à 20% du capital social) ; La SA offre une grande flexibilité de financement (émission d'actions, d'obligations) et une séparation claire entre propriété et gestion.",
+    "keywords": ["SA", "société anonyme", "conseil d'administration", "directoire", "actions", "dividendes", "capital", "OHADA"],
+    "source": "Acte Uniforme OHADA - Sociétés Commerciales, Art. 385-550"
+  },
+  {
+    "id": "soc-003",
+    "category": "Sociétés OHADA",
+    "question": "Quelles sont les formalités de création d'une société en OHADA ?",
+    "answer": "Les formalités de création d'une société dans l'espace OHADA comprennent plusieurs étapes : 1) Rédaction des statuts (acte notarié ou sous seing privé) comprenant : forme sociale, dénomination, siège social, objet, durée (99 ans maximum), capital, apports, clauses de cession ; 2) Dépôt des fonds (apports en numéraire) auprès d'une banque ou de la Caisse des Dépôts et Consignations (attestation de dépôt) ; 3) Évaluation des apports en nature par un commissaire aux apports (si valeur > 5M FCFA) ; 4) Immatriculation au RCCM (Registre du Commerce et du Crédit Mobilier) au greffe du Tribunal de Commerce compétent - pièces : statuts, attestation de dépôt, pièces d'identité des dirigeants, déclaration de souscription et de versement, déclaration de non-condamnation ; 5) Publication des statuts dans un journal d'annonces légales ; 6) Déclaration d'existence fiscale (obtention du numéro CC - Compte Contribuable) ; 7) Affiliation à la CNPS (numéro employeur) ; 8) Obtention du numéro RCCM définitif. Délai moyen : 2 à 4 semaines. Coût : environ 500 000 à 1 500 000 FCFA selon la forme sociale et le capital.",
+    "keywords": ["création société", "formalités", "RCCM", "statuts", "immatriculation", "greffe", "tribunal", "OHADA"],
+    "source": "Acte Uniforme OHADA - Création de Société, Art. 100-160"
+  },
+  {
+    "id": "soc-004",
+    "category": "Sociétés OHADA",
+    "question": "Comment fonctionnent les assemblées générales en OHADA ?",
+    "answer": "Les assemblées générales dans les sociétés OHADA se divisent en deux catégories : Assemblée Générale Ordinaire (AGO) : tenue au moins une fois par an dans les 6 mois suivant la clôture de l'exercice ; ordre du jour (approbation des comptes, affectation des résultats, nomination/révocation des dirigeants, approbation des conventions réglementées, quitus aux dirigeants) ; quorum sur première convocation : 25% des actions ayant droit de vote (SA) ou 50% des parts sociales (SARL) ; majorité simple des voix exprimées. Assemblée Générale Extraordinaire (AGE) : pour toute modification statutaire (augmentation de capital, fusion, transformation, dissolution, changement de dénomination, transfert de siège) ; quorum sur première convocation : 50% des actions (SA) ou 75% des parts (SARL) ; majorité des 2/3 des voix exprimées. Les convocations sont faites par le dirigeant social, le commissaire aux comptes ou les mandataires de justice, par lettre recommandée ou tout moyen électronique, 15 jours avant la réunion. Le procès-verbal est obligatoire et doit être déposé au greffe.",
+    "keywords": ["assemblée générale", "AGO", "AGE", "quorum", "majorité", "convocation", "procès-verbal", "OHADA"],
+    "source": "Acte Uniforme OHADA - Assemblées Générales, Art. 290-320"
+  },
+  {
+    "id": "soc-005",
+    "category": "Sociétés OHADA",
+    "question": "Qu'est-ce que la SAS en OHADA ?",
+    "answer": "La Société par Actions Simplifiée (SAS) est une forme sociale introduite dans l'espace OHADA par la réforme de l'Acte Uniforme du 30 janvier 2014. Caractéristiques principales : Capital social minimum non fixé (libre, mais au moins égal au minimum requis pour la SA si appel public à l'épargne) ; Un ou plusieurs actionnaires (SASU si un seul actionnaire) ; Liberté statutaire maximale (organisation de la direction, modalités de prise de décision, règles de cession d'actions) ; Responsabilité limitée aux apports ; Pas de Conseil d'Administration obligatoire ni de Commissaire aux Comptes (sauf si seuils dépassés) ; Interdiction de faire appel public à l'épargne (sauf si le capital est au moins égal à 100M FCFA) ; Cession d'actions : libre entre actionnaires, mais les statuts peuvent prévoir des clauses d'agrément, de préemption, de rachat ou d'exclusion. La SAS est particulièrement adaptée aux filiales de groupes, aux coentreprises (joint-ventures) et aux start-ups grâce à sa grande flexibilité d'organisation.",
+    "keywords": ["SAS", "société par actions simplifiée", "SASU", "flexibilité", "start-up", "joint-venture", "OHADA", "2014"],
+    "source": "Acte Uniforme OHADA - Sociétés Commerciales, Art. 853-1 à 853-25"
+  },
+  {
+    "id": "soc-006",
+    "category": "Sociétés OHADA",
+    "question": "Qu'est-ce qu'un Groupement d'Intérêt Économique (GIE) en OHADA ?",
+    "answer": "Le Groupement d'Intérêt Économique (GIE) est une structure juridique OHADA permettant à plusieurs entreprises ou personnes physiques de mettre en commun des moyens pour faciliter ou développer leur activité économique, sans perte de leur personnalité juridique individuelle. Caractéristiques principales : Objet exclusivement économique (pas de réalisation de bénéfices pour lui-même) ; Nombre de membres : minimum 2, pas de maximum ; Capital : pas de capital minimum exigé ; Responsabilité solidaire et indéfinie des membres sur le passif du GIE ; Administration : un ou plusieurs administrateurs nommés par le contrat de groupement ; Le GIE peut être constitué avec ou sans capital ; Fiscalité : les résultats sont imposés au niveau des membres (transparence fiscale) ; Le GIE peut émettre des obligations si constitué de personnes morales ; Dissolution : par décision des membres, arrivée du terme, ou décision judiciaire. Le GIE est très utilisé dans l'espace OHADA pour les coopératives agricoles, les groupements d'artisans, les bureaux d'études associés et les consortiums de BTP.",
+    "keywords": ["GIE", "groupement d'intérêt économique", "coopérative", "consortium", "transparence fiscale", "OHADA"],
+    "source": "Acte Uniforme OHADA - GIE, Art. 860-920"
+  },
+  {
+    "id": "soc-007",
+    "category": "Sociétés OHADA",
+    "question": "Quelles sont les causes de dissolution d'une société en OHADA ?",
+    "answer": "Les causes de dissolution d'une société dans l'espace OHADA sont : Dissolution anticipée (avant le terme) : décision des associés (AGE à majorité des 2/3 pour SA/SARL), réalisation ou extinction de l'objet social, réunion de toutes les parts en une seule main (sauf transformation en SASU/EURL dans l'année), liquidation judiciaire, décision judiciaire pour justes motifs (mésentente grave, paralysie des organes sociaux). Dissolution de plein droit : arrivée du terme statutaire (99 ans maximum), dissolution anticipée prévue par les statuts, perte de la moitié du capital social (non-reconstitution dans les délais légaux). Dissolution judiciaire : inexistence ou insuffisance d'actif en cas de passif supérieur à l'actif, inobservation des dispositions légales (défaut de tenue d'AGO, absence de commissaire aux comptes), absence de direction pendant plus d'un an. La dissolution ouvre la période de liquidation (9 mois renouvelables) pendant laquelle les liquidateurs représentent la société. La radiation du RCCM intervient après la clôture de la liquidation.",
+    "keywords": ["dissolution", "liquidation", "radiation", "terme", "perte capital", "justes motifs", "RCCM", "OHADA"],
+    "source": "Acte Uniforme OHADA - Dissolution des Sociétés, Art. 200-240"
+  }
+]
