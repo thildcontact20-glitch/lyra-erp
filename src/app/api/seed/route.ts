@@ -79,14 +79,14 @@ export async function POST(request: NextRequest) {
       results.push(`  SKIP: ${String(e.message).slice(0, 80)}`)
     }
 
-    // 3. Recréer Subscription (si drop CASCADE l'a supprimée)
+    // 3. Recréer Subscription (en minuscules pour compatibilité pooler)
     try {
       await queryDB(`CREATE TABLE IF NOT EXISTS "Subscription" (
-        id TEXT PRIMARY KEY, "companyId" TEXT UNIQUE NOT NULL REFERENCES "Company"(id),
-        "planId" TEXT NOT NULL REFERENCES "SubscriptionPlan"(id),
-        status TEXT DEFAULT 'trial', "startDate" TIMESTAMP DEFAULT NOW(),
-        "endDate" TIMESTAMP, "paymentPeriod" TEXT DEFAULT 'monthly',
-        "createdAt" TIMESTAMP DEFAULT NOW(), "updatedAt" TIMESTAMP DEFAULT NOW()
+        id TEXT PRIMARY KEY, companyid TEXT UNIQUE NOT NULL REFERENCES "Company"(id),
+        planid TEXT NOT NULL REFERENCES "SubscriptionPlan"(id),
+        status TEXT DEFAULT 'trial', startdate TIMESTAMP DEFAULT NOW(),
+        enddate TIMESTAMP, paymentperiod TEXT DEFAULT 'monthly',
+        createdat TIMESTAMP DEFAULT NOW(), updatedat TIMESTAMP DEFAULT NOW()
       )`)
       results.push('  OK: Subscription table OK')
     } catch (e: any) {

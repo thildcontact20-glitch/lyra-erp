@@ -4,6 +4,16 @@ export const dynamic = 'force-dynamic'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'lyra-prod-secret-vivalys-2026'
 
+/** Convertisseur de clés lowercase DB -> camelCase JS */
+function normalizeRow(row: any): any {
+  if (!row) return row
+  const out: any = {}
+  for (const [k, v] of Object.entries(row)) {
+    out[k.replace(/_([a-z])/g, (_, c) => c.toUpperCase())] = v
+  }
+  return out
+}
+
 async function queryDB(sql: string, params?: any[]) {
   const { Pool } = require('pg')
   const pool = new Pool({ connectionString: process.env.DATABASE_URL })
@@ -32,7 +42,7 @@ export async function POST(request: NextRequest) {
     
     const { companyId, planCode, paymentPeriod, companyName, companyEmail } = await request.json()
     
-    // Trouver le plan
+    // Trouver le plan (colonnes en minuscules à cause du pooler Supabase)
     const plans = await queryDB('SELECT id, name, code, features FROM "SubscriptionPlan" WHERE code = $1', [planCode])
     if (!plans || plans.length === 0) return NextResponse.json({ error: 'Plan invalide' }, { status: 400 })
     const plan = plans[0]
@@ -48,16 +58,16 @@ export async function POST(request: NextRequest) {
       targetCompanyId = newCompanies[0].id
     }
     
-    // Créer ou mettre à jour l'abonnement
+    // Créer ou mettre à jour l'abonnement — colonnes en minuscules
     const endDate = paymentPeriod === 'yearly' 
       ? new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString()
       : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
     
     const subscriptions = await queryDB(`
-      INSERT INTO "Subscription" (id, "companyId", "planId", status, "paymentPeriod", "endDate")
+      INSERT INTO "Subscription" (id, companyid, planid, status, paymentperiod, enddate)
       VALUES ($1, $2, $3, 'active', $4, $5)
-      ON CONFLICT ("companyId") DO UPDATE SET
-        "planId" = $3, status = 'active', "paymentPeriod" = $4, "endDate" = $5
+      ON CONFLICT (companyid) DO UPDATE SET
+        planid = $3, status = 'active', paymentperiod = $4, enddate = $5
       RETURNING *
     `, ['sub-' + Date.now(), targetCompanyId, plan.id, paymentPeriod || 'monthly', endDate])
     
@@ -65,7 +75,7 @@ export async function POST(request: NextRequest) {
     
     return NextResponse.json({ 
       data: { 
-        ...subscription, 
+        ...normalizeRow(subscription),
         plan: { name: plan.name, code: plan.code, features: JSON.parse(plan.features || '[]') } 
       } 
     })

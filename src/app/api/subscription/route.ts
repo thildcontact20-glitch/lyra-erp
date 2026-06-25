@@ -4,6 +4,15 @@ export const dynamic = 'force-dynamic'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'lyra-prod-secret-vivalys-2026'
 
+function normalizeRow(row: any): any {
+  if (!row) return row
+  const out: any = {}
+  for (const [k, v] of Object.entries(row)) {
+    out[k.replace(/_([a-z])/g, (_, c) => c.toUpperCase())] = v
+  }
+  return out
+}
+
 async function queryDB(sql: string, params?: any[]) {
   const { Pool } = require('pg')
   const pool = new Pool({ connectionString: process.env.DATABASE_URL })
@@ -15,19 +24,13 @@ async function queryDB(sql: string, params?: any[]) {
   }
 }
 
-function parsePlanFeatures(plan: any) {
-  if (!plan) return null
-  let features: string[] = []
-  if (typeof plan.features === 'string') {
-    try { features = JSON.parse(plan.features) } catch { features = [] }
-  } else if (Array.isArray(plan.features)) {
-    features = plan.features
-  }
-  return { ...plan, features }
+function parseFeatures(val: any): string[] {
+  if (!val) return []
+  if (Array.isArray(val)) return val
+  try { return JSON.parse(val) } catch { return [] }
 }
 
 export async function GET(request: NextRequest) {
-  // Extraire token du cookie
   const token = request.cookies.get('token')?.value || 
     request.headers.get('authorization')?.replace('Bearer ', '')
   if (!token) return NextResponse.json({ data: null, defaultPlan: 'starter' })
@@ -39,12 +42,12 @@ export async function GET(request: NextRequest) {
     if (!companyId) return NextResponse.json({ data: null })
     
     const subscriptions = await queryDB(`
-      SELECT s.*, sp.id as plan_id, sp.name as plan_name, sp.code as plan_code, 
+      SELECT s.*, sp.id as plan_id, sp.name as plan_name, sp.code as plan_code,
              sp.features as plan_features, sp.description as plan_description,
-             sp."priceMonthly", sp."priceYearly", sp."maxUsers", sp."maxCompanies"
+             sp.pricemonthly, sp.priceyearly, sp.maxusers, sp.maxcompanies
       FROM "Subscription" s
-      JOIN "SubscriptionPlan" sp ON s."planId" = sp.id
-      WHERE s."companyId" = $1
+      JOIN "SubscriptionPlan" sp ON s.planid = sp.id
+      WHERE s.companyid = $1
       LIMIT 1
     `, [companyId])
     
@@ -52,27 +55,27 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ data: null, defaultPlan: 'starter' })
     }
     
-    const sub = subscriptions[0]
+    const sub = normalizeRow(subscriptions[0])
     
     return NextResponse.json({ 
       data: { 
         id: sub.id,
-        companyId: sub.companyId,
-        planId: sub.planId,
+        companyId: sub.companyid || sub.companyId,
+        planId: sub.planid || sub.planId,
         status: sub.status,
-        paymentPeriod: sub.paymentPeriod,
-        startDate: sub.startDate,
-        endDate: sub.endDate,
+        paymentPeriod: sub.paymentperiod || sub.paymentPeriod,
+        startDate: sub.startdate || sub.startDate,
+        endDate: sub.enddate || sub.endDate,
         plan: {
           id: sub.plan_id,
           name: sub.plan_name,
           code: sub.plan_code,
-          features: parsePlanFeatures({ features: sub.plan_features }),
+          features: parseFeatures(sub.plan_features),
           description: sub.plan_description,
-          priceMonthly: sub.priceMonthly,
-          priceYearly: sub.priceYearly,
-          maxUsers: sub.maxUsers,
-          maxCompanies: sub.maxCompanies,
+          priceMonthly: sub.pricemonthly,
+          priceYearly: sub.priceyearly,
+          maxUsers: sub.maxusers,
+          maxCompanies: sub.maxcompanies,
         }
       } 
     })
