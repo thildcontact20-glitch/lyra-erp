@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
     
     const { companyId, planCode, paymentPeriod, companyName, companyEmail } = await request.json()
     
-    // Trouver le plan — utiliser LOWER() pour ignorer le casing
+    // Trouver le plan
     const plans = await queryDB('SELECT id, name, code, features FROM "SubscriptionPlan" WHERE LOWER(code) = LOWER($1)', [planCode])
     if (!plans || plans.length === 0) return NextResponse.json({ error: 'Plan invalide' }, { status: 400 })
     const plan = plans[0]
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
       ? new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString()
       : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
     
-    // Insérer avec LOWER() sur les colonnes pour flexibilité
+    // Utiliser les noms de colonnes exacts de la DB (minuscules via pooler)
     const subscriptions = await queryDB(`
       INSERT INTO "Subscription" (id, companyid, planid, status, paymentperiod, enddate)
       VALUES ($1, $2, $3, 'active', $4, $5)

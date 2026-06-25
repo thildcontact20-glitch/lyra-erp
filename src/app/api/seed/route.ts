@@ -79,9 +79,10 @@ export async function POST(request: NextRequest) {
       results.push(`  SKIP: ${String(e.message).slice(0, 80)}`)
     }
 
-    // 3. Recréer Subscription (en minuscules pour compatibilité pooler)
+    // 3. Recréer Subscription
     try {
-      await queryDB(`CREATE TABLE IF NOT EXISTS "Subscription" (
+      await queryDB('DROP TABLE IF EXISTS "Subscription" CASCADE')
+      await queryDB(`CREATE TABLE "Subscription" (
         id TEXT PRIMARY KEY, companyid TEXT UNIQUE NOT NULL REFERENCES "Company"(id),
         planid TEXT NOT NULL REFERENCES "SubscriptionPlan"(id),
         status TEXT DEFAULT 'trial', startdate TIMESTAMP DEFAULT NOW(),
