@@ -69,10 +69,10 @@ export async function POST(request: NextRequest) {
       await queryDB('DROP TABLE IF EXISTS "SubscriptionPlan" CASCADE')
       await queryDB(`CREATE TABLE "SubscriptionPlan" (
         id TEXT PRIMARY KEY, name TEXT UNIQUE NOT NULL, code TEXT UNIQUE NOT NULL,
-        description TEXT, "priceMonthly" FLOAT NOT NULL, "priceYearly" FLOAT NOT NULL,
-        "maxUsers" INT NOT NULL, "maxCompanies" INT NOT NULL, features TEXT NOT NULL,
-        "isActive" BOOLEAN DEFAULT TRUE, "createdAt" TIMESTAMP DEFAULT NOW(),
-        "updatedAt" TIMESTAMP DEFAULT NOW()
+        description TEXT, pricemonthly FLOAT NOT NULL, priceyearly FLOAT NOT NULL,
+        maxusers INT NOT NULL, maxcompanies INT NOT NULL, features TEXT NOT NULL,
+        isactive BOOLEAN DEFAULT TRUE, createdat TIMESTAMP DEFAULT NOW(),
+        updatedat TIMESTAMP DEFAULT NOW()
       )`)
       results.push('  OK: SubscriptionPlan recréée')
     } catch (e: any) {
