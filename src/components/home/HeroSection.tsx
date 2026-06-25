@@ -156,20 +156,19 @@ export default function HeroSection() {
       />
 
       <div className="relative z-10 flex flex-col items-center text-center px-4 max-w-5xl mx-auto pt-24 md:pt-0">
-        {/* Logo Coris */}
+        {/* Logo Coris animé */}
         <motion.div
-          className="mb-8"
+          className="mb-8 flex justify-center"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <Image
+          <motion.img
             src="/img/coris.png"
             alt="Coris"
-            width={200}
-            height={85}
-            className="object-contain"
-            priority
+            style={{ width: 200, height: 'auto' }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
           />
         </motion.div>
 
