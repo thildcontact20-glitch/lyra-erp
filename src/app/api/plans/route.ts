@@ -16,13 +16,22 @@ async function queryDB(sql: string, params?: any[]) {
 export async function GET() {
   try {
     const plans = await queryDB(
-      'SELECT * FROM "SubscriptionPlan" WHERE isActive = true ORDER BY "priceMonthly" ASC'
+      'SELECT * FROM "SubscriptionPlan" WHERE isactive = true ORDER BY pricemonthly ASC'
     )
     // Parse les features JSON pour chaque plan
-    const parsed = plans.map((p: any) => ({
-      ...p,
-      features: typeof p.features === 'string' ? JSON.parse(p.features) : p.features,
-    }))
+    const parsed = plans.map((p: any) => {
+      // Normaliser les clés camelCase -> la DB stocke en minuscules
+      const normalized: any = {}
+      for (const [k, v] of Object.entries(p)) {
+        // Convertir snake_case/minuscules en camelCase
+        const camelKey = k.replace(/_([a-z])/g, (_, c) => c.toUpperCase())
+        normalized[camelKey] = v
+      }
+      return {
+        ...normalized,
+        features: typeof normalized.features === 'string' ? JSON.parse(normalized.features) : normalized.features,
+      }
+    })
     return NextResponse.json({ data: parsed, debug: plans.length + ' plans found' })
   } catch (error: any) {
     console.error('Plans GET error:', error?.message || error)
