@@ -63,16 +63,37 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 2. Ajouter la colonne code si elle manque
+    // 2. Forcer la recréation propre de SubscriptionPlan
     results.push('=== MIGRATION ===')
     try {
-      await queryDB('ALTER TABLE "SubscriptionPlan" ADD COLUMN IF NOT EXISTS code TEXT UNIQUE')
-      results.push('  OK: ADD COLUMN code')
+      await queryDB('DROP TABLE IF EXISTS "SubscriptionPlan" CASCADE')
+      await queryDB(`CREATE TABLE "SubscriptionPlan" (
+        id TEXT PRIMARY KEY, name TEXT UNIQUE NOT NULL, code TEXT UNIQUE NOT NULL,
+        description TEXT, "priceMonthly" FLOAT NOT NULL, "priceYearly" FLOAT NOT NULL,
+        "maxUsers" INT NOT NULL, "maxCompanies" INT NOT NULL, features TEXT NOT NULL,
+        "isActive" BOOLEAN DEFAULT TRUE, "createdAt" TIMESTAMP DEFAULT NOW(),
+        "updatedAt" TIMESTAMP DEFAULT NOW()
+      )`)
+      results.push('  OK: SubscriptionPlan recréée')
     } catch (e: any) {
       results.push(`  SKIP: ${String(e.message).slice(0, 80)}`)
     }
 
-    // 3. Seeder les plans
+    // 3. Recréer Subscription (si drop CASCADE l'a supprimée)
+    try {
+      await queryDB(`CREATE TABLE IF NOT EXISTS "Subscription" (
+        id TEXT PRIMARY KEY, "companyId" TEXT UNIQUE NOT NULL REFERENCES "Company"(id),
+        "planId" TEXT NOT NULL REFERENCES "SubscriptionPlan"(id),
+        status TEXT DEFAULT 'trial', "startDate" TIMESTAMP DEFAULT NOW(),
+        "endDate" TIMESTAMP, "paymentPeriod" TEXT DEFAULT 'monthly',
+        "createdAt" TIMESTAMP DEFAULT NOW(), "updatedAt" TIMESTAMP DEFAULT NOW()
+      )`)
+      results.push('  OK: Subscription table OK')
+    } catch (e: any) {
+      results.push(`  SKIP: ${String(e.message).slice(0, 80)}`)
+    }
+
+    // 4. Seeder les plans
     results.push('=== SEED PLANS ===')
     for (const sql of SEED_PLANS) {
       try {
