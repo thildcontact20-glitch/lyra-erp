@@ -4,7 +4,6 @@ export const dynamic = 'force-dynamic'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'lyra-prod-secret-vivalys-2026'
 
-/** Convertisseur de clés lowercase DB -> camelCase JS */
 function normalizeRow(row: any): any {
   if (!row) return row
   const out: any = {}
@@ -26,7 +25,6 @@ async function queryDB(sql: string, params?: any[]) {
 }
 
 export async function POST(request: NextRequest) {
-  // Vérifier admin
   const token = request.cookies.get('token')?.value || 
     request.headers.get('authorization')?.replace('Bearer ', '')
   if (!token) return NextResponse.json({ error: 'Non autorisé' }, { status: 401 })
@@ -42,12 +40,11 @@ export async function POST(request: NextRequest) {
     
     const { companyId, planCode, paymentPeriod, companyName, companyEmail } = await request.json()
     
-    // Trouver le plan (colonnes en minuscules à cause du pooler Supabase)
-    const plans = await queryDB('SELECT id, name, code, features FROM "SubscriptionPlan" WHERE code = $1', [planCode])
+    // Trouver le plan — utiliser LOWER() pour ignorer le casing
+    const plans = await queryDB('SELECT id, name, code, features FROM "SubscriptionPlan" WHERE LOWER(code) = LOWER($1)', [planCode])
     if (!plans || plans.length === 0) return NextResponse.json({ error: 'Plan invalide' }, { status: 400 })
     const plan = plans[0]
     
-    // Si création d'une nouvelle société
     let targetCompanyId = companyId
     if (!companyId || companyId === 'new') {
       if (!companyName) return NextResponse.json({ error: 'Nom de société requis' }, { status: 400 })
@@ -58,16 +55,16 @@ export async function POST(request: NextRequest) {
       targetCompanyId = newCompanies[0].id
     }
     
-    // Créer ou mettre à jour l'abonnement — colonnes en minuscules
     const endDate = paymentPeriod === 'yearly' 
       ? new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString()
       : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
     
+    // Insérer avec LOWER() sur les colonnes pour flexibilité
     const subscriptions = await queryDB(`
-      INSERT INTO "Subscription" (id, "companyId", "planId", status, "paymentPeriod", "endDate")
+      INSERT INTO "Subscription" (id, companyid, planid, status, paymentperiod, enddate)
       VALUES ($1, $2, $3, 'active', $4, $5)
-      ON CONFLICT ("companyId") DO UPDATE SET
-        "planId" = $3, status = 'active', "paymentPeriod" = $4, "endDate" = $5
+      ON CONFLICT (companyid) DO UPDATE SET
+        planid = $3, status = 'active', paymentperiod = $4, enddate = $5
       RETURNING *
     `, ['sub-' + Date.now(), targetCompanyId, plan.id, paymentPeriod || 'monthly', endDate])
     
