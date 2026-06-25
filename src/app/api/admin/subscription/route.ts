@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { sendSubscriptionActivatedEmail } from '@/lib/email'
 
 export const dynamic = 'force-dynamic'
 
@@ -69,7 +70,11 @@ export async function POST(request: NextRequest) {
     `, ['sub-' + Date.now(), targetCompanyId, plan.id, paymentPeriod || 'monthly', endDate])
     
     const subscription = subscriptions[0]
-    
+
+    // Envoyer l'email de confirmation d'activation d'abonnement
+    const recipientEmail = companyEmail || users[0].email
+    await sendSubscriptionActivatedEmail(recipientEmail, plan.name, companyName || 'Votre société')
+
     return NextResponse.json({ 
       data: { 
         ...normalizeRow(subscription),

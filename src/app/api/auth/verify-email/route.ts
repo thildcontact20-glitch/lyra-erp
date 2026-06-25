@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { sendWelcomeEmail } from '@/lib/email'
 
 export const dynamic = 'force-dynamic'
 
@@ -54,6 +55,9 @@ export async function POST(request: NextRequest) {
       'UPDATE "User" SET "emailVerified" = true, "verifyToken" = NULL, "verifyTokenExp" = NULL WHERE id = $1',
       [user.id]
     );
+
+    // Envoyer l'email de bienvenue
+    await sendWelcomeEmail(email, user.name || email.split('@')[0])
 
     return NextResponse.json({
       success: true,

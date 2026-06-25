@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
+import { sendVerificationEmail } from '@/lib/email'
 
 export const dynamic = 'force-dynamic'
 
@@ -61,6 +62,9 @@ export async function POST(request: NextRequest) {
     );
 
     // NE PAS connecter automatiquement — renvoyer vers /verify-email
+    // Envoyer l'email de vérification
+    await sendVerificationEmail(email, code)
+
     // En développement, on inclut dev_code pour faciliter le test
     const isDev = process.env.NODE_ENV !== 'production';
 
