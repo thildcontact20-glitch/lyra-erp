@@ -39,6 +39,12 @@ function isPublicRoute(pathname: string): boolean {
     return true;
   }
 
+  // Routes API privées — ne PAS bloquer ici (elles ont leur propre auth 401)
+  // Le middleware ne doit pas rediriger les APIs vers /login en HTML
+  if (pathname.startsWith('/api/')) {
+    return true;
+  }
+
   // Routes pages publiques
   for (const route of PUBLIC_ROUTES) {
     if (pathname === route) {
