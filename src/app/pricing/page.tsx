@@ -6,6 +6,8 @@ import { Check, X, Star, Shield, Zap, Building2, Users, ChevronDown, ArrowLeft, 
 import ButtonElegant from '../../components/ui/ButtonElegant'
 import PageTransition from '../../components/animations/PageTransition'
 import { fadeUpVariants, staggerContainerVariants, listItemVariants } from '../../lib/framerVariants'
+import ScrollingBanner from '../../components/ambiance/ScrollingBanner'
+import ProverbDisplay from '../../components/ambiance/ProverbDisplay'
 
 /* ---------- Types ---------- */
 interface Plan {
@@ -45,7 +47,7 @@ const plans: Plan[] = [
       { label: 'Fiscalité ivoirienne', included: false },
       { label: 'États financiers', included: true },
       { label: 'Dashboard analytique', included: true },
-      { label: 'Chat OHADA', included: false },
+      { label: 'Chat LYRA', included: false },
       { label: 'Multi-sociétés', included: false },
       { label: 'Workflows', included: false },
       { label: 'Rôles avancés', included: false },
@@ -73,7 +75,7 @@ const plans: Plan[] = [
       { label: 'Fiscalité ivoirienne', included: true },
       { label: 'États financiers', included: true },
       { label: 'Dashboard analytique', included: true },
-      { label: 'Chat OHADA', included: true },
+      { label: 'Chat LYRA', included: true },
       { label: 'Multi-sociétés', included: true },
       { label: 'Workflows', included: false },
       { label: 'Rôles avancés', included: false },
@@ -101,7 +103,7 @@ const plans: Plan[] = [
       { label: 'Fiscalité ivoirienne', included: true },
       { label: 'États financiers', included: true },
       { label: 'Dashboard analytique', included: true },
-      { label: 'Chat OHADA', included: true },
+      { label: 'Chat LYRA', included: true },
       { label: 'Multi-sociétés', included: true },
       { label: 'Workflows', included: true },
       { label: 'Rôles avancés', included: true },
@@ -440,6 +442,9 @@ export default function PricingPage() {
   return (
     <PageTransition>
       <main className="min-h-screen bg-lyra-dark">
+        {/* Bandeau défilant en haut */}
+        <ScrollingBanner />
+
         {/* Subtle background decoration */}
         <div className="fixed inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-lyra-gold/5 rounded-full blur-3xl" />
@@ -621,6 +626,17 @@ export default function PricingPage() {
 
           {/* FAQ */}
           <FAQSection />
+
+          {/* Proverbe après la FAQ */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="text-center mt-12"
+          >
+            <ProverbDisplay page="pricing" />
+          </motion.div>
         </div>
       </main>
     </PageTransition>

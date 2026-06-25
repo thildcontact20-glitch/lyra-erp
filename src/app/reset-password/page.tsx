@@ -517,7 +517,7 @@ function ResetPasswordForm() {
           transition={{ delay: 1, duration: 0.8 }}
         >
           <p className="text-[10px] text-white/15 tracking-[0.1em]">
-            &copy; {new Date().getFullYear()} LYRA by Vivalys — ERP OHADA
+            &copy; {new Date().getFullYear()} LYRA by Vivalys — ERP LYRA
           </p>
         </motion.div>
       </div>

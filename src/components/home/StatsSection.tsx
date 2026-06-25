@@ -3,8 +3,8 @@
 import { motion } from 'framer-motion'
 
 const stats = [
-  { value: '17', label: 'Pays OHADA', description: 'Couverture juridique' },
-  { value: '99.9%', label: 'Conformité', description: 'Normes SYSCOHADA' },
+  { value: '17', label: 'Pays LYRA', description: 'Couverture juridique' },
+  { value: '99.9%', label: 'Conformité', description: 'Normes LYRA' },
   { value: '24/7', label: 'Support IA', description: 'Assistance permanente' },
   { value: '+50', label: 'PME', description: 'Entreprises clientes' },
 ]

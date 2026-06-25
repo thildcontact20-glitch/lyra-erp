@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Search for relevant OHADA articles that contain the message text
+    // Search for relevant LYRA articles that contain the message text
     const articles = await prisma.ohadaArticle.findMany({
       where: {
         content: {
@@ -28,7 +28,7 @@ export async function POST(request: NextRequest) {
     const resultArticles: typeof articles = [...articles];
 
     if (articles.length > 0) {
-      response = `J'ai trouvé ${articles.length} article(s) OHADA en lien avec votre question.`;
+      response = `J'ai trouvé ${articles.length} article(s) LYRA en lien avec votre question.`;
     } else {
       // If no direct match, search more broadly by keywords
       const keywords = message.split(' ').filter((w: string) => w.length > 3);
@@ -47,19 +47,19 @@ export async function POST(request: NextRequest) {
         });
 
         if (broadArticles.length > 0) {
-          response = 'Je n\'ai pas trouvé de correspondance exacte, mais voici quelques articles OHADA pouvant être liés à votre question.';
+          response = 'Je n\'ai pas trouvé de correspondance exacte, mais voici quelques articles LYRA pouvant être liés à votre question.';
           resultArticles.push(...broadArticles);
         } else {
-          response = "Je n'ai pas trouvé d'article OHADA correspondant directement à votre question. Veuillez reformuler ou consulter la documentation OHADA.";
+          response = "Je n'ai pas trouvé d'article LYRA correspondant directement à votre question. Veuillez reformuler ou consulter la documentation LYRA.";
         }
       } else {
-        response = "Je n'ai pas trouvé d'article OHADA correspondant. Veuillez fournir plus de détails.";
+        response = "Je n'ai pas trouvé d'article LYRA correspondant. Veuillez fournir plus de détails.";
       }
     }
 
     const references = resultArticles.map((article) => ({
       title: article.title,
-      source: article.source || 'OHADA',
+      source: article.source || 'LYRA',
     }));
 
     return NextResponse.json({

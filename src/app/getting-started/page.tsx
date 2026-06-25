@@ -12,6 +12,7 @@ import PageTransition from '../../components/animations/PageTransition'
 import StaggerContainer from '../../components/animations/StaggerContainer'
 import CardFinance from '../../components/ui/CardFinance'
 import ButtonElegant from '../../components/ui/ButtonElegant'
+import ProverbDisplay from '../../components/ambiance/ProverbDisplay'
 
 /* ───────────────────────────────────────────────────────────────
    Step data
@@ -35,7 +36,7 @@ const STEPS: StepData[] = [
   {
     number: 2,
     title: 'Configurez votre exercice',
-    description: "Définissez l'exercice comptable et les paramètres SYSCOHADA de votre société.",
+    description: "Définissez l'exercice comptable et les paramètres LYRA de votre société.",
     href: '/compta',
     icon: Calendar,
   },
@@ -63,7 +64,7 @@ const STEPS: StepData[] = [
   {
     number: 6,
     title: 'Saisissez votre première écriture comptable',
-    description: "Enregistrez une opération dans le journal comptable SYSCOHADA.",
+    description: "Enregistrez une opération dans le journal comptable LYRA.",
     href: '/compta',
     icon: BookOpen,
   },
@@ -90,8 +91,8 @@ const STEPS: StepData[] = [
   },
   {
     number: 10,
-    title: 'Explorez le Chat OHADA',
-    description: 'Posez toutes vos questions sur la comptabilité OHADA à notre assistant intelligent.',
+    title: 'Explorez le Chat LYRA',
+    description: 'Posez toutes vos questions sur la comptabilité LYRA à notre assistant intelligent.',
     href: '/chat-ohada',
     icon: MessageSquare,
   },
@@ -200,8 +201,18 @@ export default function GettingStartedPage() {
               transition={{ delay: 0.1 }}
             >
               Suivez ces 10 étapes pour configurer votre ERP et démarrer votre comptabilité
-              OHADA en toute sérénité.
+              LYRA en toute sérénité.
             </motion.p>
+
+            {/* Proverbe d'accueil */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.25 }}
+              className="mt-4"
+            >
+              <ProverbDisplay page="onboarding" />
+            </motion.div>
           </motion.div>
 
           {/* ── Progress indicator ── */}

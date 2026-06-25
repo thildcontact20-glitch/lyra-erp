@@ -150,7 +150,7 @@ export default function LoginPage() {
         </div>
 
         <p className="mt-6 text-center text-[10px] text-white/15">
-          &copy; 2026 LYRA by Vivalys — ERP OHADA
+          &copy; 2026 LYRA by Vivalys — ERP LYRA
         </p>
       </div>
     </main>

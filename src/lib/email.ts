@@ -45,7 +45,7 @@ function buildVerificationHtml(code: string): string {
                 Vérification de votre email
               </h1>
               <p style="color:rgba(245,240,232,0.5);font-size:14px;margin:0 0 28px 0;text-align:center;line-height:1.6;">
-                Bienvenue sur <strong style="color:rgba(201,169,97,0.8);font-weight:600;">LYRA</strong> — Votre ERP OHADA
+                Bienvenue sur <strong style="color:rgba(201,169,97,0.8);font-weight:600;">LYRA</strong> — Votre ERP LYRA
               </p>
 
               <p style="color:rgba(245,240,232,0.7);font-size:14px;margin:0 0 4px 0;line-height:1.6;">
@@ -72,7 +72,7 @@ function buildVerificationHtml(code: string): string {
               <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent);margin-bottom:24px;"></div>
 
               <p style="color:rgba(245,240,232,0.25);font-size:11px;margin:0;text-align:center;">
-                LYRA by Vivalys — ERP OHADA
+                LYRA by Vivalys — ERP LYRA
               </p>
             </td>
           </tr>
@@ -114,7 +114,7 @@ function buildResetPasswordHtml(code: string): string {
                 Réinitialisation de mot de passe
               </h1>
               <p style="color:rgba(245,240,232,0.5);font-size:14px;margin:0 0 28px 0;text-align:center;line-height:1.6;">
-                <strong style="color:rgba(201,169,97,0.8);font-weight:600;">LYRA</strong> — Votre ERP OHADA
+                <strong style="color:rgba(201,169,97,0.8);font-weight:600;">LYRA</strong> — Votre ERP LYRA
               </p>
 
               <p style="color:rgba(245,240,232,0.7);font-size:14px;margin:0 0 4px 0;line-height:1.6;">
@@ -141,7 +141,7 @@ function buildResetPasswordHtml(code: string): string {
               <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.06),transparent);margin-bottom:24px;"></div>
 
               <p style="color:rgba(245,240,232,0.25);font-size:11px;margin:0;text-align:center;">
-                LYRA by Vivalys — ERP OHADA
+                LYRA by Vivalys — ERP LYRA
               </p>
             </td>
           </tr>

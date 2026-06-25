@@ -95,7 +95,7 @@ function DashboardMockup() {
           {/* Carte 2 — Conformité */}
           <div className="rounded-xl bg-white/[0.03] border border-white/5 p-4 flex flex-col items-center justify-center">
             <div className="text-2xl md:text-3xl font-bold text-green-400">99.9%</div>
-            <div className="text-[10px] uppercase tracking-wider text-white/30 mt-1 text-center">Conformité SYSCOHADA</div>
+            <div className="text-[10px] uppercase tracking-wider text-white/30 mt-1 text-center">Conformité LYRA</div>
           </div>
 
           {/* Carte 3 — Dernières transactions */}
@@ -120,7 +120,7 @@ function DashboardMockup() {
             <div className="w-8 h-8 rounded-full bg-lyra-gold/10 flex items-center justify-center mb-2">
               <Sparkles className="w-4 h-4 text-lyra-gold" />
             </div>
-            <div className="text-[10px] uppercase tracking-wider text-lyra-gold/60 text-center">Chat OHADA</div>
+            <div className="text-[10px] uppercase tracking-wider text-lyra-gold/60 text-center">Chat LYRA</div>
             <div className="text-[9px] text-white/30 text-center mt-1">Assistance IA en ligne</div>
           </div>
         </div>
@@ -204,7 +204,7 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.8 }}
         >
-          L&apos;ERP OHADA nouvelle génération
+          L&apos;ERP LYRA nouvelle génération
         </motion.p>
 
         {/* Description */}
@@ -215,7 +215,7 @@ export default function HeroSection() {
           transition={{ duration: 0.7, delay: 1 }}
         >
           Gérez votre comptabilité, vos stocks, votre paie et votre fiscalité —
-          conformément au SYSCOHADA — depuis une plateforme unique, moderne et
+          conformément au LYRA — depuis une plateforme unique, moderne et
           ivoirienne.
         </motion.p>
 

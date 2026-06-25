@@ -71,13 +71,13 @@ async function fetchFromApi(message: string): Promise<{ answer: string; source?:
 
 // ─── Suggestions ──────────────────────────────────────────────────────────
 const SUGGESTIONS_ALL = [
-  "Qu'est-ce que le SYSCOHADA ?",
+  "Qu'est-ce que le LYRA ?",
   'Quels sont les taux de TVA en Côte d\'Ivoire ?',
   'Comment calculer l\'IR salarial ?',
   'Quelles sont les cotisations CNPS ?',
 ]
 const SUGGESTIONS_STARTER = [
-  "Qu'est-ce que le SYSCOHADA ?",
+  "Qu'est-ce que le LYRA ?",
   'Quels sont les taux de TVA en Côte d\'Ivoire ?',
 ]
 
@@ -179,7 +179,7 @@ export default function ChatOhadaPage() {
             id: crypto.randomUUID(),
             role: 'assistant',
             content:
-              "Je suis désolé, je n'ai pas trouvé de réponse dans ma base de connaissance. Posez votre question différemment ou consultez la documentation officielle OHADA.",
+              "Je suis désolé, je n'ai pas trouvé de réponse dans ma base de connaissance. Posez votre question différemment ou consultez la documentation officielle LYRA.",
           }
           setMessages((prev) => [...prev, assistantMsg])
         }
@@ -284,11 +284,11 @@ export default function ChatOhadaPage() {
           whileHover={{ scale: 1.02 }}
         >
           <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 bg-clip-text text-transparent">
-            🤖 Chat OHADA Intelligent
+            🤖 Chat LYRA Intelligent
           </h1>
         </motion.div>
         <p className="text-sm text-white/50 mt-1 max-w-xl mx-auto">
-          Posez vos questions sur la comptabilité SYSCOHADA, la fiscalité ivoirienne, la paie &amp; CNPS
+          Posez vos questions sur la comptabilité LYRA, la fiscalité ivoirienne, la paie &amp; CNPS
         </p>
         {/* Plan guard banner for Starter */}
         {planCode === 'starter' && (
@@ -299,7 +299,7 @@ export default function ChatOhadaPage() {
             className="mt-4 mx-auto max-w-xl px-4 py-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-left"
           >
             <p className="text-sm text-amber-300">
-              Chat OHADA limité aux questions fréquentes. Passez au plan Business pour l'accès complet.
+              Chat LYRA limité aux questions fréquentes. Passez au plan Business pour l'accès complet.
             </p>
             <Link href="/pricing">
               <span className="text-xs text-amber-400 hover:underline mt-1 inline-block">Voir les offres →</span>
@@ -383,7 +383,7 @@ export default function ChatOhadaPage() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Posez votre question OHADA..."
+              placeholder="Posez votre question LYRA..."
               disabled={isLoading}
               className="flex-1 bg-transparent text-white/90 placeholder-white/30 px-4 py-2 outline-none text-sm"
             />

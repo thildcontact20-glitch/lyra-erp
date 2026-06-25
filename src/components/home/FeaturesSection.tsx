@@ -4,11 +4,11 @@ import { motion } from 'framer-motion'
 import FadeInView from '../ui/FadeInView'
 
 const features = [
-  { icon: '📊', title: 'Comptabilité', description: 'Tenue conforme au SYSCOHADA révisé : journaux, grands livres, balance, États financiers (Bilan, CP, ETG, ECI, TAFIRE) générés automatiquement.' },
+  { icon: '📊', title: 'Comptabilité', description: 'Tenue conforme au LYRA révisé : journaux, grands livres, balance, États financiers (Bilan, CP, ETG, ECI, TAFIRE) générés automatiquement.' },
   { icon: '📦', title: 'Gestion des stocks', description: 'Suivi des entrées/sorties, inventaire, valorisation (FIFO, CMP), alertes de seuil et reporting multi-dépôts en temps réel.' },
   { icon: '💰', title: 'Paie & CNPS', description: 'Calcul automatisé des bulletins de paie, des cotisations CNPS, déclarations mensuelles et bilan social annuel.' },
   { icon: '📋', title: 'Fiscalité ivoirienne', description: 'Déclarations pré-remplies (TVA, BIC, IRS, contribution nationale), édition des états DGI et génération des quitus fiscaux.' },
-  { icon: '🤖', title: 'Chat OHADA', description: 'Assistant IA spécialisé en droit OHADA et fiscalité ivoirienne. Posez vos questions en langage naturel et obtenez des réponses référencées.' },
+  { icon: '🤖', title: 'Chat LYRA', description: 'Assistant IA spécialisé en droit LYRA et fiscalité ivoirienne. Posez vos questions en langage naturel et obtenez des réponses référencées.' },
   { icon: '📈', title: 'Rapports & analytics', description: 'Dashboards personnalisables, analyses comparatives, reporting financier multi-société et export PDF/Excel de tous les états.' },
 ]
 
@@ -62,7 +62,7 @@ export default function FeaturesSection() {
           </h2>
           <p className="text-white/40 max-w-xl mx-auto text-sm md:text-base">
             Un ERP complet couvrant l&apos;intégralité de votre gestion
-            d&apos;entreprise, en conformité avec les normes OHADA.
+            d&apos;entreprise, en conformité avec les normes LYRA.
           </p>
         </motion.div>
 

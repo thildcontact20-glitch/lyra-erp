@@ -180,8 +180,8 @@ export default function ComptaPage() {
         <div className="max-w-7xl mx-auto space-y-6">
           <motion.div variants={fadeUpVariants} initial="hidden" animate="visible" className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-display font-bold text-lyra-cream">Comptabilit&eacute; SYSCOHADA</h1>
-              <p className="text-sm text-white/40 mt-1">Plan comptable OHADA &mdash; &Eacute;critures &mdash; Balance g&eacute;n&eacute;rale</p>
+              <h1 className="text-2xl font-display font-bold text-lyra-cream">Comptabilit&eacute; LYRA</h1>
+              <p className="text-sm text-white/40 mt-1">Plan comptable LYRA &mdash; &Eacute;critures &mdash; Balance g&eacute;n&eacute;rale</p>
             </div>
             <RefreshCw className="w-4 h-4 text-white/20" />
           </motion.div>

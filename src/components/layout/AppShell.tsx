@@ -15,7 +15,7 @@ const navItems = [
   { href: '/paie', label: 'Paie & CNPS', icon: Users },
   { href: '/fiscalite', label: 'Fiscalité', icon: DollarSign },
   { href: '/etats', label: 'États financiers', icon: FileText },
-  { href: '/chat-ohada', label: 'Chat OHADA', icon: MessageSquare },
+  { href: '/chat-ohada', label: 'Chat LYRA', icon: MessageSquare },
 ]
 
 export default function AppShell({ children }: { children: React.ReactNode }) {

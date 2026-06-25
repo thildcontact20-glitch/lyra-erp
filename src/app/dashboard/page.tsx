@@ -18,6 +18,10 @@ import StaggerContainer from '../../components/animations/StaggerContainer'
 import CardFinance from '../../components/ui/CardFinance'
 import ButtonElegant from '../../components/ui/ButtonElegant'
 import Link from 'next/link'
+import ScrollingBanner from '../../components/ambiance/ScrollingBanner'
+import ProverbDisplay from '../../components/ambiance/ProverbDisplay'
+import RealtimeClock from '../../components/ambiance/RealtimeClock'
+import WeatherWidget from '../../components/ambiance/WeatherWidget'
 
 /* ───────────────────────────────────────────────────────────────
    Types
@@ -122,7 +126,7 @@ const FALLBACK_RECOGNITIONS: RecognitionData[] = [
   { label: 'Conformité Totale', icon: Shield, description: '100% des déclarations à temps' },
   { label: "Esprit d'Équipe", icon: Heart, description: 'Contribution exceptionnelle au collectif' },
   { label: 'Innovation', icon: Zap, description: 'Process amélioré ce trimestre' },
-  { label: 'Expertise OHADA', icon: BookOpen, description: 'Certification SYSCOHADA validée' },
+  { label: 'Expertise LYRA', icon: BookOpen, description: 'Certification LYRA validée' },
 ]
 
 /* ───────────────────────────────────────────────────────────────
@@ -836,6 +840,9 @@ export default function DashboardPage() {
 
   return (
     <AppShell>
+      {/* Bandeau défilant en haut du dashboard */}
+      <ScrollingBanner />
+
       <PageTransition>
         <div className="max-w-7xl mx-auto space-y-8 pb-10">
           {/* ── Header — Welcome + Personalized Greeting ── */}
@@ -843,10 +850,19 @@ export default function DashboardPage() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="flex items-start justify-between"
           >
-            <UserNameDisplay />
-            <h1 className="text-2xl md:text-3xl font-display font-bold text-lyra-cream">Dashboard</h1>
-            <p className="text-sm text-white/40 mt-1">Vue d&apos;ensemble de votre entreprise</p>
+            <div>
+              <UserNameDisplay />
+              {/* Proverbe juste après le message de bienvenue */}
+              <ProverbDisplay page="dashboard" className="mt-1" />
+              <h1 className="text-2xl md:text-3xl font-display font-bold text-lyra-cream">Dashboard</h1>
+              <p className="text-sm text-white/40 mt-1">Vue d&apos;ensemble de votre entreprise</p>
+            </div>
+            <div className="flex items-center gap-3 flex-shrink-0">
+              <RealtimeClock showIcon format="time-only" />
+              <WeatherWidget compact />
+            </div>
           </motion.div>
 
           {/* ── Quick Actions Bar ── */}
