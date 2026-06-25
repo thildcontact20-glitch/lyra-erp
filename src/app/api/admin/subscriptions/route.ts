@@ -13,6 +13,15 @@ function normalizeRow(row: any): any {
   return out
 }
 
+/** Cherche une valeur de colonne par plusieurs noms possibles (casing) */
+function val(row: any, ...keys: string[]) {
+  for (const k of keys) {
+    const v = row[k] ?? row[k.toLowerCase()] ?? row[k.toUpperCase()]
+    if (v !== undefined && v !== null) return v
+  }
+  return null
+}
+
 async function queryDB(sql: string, params?: any[]) {
   const { Pool } = require('pg')
   const pool = new Pool({ connectionString: process.env.DATABASE_URL })
@@ -42,21 +51,11 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Accès réservé aux administrateurs' }, { status: 403 })
     }
 
-    // Selection en minuscules — le pooler Supabase normalise tout
+    // SELECT * pour éviter le problème de casing — on normalise en JS
     const rows = await queryDB(`
-      SELECT
-        s.id, s.companyid, s.planid, s.status,
-        s.paymentperiod, s.startdate, s.enddate,
-        s.createdat, s.updatedat,
-        c.id AS c_id, c.name AS c_name, c.email AS c_email,
-        c.phone AS c_phone,
-        sp.id AS sp_id, sp.name AS sp_name, sp.code AS sp_code,
-        sp.description AS sp_description,
-        sp.pricemonthly AS sp_pricemonthly,
-        sp.priceyearly AS sp_priceyearly,
-        sp.maxusers AS sp_maxusers,
-        sp.maxcompanies AS sp_maxcompanies,
-        sp.features AS sp_features
+      SELECT s.*, 
+             row_to_json(c.*) as company_json,
+             row_to_json(sp.*) as plan_json
       FROM "Subscription" s
       JOIN "Company" c ON s.companyid = c.id
       JOIN "SubscriptionPlan" sp ON s.planid = sp.id
@@ -65,34 +64,42 @@ export async function GET(request: NextRequest) {
 
     const subscriptions = rows.map((row: any) => {
       const s = normalizeRow(row)
+      const company = normalizeRow(s.company_json || {})
+      const plan = normalizeRow(s.plan_json || {})
+
+      let features: string[] = []
+      const rawFeatures = val(plan, 'features')
+      if (rawFeatures) {
+        try { features = typeof rawFeatures === 'string' ? JSON.parse(rawFeatures) : rawFeatures }
+        catch { features = [] }
+      }
+
       return {
-        id: s.id,
-        companyId: s.companyid || s.companyId,
-        planId: s.planid || s.planId,
-        status: s.status,
-        paymentPeriod: s.paymentperiod || s.paymentPeriod,
-        startDate: s.startdate || s.startDate,
-        endDate: s.enddate || s.endDate,
-        createdAt: s.createdat || s.createdAt,
-        updatedAt: s.updatedat || s.updatedAt,
+        id: val(s, 'id'),
+        companyId: val(s, 'companyid', 'companyId'),
+        planId: val(s, 'planid', 'planId'),
+        status: val(s, 'status'),
+        paymentPeriod: val(s, 'paymentperiod', 'paymentPeriod'),
+        startDate: val(s, 'startdate', 'startDate'),
+        endDate: val(s, 'enddate', 'endDate'),
+        createdAt: val(s, 'createdat', 'createdAt'),
+        updatedAt: val(s, 'updatedat', 'updatedAt'),
         company: {
-          id: s.c_id,
-          name: s.c_name,
-          email: s.c_email,
-          phone: s.c_phone,
+          id: val(company, 'id'),
+          name: val(company, 'name'),
+          email: val(company, 'email'),
+          phone: val(company, 'phone'),
         },
         plan: {
-          id: s.sp_id,
-          name: s.sp_name,
-          code: s.sp_code,
-          description: s.sp_description,
-          priceMonthly: s.sp_pricemonthly,
-          priceYearly: s.sp_priceyearly,
-          maxUsers: s.sp_maxusers,
-          maxCompanies: s.sp_maxcompanies,
-          features: s.sp_features ? (() => {
-            try { return JSON.parse(s.sp_features) } catch { return s.sp_features }
-          })() : [],
+          id: val(plan, 'id'),
+          name: val(plan, 'name'),
+          code: val(plan, 'code'),
+          description: val(plan, 'description'),
+          priceMonthly: val(plan, 'pricemonthly', 'priceMonthly'),
+          priceYearly: val(plan, 'priceyearly', 'priceYearly'),
+          maxUsers: val(plan, 'maxusers', 'maxUsers'),
+          maxCompanies: val(plan, 'maxcompanies', 'maxCompanies'),
+          features,
         },
       }
     })
