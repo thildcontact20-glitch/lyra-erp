@@ -26,8 +26,10 @@ export async function POST(request: NextRequest) {
     }
 
     // Chercher l'utilisateur avec ce code de vérification
+    // NOTE: On utilise extract(epoch) car pg retourne des Dates JS incorrectes
+    // avec PgBouncer (timezone bug — 2h de décalage sur getTime())
     const users = await queryDB(
-      'SELECT * FROM "User" WHERE email = $1 AND "verifyToken" = $2',
+      'SELECT *, extract(epoch from "verifyTokenExp") as "verifyTokenExpEpoch" FROM "User" WHERE email = $1 AND "verifyToken" = $2',
       [email, code]
     );
 
@@ -41,8 +43,9 @@ export async function POST(request: NextRequest) {
     const user = users[0];
 
     // Vérifier que le code n'est pas expiré
-    const now = new Date();
-    const exp = new Date(user.verifyTokenExp);
+    // Utiliser l'epoch PostgreSQL (extract) au lieu du Date JS qui est buggé avec PgBouncer
+    const now = Date.now();
+    const exp = (user.verifyTokenExpEpoch as number) * 1000; // secondes -> millisecondes
     if (now > exp) {
       return NextResponse.json(
         { error: 'Code expiré. Demandez un nouveau code.' },
