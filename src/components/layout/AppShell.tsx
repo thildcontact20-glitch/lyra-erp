@@ -27,7 +27,15 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const token = localStorage.getItem('token')
+        let token = localStorage.getItem('token')
+        // Si pas dans localStorage, lire le cookie
+        if (!token) {
+          const match = document.cookie.match(/(?:^|;\s*)token=([^;]*)/)
+          if (match) {
+            token = match[1]
+            localStorage.setItem('token', token)
+          }
+        }
         if (!token) {
           window.location.href = '/login'
           return
