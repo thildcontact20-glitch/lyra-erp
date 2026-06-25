@@ -55,6 +55,20 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // VÉRIFIER que l'abonnement de l'entreprise n'est pas suspendu ou expiré
+    if (user.companyId) {
+      const subs = await queryDB(
+        'SELECT status FROM "Subscription" WHERE companyid = $1 AND (status = $2 OR status = $3) LIMIT 1',
+        [user.companyId, 'suspended', 'expired']
+      )
+      if (subs && subs.length > 0) {
+        return NextResponse.json({
+          error: 'SUBSCRIPTION_BLOCKED',
+          message: 'Votre abonnement est suspendu ou expiré. Veuillez contacter l\'administrateur.'
+        }, { status: 403 })
+      }
+    }
+
     const token = jwt.sign(
       { userId: user.id, email: user.email, companyId: user.companyId },
       JWT_SECRET,

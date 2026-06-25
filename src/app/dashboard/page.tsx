@@ -358,6 +358,64 @@ function RecognitionsShowcase({ recognitions }: { recognitions: RecognitionData[
 }
 
 /* ───────────────────────────────────────────────────────────────
+   UserNameDisplay — reads user from localStorage
+   ─────────────────────────────────────────────────────────────── */
+function UserNameDisplay() {
+  const [userName, setUserName] = useState<string | null>(null)
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('user')
+      if (stored) {
+        const parsed = JSON.parse(stored)
+        setUserName(parsed?.name || parsed?.email || parsed?.username || null)
+      }
+    } catch {
+      // ignore parse errors
+    }
+  }, [])
+
+  if (!userName) return null
+
+  return (
+    <motion.p
+      className="text-lg font-display font-semibold text-lyra-cream/90"
+      initial={{ opacity: 0, x: -10 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+    >
+      Bonjour, {userName}
+      <span className="block text-sm font-normal text-white/30 mt-0.5">
+        Voici votre tableau de bord LYRA
+      </span>
+    </motion.p>
+  )
+}
+
+/* ───────────────────────────────────────────────────────────────
+   QuickActionCard — small clickable action card
+   ─────────────────────────────────────────────────────────────── */
+function QuickActionCard({ href, icon: Icon, label }: { href: string; icon: React.ElementType; label: string }) {
+  return (
+    <Link href={href}>
+      <motion.div
+        className="flex items-center gap-2.5 px-4 py-3 rounded-xl border border-lyra-gold/15 bg-lyra-dark/60 backdrop-blur-sm cursor-pointer group"
+        whileHover={{ y: -3, borderColor: 'rgba(201,169,97,0.35)', boxShadow: '0 8px 25px rgba(201,169,97,0.08)' }}
+        whileTap={{ scale: 0.97 }}
+        transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <div className="w-8 h-8 rounded-lg bg-lyra-gold/10 border border-lyra-gold/15 flex items-center justify-center group-hover:bg-lyra-gold/20 group-hover:border-lyra-gold/30 transition-all duration-300">
+          <Icon className="w-4 h-4 text-lyra-gold" />
+        </div>
+        <span className="text-xs font-medium text-white/70 group-hover:text-lyra-cream whitespace-nowrap transition-colors duration-300">
+          {label}
+        </span>
+      </motion.div>
+    </Link>
+  )
+}
+
+/* ───────────────────────────────────────────────────────────────
    DraggableWidget — wrapper for drag-and-drop
    ─────────────────────────────────────────────────────────────── */
 function DraggableWidget({
@@ -780,38 +838,122 @@ export default function DashboardPage() {
     <AppShell>
       <PageTransition>
         <div className="max-w-7xl mx-auto space-y-8 pb-10">
-          {/* ── Header ── */}
+          {/* ── Header — Welcome + Personalized Greeting ── */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
+            <UserNameDisplay />
             <h1 className="text-2xl md:text-3xl font-display font-bold text-lyra-cream">Dashboard</h1>
             <p className="text-sm text-white/40 mt-1">Vue d&apos;ensemble de votre entreprise</p>
           </motion.div>
 
-          {/* ── Plan Badge ── */}
+          {/* ── Quick Actions Bar ── */}
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.08, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="flex items-center gap-3 flex-wrap">
+              <QuickActionCard
+                href="/auth/new-company"
+                icon={Sparkles}
+                label="Créer une société"
+              />
+              <QuickActionCard
+                href="/commercial"
+                icon={Heart}
+                label="Ajouter un client"
+              />
+              <QuickActionCard
+                href="/commercial"
+                icon={FileText}
+                label="Nouvelle facture"
+              />
+              <QuickActionCard
+                href="/compta"
+                icon={Wallet}
+                label="Voir la compta"
+              />
+            </div>
+          </motion.div>
+
+          {/* ── Plan & Subscription Card ── */}
           {planName && (
             <motion.div
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="mb-2"
             >
-              <div className="flex items-center gap-4 flex-wrap">
-                <div className="glass rounded-lg px-4 py-2 flex items-center gap-3 gold-border">
-                  <span className="text-lyra-gold text-sm">Plan</span>
-                  <span className="text-white font-semibold">{planName}</span>
-                  <span className={`text-xs px-2 py-0.5 rounded-full ${
-                    planStatus === 'active' ? 'bg-green-500/20 text-green-400' : 'bg-yellow-500/20 text-yellow-400'
-                  }`}>
-                    {planStatus === 'active' ? 'Actif' : 'Essai'}
-                  </span>
-                </div>
-                <Link href="/pricing">
-                  <span className="text-lyra-gold text-sm hover:underline cursor-pointer">Changer de plan →</span>
-                </Link>
-              </div>
+              <motion.div
+                variants={fadeUpVariants}
+                className="relative overflow-hidden"
+              >
+                <CardFinance className="p-5">
+                  {/* Glow accent */}
+                  <div className="absolute top-0 right-0 w-32 h-32 rounded-full blur-[100px] opacity-[0.06] bg-lyra-gold pointer-events-none" />
+
+                  <div className="relative flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div className="flex items-center gap-4 flex-wrap">
+                      {/* Plan icon */}
+                      <div className="w-11 h-11 rounded-xl bg-lyra-gold/10 border border-lyra-gold/15 flex items-center justify-center flex-shrink-0">
+                        <Shield className="w-5 h-5 text-lyra-gold" />
+                      </div>
+
+                      {/* Plan details */}
+                      <div>
+                        <div className="flex items-center gap-2.5 flex-wrap">
+                          <span className="text-base font-display font-bold text-lyra-cream">{planName}</span>
+                          <span className={`text-[11px] px-2.5 py-0.5 rounded-full font-medium ${
+                            planStatus === 'active'
+                              ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/20'
+                              : 'bg-yellow-500/15 text-yellow-400 border border-yellow-500/20'
+                          }`}>
+                            {planStatus === 'active' ? 'Actif' : 'Essai'}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-3 mt-1 text-xs text-white/40">
+                          <span className="flex items-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            Période mensuelle
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Heart className="w-3 h-3" />
+                            {planName === 'Starter' ? '5/10' : '15/50'} utilisateurs
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* CTA */}
+                    <div className="flex items-center gap-3">
+                      {planName === 'Starter' && (
+                        <Link href="/pricing">
+                          <motion.div
+                            className="text-[11px] px-3 py-1.5 rounded-lg bg-gradient-to-r from-lyra-gold/20 to-amber-500/10 border border-lyra-gold/25 text-lyra-gold font-medium flex items-center gap-1.5 whitespace-nowrap cursor-pointer hover:bg-lyra-gold/30 transition-colors"
+                            whileHover={{ scale: 1.03 }}
+                            whileTap={{ scale: 0.97 }}
+                          >
+                            <Zap className="w-3 h-3" />
+                            Passez à Business
+                          </motion.div>
+                        </Link>
+                      )}
+                      <Link href="/pricing">
+                        <motion.div
+                          className="text-xs px-4 py-2 rounded-lg border border-white/10 text-white/60 hover:text-lyra-gold hover:border-lyra-gold/30 hover:bg-lyra-gold/5 transition-all flex items-center gap-1.5 cursor-pointer"
+                          whileHover={{ scale: 1.02, y: -1 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          Changer de plan
+                          <ChevronRight className="w-3 h-3" />
+                        </motion.div>
+                      </Link>
+                    </div>
+                  </div>
+                </CardFinance>
+              </motion.div>
             </motion.div>
           )}
 
