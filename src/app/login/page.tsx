@@ -1,6 +1,13 @@
-import { redirect } from 'next/navigation'
+'use client'
+import { useEffect } from 'react'
 
 export default function LoginPage() {
-  redirect('/api/auto-login')
-  return null
+  useEffect(() => {
+    window.location.href = '/api/auto-login'
+  }, [])
+  return (
+    <main style={{minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',background:'#0a0f0a',color:'#d4af37',fontFamily:'sans-serif'}}>
+      <p>Redirection...</p>
+    </main>
+  )
 }
