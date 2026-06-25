@@ -4,24 +4,6 @@ export const dynamic = 'force-dynamic'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'lyra-prod-secret-vivalys-2026'
 
-function normalizeRow(row: any): any {
-  if (!row) return row
-  const out: any = {}
-  for (const [k, v] of Object.entries(row)) {
-    out[k.replace(/_([a-z])/g, (_, c) => c.toUpperCase())] = v
-  }
-  return out
-}
-
-/** Cherche une valeur de colonne par plusieurs noms possibles (casing) */
-function val(row: any, ...keys: string[]) {
-  for (const k of keys) {
-    const v = row[k] ?? row[k.toLowerCase()] ?? row[k.toUpperCase()]
-    if (v !== undefined && v !== null) return v
-  }
-  return null
-}
-
 async function queryDB(sql: string, params?: any[]) {
   const { Pool } = require('pg')
   const pool = new Pool({ connectionString: process.env.DATABASE_URL })
@@ -31,6 +13,14 @@ async function queryDB(sql: string, params?: any[]) {
   } finally {
     await pool.end()
   }
+}
+
+/** Lit une valeur en essayant plusieurs variantes de casing */
+function pick(row: any, ...keys: string[]) {
+  for (const k of keys) {
+    if (row[k] !== undefined && row[k] !== null) return row[k]
+  }
+  return null
 }
 
 export async function GET(request: NextRequest) {
@@ -51,60 +41,65 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Accès réservé aux administrateurs' }, { status: 403 })
     }
 
-    // SELECT * pour éviter le problème de casing — on normalise en JS
-    const rows = await queryDB(`
-      SELECT s.*, 
-             row_to_json(c.*) as company_json,
-             row_to_json(sp.*) as plan_json
-      FROM "Subscription" s
-      JOIN "Company" c ON s.companyid = c.id
-      JOIN "SubscriptionPlan" sp ON s.planid = sp.id
-      ORDER BY s.createdat DESC
+    // Récupérer Subscription + Company + Plan via SELECTs séparés pour éviter row_to_json
+    const subs = await queryDB(`
+      SELECT id, companyid, planid, status, paymentperiod, 
+             startdate, enddate, createdat, updatedat
+      FROM "Subscription"
+      ORDER BY createdat DESC
     `)
 
-    const subscriptions = rows.map((row: any) => {
-      const s = normalizeRow(row)
-      const company = normalizeRow(s.company_json || {})
-      const plan = normalizeRow(s.plan_json || {})
+    // Enrichir chaque subscription avec les infos company et plan
+    const result = []
+    for (const sub of subs) {
+      let company: any = {}
+      if (sub.companyid) {
+        const companies = await queryDB('SELECT id, name, email, phone FROM "Company" WHERE id = $1', [sub.companyid])
+        if (companies.length > 0) company = companies[0]
+      }
+
+      let plan: any = {}
+      if (sub.planid) {
+        const plans = await queryDB('SELECT * FROM "SubscriptionPlan" WHERE id = $1', [sub.planid])
+        if (plans.length > 0) plan = plans[0]
+      }
 
       let features: string[] = []
-      const rawFeatures = val(plan, 'features')
-      if (rawFeatures) {
-        try { features = typeof rawFeatures === 'string' ? JSON.parse(rawFeatures) : rawFeatures }
+      const rawF = pick(plan, 'features')
+      if (rawF) {
+        try { features = typeof rawF === 'string' ? JSON.parse(rawF) : rawF }
         catch { features = [] }
       }
 
-      return {
-        id: val(s, 'id'),
-        companyId: val(s, 'companyid', 'companyId'),
-        planId: val(s, 'planid', 'planId'),
-        status: val(s, 'status'),
-        paymentPeriod: val(s, 'paymentperiod', 'paymentPeriod'),
-        startDate: val(s, 'startdate', 'startDate'),
-        endDate: val(s, 'enddate', 'endDate'),
-        createdAt: val(s, 'createdat', 'createdAt'),
-        updatedAt: val(s, 'updatedat', 'updatedAt'),
+      result.push({
+        id: sub.id,
+        companyId: sub.companyid,
+        planId: sub.planid,
+        status: sub.status,
+        paymentPeriod: sub.paymentperiod,
+        startDate: sub.startdate,
+        endDate: sub.enddate,
         company: {
-          id: val(company, 'id'),
-          name: val(company, 'name'),
-          email: val(company, 'email'),
-          phone: val(company, 'phone'),
+          id: company.id,
+          name: company.name,
+          email: company.email,
+          phone: company.phone,
         },
         plan: {
-          id: val(plan, 'id'),
-          name: val(plan, 'name'),
-          code: val(plan, 'code'),
-          description: val(plan, 'description'),
-          priceMonthly: val(plan, 'pricemonthly', 'priceMonthly'),
-          priceYearly: val(plan, 'priceyearly', 'priceYearly'),
-          maxUsers: val(plan, 'maxusers', 'maxUsers'),
-          maxCompanies: val(plan, 'maxcompanies', 'maxCompanies'),
+          id: plan.id,
+          name: plan.name,
+          code: plan.code,
+          description: plan.description,
+          priceMonthly: pick(plan, 'pricemonthly', 'priceMonthly'),
+          priceYearly: pick(plan, 'priceyearly', 'priceYearly'),
+          maxUsers: pick(plan, 'maxusers', 'maxUsers'),
+          maxCompanies: pick(plan, 'maxcompanies', 'maxCompanies'),
           features,
         },
-      }
-    })
+      })
+    }
 
-    return NextResponse.json({ data: subscriptions })
+    return NextResponse.json({ data: result })
   } catch (e) {
     return NextResponse.json({ error: 'Erreur serveur', details: String(e) }, { status: 500 })
   }
