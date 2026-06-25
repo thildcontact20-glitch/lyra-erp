@@ -1,8 +1,18 @@
 import jwt from 'jsonwebtoken';
 import { NextRequest } from 'next/server';
-import { prisma } from './prisma';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'lyra-prod-secret-vivalys-2026';
+
+async function queryDB(sql: string, params?: any[]) {
+  const { Pool } = require('pg');
+  const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+  try {
+    const result = await pool.query(sql, params);
+    return result.rows;
+  } finally {
+    await pool.end();
+  }
+}
 
 export interface AuthUser {
   id: string;
@@ -34,13 +44,17 @@ export async function getAuthUser(request: NextRequest): Promise<AuthUser | null
 
     const decoded = jwt.verify(token, JWT_SECRET) as { userId: string; email: string; companyId?: string };
     
-    const user = await prisma.user.findUnique({
-      where: { id: decoded.userId },
-      select: { id: true, email: true, name: true, role: true, companyId: true, emailVerified: true },
-    });
-
-    if (!user) return null;
-    return user;
+    const users = await queryDB('SELECT id, email, name, role, "companyId", "emailVerified" FROM "User" WHERE id = $1', [decoded.userId]);
+    if (!users || users.length === 0) return null;
+    
+    return {
+      id: users[0].id,
+      email: users[0].email,
+      name: users[0].name?.trim() || '',
+      role: users[0].role || 'USER',
+      companyId: users[0].companyId || null,
+      emailVerified: users[0].emailVerified ?? false,
+    };
   } catch {
     return null;
   }
