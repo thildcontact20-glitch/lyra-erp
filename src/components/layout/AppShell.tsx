@@ -86,13 +86,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           <AnimatePresence mode="wait">
             {!collapsed && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Image
+                <motion.img
                   src="/img/coris.png"
                   alt="Coris"
-                  width={100}
-                  height={42}
-                  className="object-contain"
-                  priority
+                  style={{ width: 100, height: 'auto' }}
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
                 />
               </motion.div>
             )}

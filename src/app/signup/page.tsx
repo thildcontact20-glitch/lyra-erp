@@ -153,20 +153,19 @@ export default function SignupPage() {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="text-center mb-8"
         >
-          {/* Logo Coris */}
+          {/* Logo Coris animé */}
           <motion.div
-            className="mb-6"
+            className="mb-6 flex justify-center"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <Image
+            <motion.img
               src="/img/coris.png"
               alt="Coris"
-              width={160}
-              height={68}
-              className="object-contain mx-auto"
-              priority
+              style={{ width: 160, height: 'auto' }}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
             />
           </motion.div>
 
