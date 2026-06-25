@@ -65,14 +65,13 @@ export async function POST(request: NextRequest) {
     // Envoyer l'email de vérification
     await sendVerificationEmail(email, code)
 
-    // En développement, on inclut dev_code pour faciliter le test
-    const isDev = process.env.NODE_ENV !== 'production';
-
+    // Toujours inclure dev_code en attendant la configuration Resend
+    // Les emails ne partiront pas tant que RESEND_API_KEY ne sera pas définie
     return NextResponse.json({
       success: true,
       email,
       message: 'Code de vérification envoyé',
-      ...(isDev ? { dev_code: code } : {}),
+      dev_code: code,
     });
   } catch (error) {
     const msg = (error as Error).message;
