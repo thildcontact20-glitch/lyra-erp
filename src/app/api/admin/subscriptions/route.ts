@@ -37,38 +37,25 @@ export async function GET(request: NextRequest) {
     const jwt = require('jsonwebtoken')
     const decoded: any = jwt.verify(token, JWT_SECRET)
 
-    // Vérifier que l'utilisateur est ADMIN
     const users = await queryDB('SELECT id, email, role FROM "User" WHERE id = $1', [decoded.userId])
     if (!users || users.length === 0 || users[0].role !== 'ADMIN') {
       return NextResponse.json({ error: 'Accès réservé aux administrateurs' }, { status: 403 })
     }
 
-    // Récupérer toutes les subscriptions avec les infos company et plan
+    // Selection en minuscules — le pooler Supabase normalise tout
     const rows = await queryDB(`
       SELECT
-        s.id,
-        s.companyid,
-        s.planid,
-        s.status,
-        s.paymentperiod,
-        s.startdate,
-        s.enddate,
-        s.createdat,
-        s.updatedat,
-        c.id AS c_id,
-        c.name AS c_name,
-        c.email AS c_email,
-        c."rcNumber" AS c_rcnumber,
-        c."ciNumber" AS c_cinumber,
+        s.id, s.companyid, s.planid, s.status,
+        s.paymentperiod, s.startdate, s.enddate,
+        s.createdat, s.updatedat,
+        c.id AS c_id, c.name AS c_name, c.email AS c_email,
         c.phone AS c_phone,
-        sp.id AS sp_id,
-        sp.name AS sp_name,
-        sp.code AS sp_code,
+        sp.id AS sp_id, sp.name AS sp_name, sp.code AS sp_code,
         sp.description AS sp_description,
-        sp."priceMonthly" AS sp_pricemonthly,
-        sp."priceYearly" AS sp_priceyearly,
-        sp."maxUsers" AS sp_maxusers,
-        sp."maxCompanies" AS sp_maxcompanies,
+        sp.pricemonthly AS sp_pricemonthly,
+        sp.priceyearly AS sp_priceyearly,
+        sp.maxusers AS sp_maxusers,
+        sp.maxcompanies AS sp_maxcompanies,
         sp.features AS sp_features
       FROM "Subscription" s
       JOIN "Company" c ON s.companyid = c.id
@@ -92,8 +79,6 @@ export async function GET(request: NextRequest) {
           id: s.c_id,
           name: s.c_name,
           email: s.c_email,
-          rcNumber: s.c_rcnumber,
-          ciNumber: s.c_cinumber,
           phone: s.c_phone,
         },
         plan: {
