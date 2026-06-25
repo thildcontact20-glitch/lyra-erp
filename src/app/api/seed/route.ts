@@ -39,13 +39,13 @@ const CREATE_TABLES = [
 const SEED_PLANS = [
   `INSERT INTO "SubscriptionPlan" (id, name, code, description, "priceMonthly", "priceYearly", "maxUsers", "maxCompanies", features, "isActive") 
    VALUES ('ps1', 'Starter', 'starter', 'Pour les TPE souhaitant une comptabilité simplifiée', 19900, 199000, 3, 1, '["compta_base","commercial_base","stocks_base","financial_basic","dashboard","chat_limited"]', true)
-   ON CONFLICT (code) DO NOTHING`,
+   ON CONFLICT (id) DO NOTHING`,
   `INSERT INTO "SubscriptionPlan" (id, name, code, description, "priceMonthly", "priceYearly", "maxUsers", "maxCompanies", features, "isActive") 
    VALUES ('ps2', 'Business', 'business', 'Pour les PME ayant besoin d une gestion complète', 49900, 499000, 10, 3, '["compta_complete","commercial_full","stocks_advanced","payroll","tax","financial_full","dashboard_premium","chat_full"]', true)
-   ON CONFLICT (code) DO NOTHING`,
+   ON CONFLICT (id) DO NOTHING`,
   `INSERT INTO "SubscriptionPlan" (id, name, code, description, "priceMonthly", "priceYearly", "maxUsers", "maxCompanies", features, "isActive") 
-   VALUES ('ps3', 'Enterprise', 'enterprise', 'Pour les groupes et PME+ avec multi-sociétés', 99900, 999000, 30, 999, '["compta_complete","commercial_full","stocks_advanced","payroll","tax","financial_full","dashboard_premium","chat_full","multi_company","workflows","advanced_roles","custom_reports","support_priority","on_premise"]', true)
-   ON CONFLICT (code) DO NOTHING`,
+   VALUES ('ps3', 'Enterprise', 'enterprise', 'Enterprise', 99900, 999000, 30, 999, '["compta_complete","commercial_full","stocks_advanced","payroll","tax","financial_full","dashboard_premium","chat_full","multi_company","workflows","advanced_roles","custom_reports","support_priority","on_premise"]', true)
+   ON CONFLICT (id) DO NOTHING`,
 ]
 
 export async function POST(request: NextRequest) {
@@ -63,7 +63,16 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 2. Seeder les plans
+    // 2. Ajouter la colonne code si elle manque
+    results.push('=== MIGRATION ===')
+    try {
+      await queryDB('ALTER TABLE "SubscriptionPlan" ADD COLUMN IF NOT EXISTS code TEXT UNIQUE')
+      results.push('  OK: ADD COLUMN code')
+    } catch (e: any) {
+      results.push(`  SKIP: ${String(e.message).slice(0, 80)}`)
+    }
+
+    // 3. Seeder les plans
     results.push('=== SEED PLANS ===')
     for (const sql of SEED_PLANS) {
       try {
