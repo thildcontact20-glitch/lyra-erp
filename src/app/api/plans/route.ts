@@ -23,9 +23,9 @@ export async function GET() {
       ...p,
       features: typeof p.features === 'string' ? JSON.parse(p.features) : p.features,
     }))
-    return NextResponse.json({ data: parsed })
+    return NextResponse.json({ data: parsed, debug: plans.length + ' plans found' })
   } catch (error: any) {
     console.error('Plans GET error:', error?.message || error)
-    return NextResponse.json({ data: [] })
+    return NextResponse.json({ data: [], error: error?.message || String(error) })
   }
 }
