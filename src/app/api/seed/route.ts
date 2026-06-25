@@ -1,24 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const SUPABASE_URL = 'https://db.luhdosoqsqdpgtxkhrgq.supabase.co'
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx1aGRvc29xc3FkcGd0eGtocmdxIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4MjMwMzI2NCwiZXhwIjoyMDk3ODc5MjY0fQ.WSJUfK1WaxFjwdZ0hrqMNAdYFkMXPJrH0PmCCx6w60Y'
+export const dynamic = 'force-dynamic'
 
-async function supabaseRaw(query: string) {
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'apikey': SUPABASE_ANON_KEY,
-      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-    },
-    body: JSON.stringify({ query }),
-  })
-  return res
+async function queryDB(sql: string, params?: any[]) {
+  const { Pool } = require('pg')
+  const pool = new Pool({ connectionString: process.env.DATABASE_URL })
+  try {
+    const result = await pool.query(sql, params)
+    return result.rows
+  } finally {
+    await pool.end()
+  }
 }
 
-// Tables à créer
-const TABLES_SQL = [
-  `CREATE TABLE IF NOT EXISTS "User" (id TEXT PRIMARY KEY, email TEXT UNIQUE NOT NULL, password TEXT NOT NULL, name TEXT NOT NULL, "companyId" TEXT, role TEXT DEFAULT 'USER', "createdAt" TIMESTAMP DEFAULT NOW(), "updatedAt" TIMESTAMP DEFAULT NOW())`,
+const CREATE_TABLES = [
+  `CREATE TABLE IF NOT EXISTS "User" (id TEXT PRIMARY KEY, email TEXT UNIQUE NOT NULL, password TEXT NOT NULL, name TEXT NOT NULL, "companyId" TEXT, role TEXT DEFAULT 'USER', "emailVerified" BOOLEAN DEFAULT false, "verifyToken" TEXT, "verifyTokenExp" TIMESTAMP, "createdAt" TIMESTAMP DEFAULT NOW(), "updatedAt" TIMESTAMP DEFAULT NOW())`,
   `CREATE TABLE IF NOT EXISTS "Company" (id TEXT PRIMARY KEY, name TEXT NOT NULL, "rcNumber" TEXT, "ciNumber" TEXT, address TEXT, phone TEXT, email TEXT, "logoUrl" TEXT, "createdAt" TIMESTAMP DEFAULT NOW())`,
   `CREATE TABLE IF NOT EXISTS "SubscriptionPlan" (id TEXT PRIMARY KEY, name TEXT UNIQUE NOT NULL, code TEXT UNIQUE NOT NULL, description TEXT, "priceMonthly" FLOAT NOT NULL, "priceYearly" FLOAT NOT NULL, "maxUsers" INT NOT NULL, "maxCompanies" INT NOT NULL, features TEXT NOT NULL, "isActive" BOOLEAN DEFAULT TRUE, "createdAt" TIMESTAMP DEFAULT NOW())`,
   `CREATE TABLE IF NOT EXISTS "Subscription" (id TEXT PRIMARY KEY, "companyId" TEXT UNIQUE NOT NULL REFERENCES "Company"(id), "planId" TEXT NOT NULL REFERENCES "SubscriptionPlan"(id), status TEXT DEFAULT 'trial', "startDate" TIMESTAMP DEFAULT NOW(), "endDate" TIMESTAMP, "paymentPeriod" TEXT DEFAULT 'monthly', "createdAt" TIMESTAMP DEFAULT NOW(), "updatedAt" TIMESTAMP DEFAULT NOW())`,
@@ -40,47 +36,54 @@ const TABLES_SQL = [
   `CREATE TABLE IF NOT EXISTS "OhadaArticle" (id TEXT PRIMARY KEY, category TEXT NOT NULL, title TEXT NOT NULL, content TEXT NOT NULL, source TEXT, keywords TEXT, "createdAt" TIMESTAMP DEFAULT NOW())`,
 ]
 
-const SEED_SQL = [
-  `INSERT INTO "SubscriptionPlan" VALUES('ps1','Starter','starter','Pour TPE',19900,199000,3,1,'["compta_base","commercial_base","stocks_base","financial_basic","dashboard","chat_limited"]',true,NOW()) ON CONFLICT DO NOTHING`,
-  `INSERT INTO "SubscriptionPlan" VALUES('ps2','Business','business','Pour PME',49900,499000,10,3,'["compta_complete","commercial_full","stocks_advanced","payroll","tax","financial_full","dashboard_premium","chat_full"]',true,NOW()) ON CONFLICT DO NOTHING`,
-  `INSERT INTO "SubscriptionPlan" VALUES('ps3','Enterprise','enterprise','Pour groupes',99900,999000,30,999,'["compta_complete","commercial_full","stocks_advanced","payroll","tax","financial_full","dashboard_premium","chat_full","multi_company","workflows","advanced_roles","custom_reports","support_priority","on_premise"]',true,NOW()) ON CONFLICT DO NOTHING`,
-  `INSERT INTO "Company" VALUES('cd1','LYRA CI','CI-ABJ-2024-12345','123456789P','Abidjan Plateau','+2250102030405','contact@lyra.ci',NULL,NOW()) ON CONFLICT DO NOTHING`,
-  `INSERT INTO "User" VALUES('ua1','admin@lyra.ci','$2a$10$8K1p/a0dL1LXMIgoEDFrwOfMQkfAjkMBcGmEGYXHjlM5VBiJMjy2u','Admin LYRA','cd1','ADMIN',NOW(),NOW()) ON CONFLICT DO NOTHING`,
-  `INSERT INTO "Subscription" VALUES('sd1','cd1','ps2','active',NOW(),NOW()+INTERVAL'30 days','monthly',NOW(),NOW()) ON CONFLICT DO NOTHING`,
+const SEED_PLANS = [
+  `INSERT INTO "SubscriptionPlan" (id, name, code, description, "priceMonthly", "priceYearly", "maxUsers", "maxCompanies", features, "isActive") 
+   VALUES ('ps1', 'Starter', 'starter', 'Pour les TPE souhaitant une comptabilité simplifiée', 19900, 199000, 3, 1, '["compta_base","commercial_base","stocks_base","financial_basic","dashboard","chat_limited"]', true)
+   ON CONFLICT (code) DO NOTHING`,
+  `INSERT INTO "SubscriptionPlan" (id, name, code, description, "priceMonthly", "priceYearly", "maxUsers", "maxCompanies", features, "isActive") 
+   VALUES ('ps2', 'Business', 'business', 'Pour les PME ayant besoin d une gestion complète', 49900, 499000, 10, 3, '["compta_complete","commercial_full","stocks_advanced","payroll","tax","financial_full","dashboard_premium","chat_full"]', true)
+   ON CONFLICT (code) DO NOTHING`,
+  `INSERT INTO "SubscriptionPlan" (id, name, code, description, "priceMonthly", "priceYearly", "maxUsers", "maxCompanies", features, "isActive") 
+   VALUES ('ps3', 'Enterprise', 'enterprise', 'Pour les groupes et PME+ avec multi-sociétés', 99900, 999000, 30, 999, '["compta_complete","commercial_full","stocks_advanced","payroll","tax","financial_full","dashboard_premium","chat_full","multi_company","workflows","advanced_roles","custom_reports","support_priority","on_premise"]', true)
+   ON CONFLICT (code) DO NOTHING`,
 ]
 
 export async function POST(request: NextRequest) {
+  const results: string[] = []
+
   try {
-    const results: string[] = []
-
     // 1. Créer les tables
-    results.push('=== CREATION TABLES ===')
-    for (const sql of TABLES_SQL) {
+    results.push('=== CRÉATION TABLES ===')
+    for (const sql of CREATE_TABLES) {
       try {
-        const res = await supabaseRaw(sql)
-        results.push(`  OK: ${sql.slice(0, 50)}...`)
-      } catch (e: any) {
-        results.push(`  SKIP: ${String(e.message).slice(0, 60)}`)
-      }
-    }
-
-    // 2. Seeder les données via SQL direct
-    results.push('=== SEED DONNEES ===')
-    for (const sql of SEED_SQL) {
-      try {
-        const res = await supabaseRaw(sql)
+        await queryDB(sql)
         results.push(`  OK: ${sql.slice(0, 60)}...`)
       } catch (e: any) {
-        results.push(`  SKIP: ${String(e.message).slice(0, 60)}`)
+        results.push(`  SKIP: ${String(e.message).slice(0, 80)}`)
       }
     }
+
+    // 2. Seeder les plans
+    results.push('=== SEED PLANS ===')
+    for (const sql of SEED_PLANS) {
+      try {
+        await queryDB(sql)
+        results.push(`  OK: ${sql.slice(0, 60)}...`)
+      } catch (e: any) {
+        results.push(`  SKIP: ${String(e.message).slice(0, 80)}`)
+      }
+    }
+
+    // 3. Vérifier
+    const plans = await queryDB('SELECT name, code FROM "SubscriptionPlan" WHERE "isActive" = true')
+    results.push(`=== RÉSULTAT: ${plans.length} plans actifs dans la DB ===`)
 
     return NextResponse.json({ 
       success: true, 
-      message: '✅ LYRA ERP prêt ! Login: admin@lyra.ci / admin123',
+      message: `✅ LYRA ERP prêt ! ${plans.length} plans actifs`,
       log: results.join('\n')
     })
   } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 })
+    return NextResponse.json({ error: e.message, log: results.join('\n') }, { status: 500 })
   }
 }
