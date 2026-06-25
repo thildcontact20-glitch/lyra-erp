@@ -44,10 +44,11 @@ export async function GET(request: NextRequest) {
     const subscriptions = await queryDB(`
       SELECT s.*, sp.id as plan_id, sp.name as plan_name, sp.code as plan_code,
              sp.features as plan_features, sp.description as plan_description,
-             sp.pricemonthly, sp.priceyearly, sp.maxusers, sp.maxcompanies
+             sp."priceMonthly" as pricemonthly, sp."priceYearly" as priceyearly, 
+             sp."maxUsers" as maxusers, sp."maxCompanies" as maxcompanies
       FROM "Subscription" s
-      JOIN "SubscriptionPlan" sp ON s.planid = sp.id
-      WHERE s.companyid = $1
+      JOIN "SubscriptionPlan" sp ON s."planId" = sp.id
+      WHERE s."companyId" = $1
       LIMIT 1
     `, [companyId])
     

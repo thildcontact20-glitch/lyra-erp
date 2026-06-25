@@ -64,10 +64,10 @@ export async function POST(request: NextRequest) {
       : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
     
     const subscriptions = await queryDB(`
-      INSERT INTO "Subscription" (id, companyid, planid, status, paymentperiod, enddate)
+      INSERT INTO "Subscription" (id, "companyId", "planId", status, "paymentPeriod", "endDate")
       VALUES ($1, $2, $3, 'active', $4, $5)
-      ON CONFLICT (companyid) DO UPDATE SET
-        planid = $3, status = 'active', paymentperiod = $4, enddate = $5
+      ON CONFLICT ("companyId") DO UPDATE SET
+        "planId" = $3, status = 'active', "paymentPeriod" = $4, "endDate" = $5
       RETURNING *
     `, ['sub-' + Date.now(), targetCompanyId, plan.id, paymentPeriod || 'monthly', endDate])
     

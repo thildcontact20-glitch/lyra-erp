@@ -16,14 +16,13 @@ async function queryDB(sql: string, params?: any[]) {
 export async function GET() {
   try {
     const plans = await queryDB(
-      'SELECT * FROM "SubscriptionPlan" WHERE isactive = true ORDER BY pricemonthly ASC'
+      'SELECT * FROM "SubscriptionPlan" WHERE "isActive" = true ORDER BY "priceMonthly" ASC'
     )
     // Parse les features JSON pour chaque plan
     const parsed = plans.map((p: any) => {
-      // Normaliser les clés camelCase -> la DB stocke en minuscules
+      // Normaliser les clés (certaines peuvent être en camelCase, d'autres en minuscules)
       const normalized: any = {}
       for (const [k, v] of Object.entries(p)) {
-        // Convertir snake_case/minuscules en camelCase
         const camelKey = k.replace(/_([a-z])/g, (_, c) => c.toUpperCase())
         normalized[camelKey] = v
       }
