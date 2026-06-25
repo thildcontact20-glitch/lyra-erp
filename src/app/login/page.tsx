@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -9,6 +9,7 @@ import { fadeUpVariants } from '../../lib/framerVariants'
 
 export default function LoginPage() {
   const router = useRouter()
+  const formRef = useRef<HTMLFormElement>(null)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -16,35 +17,45 @@ export default function LoginPage() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const handleSubmit = async (e?: any) => {
-    if (e?.preventDefault) e.preventDefault()
-    setError('')
-    setLoading(true)
+  // Attacher le submit handler directement au DOM via useEffect
+  // pour contourner les problèmes d'hydratation React / Framer Motion
+  useEffect(() => {
+    const form = formRef.current
+    if (!form) return
 
-    try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      })
-      const data = await res.json()
-      if (!res.ok) {
-        setError(data.error || 'Une erreur est survenue')
-        return
+    const handler = async (e: Event) => {
+      e.preventDefault()
+      setError('')
+      setLoading(true)
+
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        })
+        const data = await res.json()
+        if (!res.ok) {
+          setError(data.error || 'Une erreur est survenue')
+          return
+        }
+        if (data.error === 'EMAIL_NOT_VERIFIED') {
+          router.push(`/verify-email?email=${encodeURIComponent(data.email || email)}`)
+          return
+        }
+        localStorage.setItem('token', data.token)
+        localStorage.setItem('user', JSON.stringify(data.user))
+        router.push('/dashboard')
+      } catch {
+        setError('Erreur de connexion au serveur')
+      } finally {
+        setLoading(false)
       }
-      if (data.error === 'EMAIL_NOT_VERIFIED') {
-        router.push(`/verify-email?email=${encodeURIComponent(data.email || email)}`)
-        return
-      }
-      localStorage.setItem('token', data.token)
-      localStorage.setItem('user', JSON.stringify(data.user))
-      router.push('/dashboard')
-    } catch {
-      setError('Erreur de connexion au serveur')
-    } finally {
-      setLoading(false)
     }
-  }
+
+    form.addEventListener('submit', handler)
+    return () => form.removeEventListener('submit', handler)
+  }, [email, password, router])
 
   const [verifiedMessage, setVerifiedMessage] = useState(false)
   const [resetMessage, setResetMessage] = useState(false)
@@ -87,7 +98,7 @@ export default function LoginPage() {
         >
           <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-lyra-gold/40 to-transparent" />
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form ref={formRef} className="space-y-5">
             {verifiedMessage && (
               <motion.div className="bg-green-500/10 border border-green-500/20 text-green-400 text-sm rounded-xl px-4 py-3 text-center" initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
                 <CheckCircle2 className="w-4 h-4 inline mr-1.5 -mt-0.5" />
