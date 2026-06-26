@@ -149,13 +149,14 @@ function VerifyEmailForm() {
       return
     }
     setShowEmailInput(false)
-    handleResend()
+    // Ne pas appeler resend ici — le code existe déjà en DB depuis le signup
   }
 
-  // Si on a l'email dans l'URL, on lance automatiquement le renvoi
+  // Si on a l'email dans l'URL, on initialise le champ mais on attend que l'utilisateur clique "Vérifier"
+  // Ne pas appeler resend automatiquement — le code existe déjà en DB depuis le signup
   useEffect(() => {
-    if (emailFromUrl) {
-      handleResend()
+    if (emailFromUrl && inputRefs.current[0]) {
+      inputRefs.current[0]?.focus()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [emailFromUrl])
