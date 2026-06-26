@@ -54,11 +54,11 @@ export async function POST(request: NextRequest) {
     try {
       const keywords = message.split(' ').filter((w: string) => w.length > 3)
       if (keywords.length > 0) {
-        const orConditions = keywords.map((k: string, i: number) => 
-          `content ILIKE '%' || $${i+1} || '%' OR keywords ILIKE '%' || $${i+1} || '%' OR title ILIKE '%' || $${i+1} || '%'`
+        const conditions = keywords.map((k: string, i: number) => 
+          `(content ILIKE '%' || $${i+1} || '%' OR keywords ILIKE '%' || $${i+1} || '%' OR title ILIKE '%' || $${i+1} || '%')`
         ).join(' OR ')
         const articles = await queryDB(
-          `SELECT title, content FROM "OhadaArticle" WHERE ${orConditions} LIMIT 3`,
+          `SELECT title, content FROM "OhadaArticle" WHERE ${conditions} LIMIT 3`,
           keywords
         )
         contextArticles = articles.map((a: any) => `[${a.title}] ${a.content?.substring(0, 500)}`)
