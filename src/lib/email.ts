@@ -1,6 +1,6 @@
 import { Resend } from 'resend'
 
-const fromEmail = 'contact@vivalyscompagny.com'
+const fromEmail = 'LYRA <contact@lyra.vivalyscompagny.com>'
 
 let resendInstance: Resend | null = null
 
