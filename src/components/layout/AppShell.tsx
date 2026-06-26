@@ -6,6 +6,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { LayoutDashboard, BookOpen, ShoppingCart, Package, Users, FileText, MessageSquare, LogOut, Menu, X, ChevronLeft, DollarSign, Receipt } from 'lucide-react'
 import { pageVariants } from '../../lib/framerVariants'
+import RealtimeClock from '../ambiance/RealtimeClock'
+import WeatherWidget from '../ambiance/WeatherWidget'
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -140,6 +142,13 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             )
           })}
         </nav>
+        {/* Horloge et météo dans la sidebar */}
+        <div className="px-3 py-2 border-t border-white/5">
+          <div className="flex items-center justify-between text-lyra-cream/30 text-[10px]">
+            <RealtimeClock showIcon={false} format="time-only" />
+            <WeatherWidget compact />
+          </div>
+        </div>
         <div className="p-3 border-t border-white/10">
           <button onClick={handleLogout} className="w-full">
             <motion.div className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/40 hover:text-red-400 hover:bg-red-500/5 transition-all">

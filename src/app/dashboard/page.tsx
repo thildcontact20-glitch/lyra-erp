@@ -20,9 +20,7 @@ import ButtonElegant from '../../components/ui/ButtonElegant'
 import Link from 'next/link'
 import ScrollingBanner from '../../components/ambiance/ScrollingBanner'
 import ProverbDisplay from '../../components/ambiance/ProverbDisplay'
-import RealtimeClock from '../../components/ambiance/RealtimeClock'
-import WeatherWidget from '../../components/ambiance/WeatherWidget'
-
+import { fadeUpVariants, staggerContainerVariants, listItemVariants } from '../../lib/framerVariants'
 /* ───────────────────────────────────────────────────────────────
    Types
    ─────────────────────────────────────────────────────────────── */
@@ -858,10 +856,6 @@ export default function DashboardPage() {
               <ProverbDisplay page="dashboard" className="mt-1" />
               <h1 className="text-2xl md:text-3xl font-display font-bold text-lyra-cream">Dashboard</h1>
               <p className="text-sm text-white/40 mt-1">Vue d&apos;ensemble de votre entreprise</p>
-            </div>
-            <div className="flex items-center gap-3 flex-shrink-0">
-              <RealtimeClock showIcon format="time-only" />
-              <WeatherWidget compact />
             </div>
           </motion.div>
 
