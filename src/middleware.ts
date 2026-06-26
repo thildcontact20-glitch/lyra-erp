@@ -82,9 +82,47 @@ function decodeJwtPayload(token: string): { userId: string; email: string; compa
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // ========== HEADERS DE SÉCURITÉ ==========
+  const response = NextResponse.next();
+
+  // Ajouter les headers de sécurité à toutes les réponses HTML
+  if (!pathname.startsWith('/_next/')) {
+    // Content Security Policy - empêche l'injection de scripts et le vol de données
+    response.headers.set(
+      'Content-Security-Policy',
+      "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://*.supabase.co; connect-src 'self' https://*.supabase.co wss://*.supabase.co; frame-ancestors 'none';"
+    );
+
+    // Anti-Clickjacking
+    response.headers.set('X-Frame-Options', 'DENY');
+
+    // Protection XSS
+    response.headers.set('X-Content-Type-Options', 'nosniff');
+    response.headers.set('X-XSS-Protection', '1; mode=block');
+
+    // Referrer Policy - ne pas fuiter l'URL
+    response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+
+    // HSTS - force HTTPS
+    response.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
+
+    // Permissions Policy - limiter les API navigateur
+    response.headers.set(
+      'Permissions-Policy',
+      'camera=(), microphone=(), geolocation=(), interest-cohort=()'
+    );
+  }
+
+  // ========== ANTI-VOL : Watermark serveur invisible ==========
+  // Ajouter un header qui identifie l'instance serveur (détectable côté client)
+  if (pathname === '/') {
+    response.headers.set('X-LYRA-INSTANCE', 'vivalys-prod');
+  }
+
+  // ========== VÉRIFICATION AUTH ==========
   // Ne pas bloquer les routes publiques
   if (isPublicRoute(pathname)) {
-    return NextResponse.next();
+    return response;
   }
 
   // Lire le token depuis les cookies
@@ -114,8 +152,8 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // Token valide → continuer
-  return NextResponse.next();
+  // Token valide → continuer avec les headers de sécurité
+  return response;
 }
 
 export const config = {

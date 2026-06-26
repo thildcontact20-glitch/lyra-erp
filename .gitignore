@@ -1,13 +1,8 @@
 node_modules/
 .next/
-*.db
-*.db-journal
+out/
 .env
 .env.local
-.DS_Store
-*.tsbuildinfo
-next-env.d.ts
-nul
-
-.vercel
-seed-supabase.*
+.env.production
+*.log
+.git/
