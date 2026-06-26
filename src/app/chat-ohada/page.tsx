@@ -22,8 +22,17 @@ interface Message {
 }
 
 // ─── RAG local engine ─────────────────────────────────────────────────────
+function preprocessQuery(query: string): string {
+  // Normaliser : remplacer LYRA par OHADA pour matcher les mots-clés de la base
+  return query
+    .toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/\blyra\b/g, 'ohada')
+    .replace(/\blyra\b/g, 'syscohada')
+}
+
 function findBestMatch(query: string, knowledge: KnowledgeEntry[]): KnowledgeEntry | null {
-  const q = query.toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  const q = preprocessQuery(query)
 
   // Score each entry based on keyword overlap
   let best: KnowledgeEntry | null = null
