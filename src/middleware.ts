@@ -23,6 +23,8 @@ function isPublicRoute(pathname: string): boolean {
   if (
     pathname.startsWith('/_next/static') ||
     pathname.startsWith('/_next/image') ||
+    pathname.startsWith('/img/') ||
+    pathname.startsWith('/public/') ||
     pathname === '/favicon.ico'
   ) {
     return true;
