@@ -105,16 +105,16 @@ export default function SignupPage() {
             transition={{ delay: 0.3 }}
             className="text-white/60 mb-8"
           >
-            Veuillez vérifier votre email <strong className="text-lyra-gold">{email}</strong> pour activer votre compte. Un email de confirmation vous a été envoyé.
+            Veuillez vérifier votre email <strong className="text-lyra-gold">{email}</strong> pour activer votre compte. Un code de vérification vous a été envoyé.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
-            <Link href="/login">
+            <Link href={`/verify-email?email=${encodeURIComponent(email)}`}>
               <ButtonElegant variant="primary" size="lg" className="w-full">
-                Aller à la connexion
+                Vérifier mon email
               </ButtonElegant>
             </Link>
           </motion.div>
