@@ -128,6 +128,7 @@ export default function SignupPage() {
 
   return (
     <main className="relative min-h-screen flex items-center justify-center bg-lyra-dark overflow-hidden">
+      <BackToHome />
       {/* Image de fond */}
       <div className="absolute inset-0">
         <Image
