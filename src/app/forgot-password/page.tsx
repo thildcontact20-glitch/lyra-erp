@@ -202,6 +202,7 @@ function ForgotPasswordForm() {
   if (success) {
     return (
       <main className="relative min-h-screen flex items-center justify-center bg-lyra-dark overflow-hidden">
+        <BackToHome />
         <div className="absolute inset-0 bg-gradient-to-br from-lyra-navy/60 via-lyra-dark to-lyra-dark" />
         <motion.div
           className="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-lyra-gold/5 blur-[120px]"
@@ -256,6 +257,7 @@ function ForgotPasswordForm() {
 
   return (
     <main className="relative min-h-screen flex items-center justify-center bg-lyra-dark overflow-hidden">
+      <BackToHome />
       {/* Image de fond */}
       <div className="absolute inset-0">
         <Image
@@ -621,10 +623,13 @@ function ForgotPasswordForm() {
   )
 }
 
+import BackToHome from '../../components/ui/BackToHome'
+
 export default function ForgotPasswordPage() {
   return (
     <Suspense fallback={
       <main className="relative min-h-screen flex items-center justify-center bg-lyra-dark overflow-hidden">
+        <BackToHome />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 w-full max-w-md px-4 text-center">
           <div className="w-8 h-8 mx-auto border-2 border-lyra-gold/30 border-t-lyra-gold rounded-full animate-spin" />

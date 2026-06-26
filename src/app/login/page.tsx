@@ -6,6 +6,8 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { ArrowRight } from 'lucide-react'
 
+import BackToHome from '../../components/ui/BackToHome'
+
 export default function LoginPage() {
   const router = useRouter()
   const [email, setEmail] = useState('')
@@ -52,6 +54,7 @@ export default function LoginPage() {
 
   return (
     <main className="relative min-h-screen flex items-center justify-center bg-lyra-dark overflow-hidden">
+      <BackToHome />
       <div className="absolute inset-0">
         <Image src="/img/bg-login.jpg" alt="" fill className="object-cover" priority />
       </div>

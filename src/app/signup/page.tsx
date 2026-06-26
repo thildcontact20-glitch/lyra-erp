@@ -8,6 +8,8 @@ import { User, Mail, Lock, Building2, ArrowRight, Eye, EyeOff, CheckCircle } fro
 import { fadeUpVariants } from '../../lib/framerVariants'
 import ButtonElegant from '../../components/ui/ButtonElegant'
 
+import BackToHome from '../../components/ui/BackToHome'
+
 export default function SignupPage() {
   const router = useRouter()
   const [name, setName] = useState('')
@@ -70,6 +72,7 @@ export default function SignupPage() {
   if (success) {
     return (
       <main className="relative min-h-screen flex items-center justify-center bg-lyra-dark overflow-hidden">
+        <BackToHome />
         {/* Image de fond */}
         <div className="absolute inset-0">
           <Image

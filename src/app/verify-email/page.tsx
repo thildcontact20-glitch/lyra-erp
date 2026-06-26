@@ -6,6 +6,8 @@ import { Mail, ArrowRight, CheckCircle2, AlertCircle, RefreshCw, Sparkles } from
 import { fadeUpVariants } from '../../lib/framerVariants'
 import ButtonElegant from '../../components/ui/ButtonElegant'
 
+import BackToHome from '../../components/ui/BackToHome'
+
 function VerifyEmailForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -165,6 +167,7 @@ function VerifyEmailForm() {
   if (success) {
     return (
       <main className="relative min-h-screen flex items-center justify-center bg-lyra-dark overflow-hidden">
+        <BackToHome />
         <div className="absolute inset-0 bg-gradient-to-br from-lyra-navy/60 via-lyra-dark to-lyra-dark" />
         <motion.div
           className="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-lyra-gold/5 blur-[120px]"
@@ -220,6 +223,7 @@ function VerifyEmailForm() {
   return (
     <main className="relative min-h-screen flex items-center justify-center bg-lyra-dark overflow-hidden">
       {/* Background gradient */}
+      <BackToHome />
       <div className="absolute inset-0 bg-gradient-to-br from-lyra-navy/60 via-lyra-dark to-lyra-dark" />
 
       {/* Glowing orbs */}
@@ -508,6 +512,7 @@ export default function VerifyEmailPage() {
   return (
     <Suspense fallback={
       <main className="relative min-h-screen flex items-center justify-center bg-lyra-dark overflow-hidden">
+        <BackToHome />
         <div className="absolute inset-0 bg-gradient-to-br from-lyra-navy/60 via-lyra-dark to-lyra-dark" />
         <div className="relative z-10 w-full max-w-md px-4 text-center">
           <div className="w-8 h-8 mx-auto border-2 border-lyra-gold/30 border-t-lyra-gold rounded-full animate-spin" />
