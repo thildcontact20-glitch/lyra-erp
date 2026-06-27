@@ -1,34 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma'
 
 export const dynamic = 'force-dynamic'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'lyra-prod-secret-vivalys-2026'
-
-function normalizeRow(row: any): any {
-  if (!row) return row
-  const out: any = {}
-  for (const [k, v] of Object.entries(row)) {
-    out[k.replace(/_([a-z])/g, (_, c) => c.toUpperCase())] = v
-  }
-  return out
-}
-
-async function queryDB(sql: string, params?: any[]) {
-  const { Pool } = require('pg')
-  const pool = new Pool({ connectionString: process.env.DATABASE_URL })
-  try {
-    const result = await pool.query(sql, params)
-    return result.rows
-  } finally {
-    await pool.end()
-  }
-}
-
-function parseFeatures(val: any): string[] {
-  if (!val) return []
-  if (Array.isArray(val)) return val
-  try { return JSON.parse(val) } catch { return [] }
-}
 
 export async function GET(request: NextRequest) {
   const token = request.cookies.get('token')?.value || 
@@ -41,42 +16,42 @@ export async function GET(request: NextRequest) {
     const companyId = decoded.companyId
     if (!companyId) return NextResponse.json({ data: null })
     
-    const subscriptions = await queryDB(`
-      SELECT s.*, sp.id as plan_id, sp.name as plan_name, sp.code as plan_code,
-             sp.features as plan_features, sp.description as plan_description,
-             sp."priceMonthly" as pricemonthly, sp."priceYearly" as priceyearly, 
-             sp."maxUsers" as maxusers, sp."maxCompanies" as maxcompanies
-      FROM "Subscription" s
-      JOIN "SubscriptionPlan" sp ON s."planId" = sp.id
-      WHERE s."companyId" = $1
-      LIMIT 1
-    `, [companyId])
+    const subscription = await prisma.subscription.findFirst({
+      where: { companyId },
+      include: {
+        plan: true,
+      },
+    })
     
-    if (!subscriptions || subscriptions.length === 0) {
+    if (!subscription) {
       return NextResponse.json({ data: null, defaultPlan: 'starter' })
     }
     
-    const sub = normalizeRow(subscriptions[0])
+    let features: string[] = []
+    if (subscription.plan.features) {
+      try { features = typeof subscription.plan.features === 'string' ? JSON.parse(subscription.plan.features) : subscription.plan.features }
+      catch { features = [] }
+    }
     
     return NextResponse.json({ 
       data: { 
-        id: sub.id,
-        companyId: sub.companyid || sub.companyId,
-        planId: sub.planid || sub.planId,
-        status: sub.status,
-        paymentPeriod: sub.paymentperiod || sub.paymentPeriod,
-        startDate: sub.startdate || sub.startDate,
-        endDate: sub.enddate || sub.endDate,
+        id: subscription.id,
+        companyId: subscription.companyId,
+        planId: subscription.planId,
+        status: subscription.status,
+        paymentPeriod: subscription.paymentPeriod,
+        startDate: subscription.startDate,
+        endDate: subscription.endDate,
         plan: {
-          id: sub.plan_id,
-          name: sub.plan_name,
-          code: sub.plan_code,
-          features: parseFeatures(sub.plan_features),
-          description: sub.plan_description,
-          priceMonthly: sub.pricemonthly,
-          priceYearly: sub.priceyearly,
-          maxUsers: sub.maxusers,
-          maxCompanies: sub.maxcompanies,
+          id: subscription.plan.id,
+          name: subscription.plan.name,
+          code: subscription.plan.code,
+          features,
+          description: subscription.plan.description,
+          priceMonthly: subscription.plan.priceMonthly,
+          priceYearly: subscription.plan.priceYearly,
+          maxUsers: subscription.plan.maxUsers,
+          maxCompanies: subscription.plan.maxCompanies,
         }
       } 
     })

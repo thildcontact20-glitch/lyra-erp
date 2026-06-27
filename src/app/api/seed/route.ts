@@ -1,17 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma'
 
 export const dynamic = 'force-dynamic'
-
-async function queryDB(sql: string, params?: any[]) {
-  const { Pool } = require('pg')
-  const pool = new Pool({ connectionString: process.env.DATABASE_URL })
-  try {
-    const result = await pool.query(sql, params)
-    return result.rows
-  } finally {
-    await pool.end()
-  }
-}
 
 const CREATE_TABLES = [
   `CREATE TABLE IF NOT EXISTS "User" (id TEXT PRIMARY KEY, email TEXT UNIQUE NOT NULL, password TEXT NOT NULL, name TEXT NOT NULL, "companyId" TEXT, role TEXT DEFAULT 'USER', "emailVerified" BOOLEAN DEFAULT false, "verifyToken" TEXT, "verifyTokenExp" TIMESTAMP, "createdAt" TIMESTAMP DEFAULT NOW(), "updatedAt" TIMESTAMP DEFAULT NOW())`,
@@ -36,17 +26,9 @@ const CREATE_TABLES = [
   `CREATE TABLE IF NOT EXISTS "OhadaArticle" (id TEXT PRIMARY KEY, category TEXT NOT NULL, title TEXT NOT NULL, content TEXT NOT NULL, source TEXT, keywords TEXT, "createdAt" TIMESTAMP DEFAULT NOW())`,
 ]
 
-const SEED_PLANS = [
-  `INSERT INTO "SubscriptionPlan" (id, name, code, description, "priceMonthly", "priceYearly", "maxUsers", "maxCompanies", features, "isActive") 
-   VALUES ('ps1', 'Starter', 'starter', 'Pour les TPE souhaitant une comptabilité simplifiée', 19900, 199000, 3, 1, '["compta_base","commercial_base","stocks_base","financial_basic","dashboard","chat_limited"]', true)
-   ON CONFLICT (id) DO NOTHING`,
-  `INSERT INTO "SubscriptionPlan" (id, name, code, description, "priceMonthly", "priceYearly", "maxUsers", "maxCompanies", features, "isActive") 
-   VALUES ('ps2', 'Business', 'business', 'Pour les PME ayant besoin d une gestion complète', 49900, 499000, 10, 3, '["compta_complete","commercial_full","stocks_advanced","payroll","tax","financial_full","dashboard_premium","chat_full"]', true)
-   ON CONFLICT (id) DO NOTHING`,
-  `INSERT INTO "SubscriptionPlan" (id, name, code, description, "priceMonthly", "priceYearly", "maxUsers", "maxCompanies", features, "isActive") 
-   VALUES ('ps3', 'Enterprise', 'enterprise', 'Enterprise', 99900, 999000, 30, 999, '["compta_complete","commercial_full","stocks_advanced","payroll","tax","financial_full","dashboard_premium","chat_full","multi_company","workflows","advanced_roles","custom_reports","support_priority","on_premise"]', true)
-   ON CONFLICT (id) DO NOTHING`,
-]
+async function exec(sql: string) {
+  return prisma.$executeRawUnsafe(sql)
+}
 
 export async function POST(request: NextRequest) {
   const results: string[] = []
@@ -56,7 +38,7 @@ export async function POST(request: NextRequest) {
     results.push('=== CRÉATION TABLES ===')
     for (const sql of CREATE_TABLES) {
       try {
-        await queryDB(sql)
+        await exec(sql)
         results.push(`  OK: ${sql.slice(0, 60)}...`)
       } catch (e: any) {
         results.push(`  SKIP: ${String(e.message).slice(0, 80)}`)
@@ -66,8 +48,8 @@ export async function POST(request: NextRequest) {
     // 2. Forcer la recréation propre de SubscriptionPlan
     results.push('=== MIGRATION ===')
     try {
-      await queryDB('DROP TABLE IF EXISTS "SubscriptionPlan" CASCADE')
-      await queryDB(`CREATE TABLE "SubscriptionPlan" (
+      await exec('DROP TABLE IF EXISTS "SubscriptionPlan" CASCADE')
+      await exec(`CREATE TABLE "SubscriptionPlan" (
         id TEXT PRIMARY KEY, name TEXT UNIQUE NOT NULL, code TEXT UNIQUE NOT NULL,
         description TEXT, "priceMonthly" FLOAT NOT NULL, "priceYearly" FLOAT NOT NULL,
         "maxUsers" INT NOT NULL, "maxCompanies" INT NOT NULL, features TEXT NOT NULL,
@@ -81,37 +63,48 @@ export async function POST(request: NextRequest) {
 
     // 3. Recréer Subscription
     try {
-      await queryDB('DROP TABLE IF EXISTS "Subscription" CASCADE')
-      await queryDB(`CREATE TABLE "Subscription" (
-        id TEXT PRIMARY KEY, companyid TEXT UNIQUE NOT NULL REFERENCES "Company"(id),
-        planid TEXT NOT NULL REFERENCES "SubscriptionPlan"(id),
-        status TEXT DEFAULT 'trial', startdate TIMESTAMP DEFAULT NOW(),
-        enddate TIMESTAMP, paymentperiod TEXT DEFAULT 'monthly',
-        createdat TIMESTAMP DEFAULT NOW(), updatedat TIMESTAMP DEFAULT NOW()
+      await exec('DROP TABLE IF EXISTS "Subscription" CASCADE')
+      await exec(`CREATE TABLE "Subscription" (
+        id TEXT PRIMARY KEY, "companyId" TEXT UNIQUE NOT NULL REFERENCES "Company"(id),
+        "planId" TEXT NOT NULL REFERENCES "SubscriptionPlan"(id),
+        status TEXT DEFAULT 'trial', "startDate" TIMESTAMP DEFAULT NOW(),
+        "endDate" TIMESTAMP, "paymentPeriod" TEXT DEFAULT 'monthly',
+        "createdAt" TIMESTAMP DEFAULT NOW(), "updatedAt" TIMESTAMP DEFAULT NOW()
       )`)
       results.push('  OK: Subscription table OK')
     } catch (e: any) {
       results.push(`  SKIP: ${String(e.message).slice(0, 80)}`)
     }
 
-    // 4. Seeder les plans
+    // 4. Seeder les plans via Prisma upsert
     results.push('=== SEED PLANS ===')
-    for (const sql of SEED_PLANS) {
+
+    const plansData = [
+      { id: 'ps1', name: 'Starter', code: 'starter', description: 'Pour les TPE souhaitant une comptabilité simplifiée', priceMonthly: 19900, priceYearly: 199000, maxUsers: 3, maxCompanies: 1, features: '["compta_base","commercial_base","stocks_base","financial_basic","dashboard","chat_limited"]', isActive: true },
+      { id: 'ps2', name: 'Business', code: 'business', description: 'Pour les PME ayant besoin d une gestion complète', priceMonthly: 49900, priceYearly: 499000, maxUsers: 10, maxCompanies: 3, features: '["compta_complete","commercial_full","stocks_advanced","payroll","tax","financial_full","dashboard_premium","chat_full"]', isActive: true },
+      { id: 'ps3', name: 'Enterprise', code: 'enterprise', description: 'Enterprise', priceMonthly: 99900, priceYearly: 999000, maxUsers: 30, maxCompanies: 999, features: '["compta_complete","commercial_full","stocks_advanced","payroll","tax","financial_full","dashboard_premium","chat_full","multi_company","workflows","advanced_roles","custom_reports","support_priority","on_premise"]', isActive: true },
+    ]
+
+    for (const plan of plansData) {
       try {
-        await queryDB(sql)
-        results.push(`  OK: ${sql.slice(0, 60)}...`)
+        await prisma.subscriptionPlan.upsert({
+          where: { id: plan.id },
+          create: plan,
+          update: plan,
+        })
+        results.push(`  OK: ${plan.name} (${plan.code})`)
       } catch (e: any) {
         results.push(`  SKIP: ${String(e.message).slice(0, 80)}`)
       }
     }
 
-    // 3. Vérifier
-    const plans = await queryDB('SELECT name, code FROM "SubscriptionPlan" WHERE "isActive" = true')
-    results.push(`=== RÉSULTAT: ${plans.length} plans actifs dans la DB ===`)
+    // 5. Vérifier
+    const planCount = await prisma.subscriptionPlan.count({ where: { isActive: true } })
+    results.push(`=== RÉSULTAT: ${planCount} plans actifs dans la DB ===`)
 
     return NextResponse.json({ 
       success: true, 
-      message: `✅ LYRA ERP prêt ! ${plans.length} plans actifs`,
+      message: `✅ LYRA ERP prêt ! ${planCount} plans actifs`,
       log: results.join('\n')
     })
   } catch (e: any) {

@@ -1,0 +1,11 @@
+{
+  "remoteName": "origin",
+  "projects": [
+    {
+      "id": "prj_zLTHtweB44jk0OpRhBup7wLqaQ0h",
+      "name": "lyra-erp",
+      "directory": ".",
+      "orgId": "team_6auYl4aVD6jOvp4R4enfAeqs"
+    }
+  ]
+}

@@ -20,7 +20,6 @@ import ButtonElegant from '../../components/ui/ButtonElegant'
 import Link from 'next/link'
 import ScrollingBanner from '../../components/ambiance/ScrollingBanner'
 import ProverbDisplay from '../../components/ambiance/ProverbDisplay'
-import { fadeUpVariants, staggerContainerVariants, listItemVariants } from '../../lib/framerVariants'
 /* ───────────────────────────────────────────────────────────────
    Types
    ─────────────────────────────────────────────────────────────── */
